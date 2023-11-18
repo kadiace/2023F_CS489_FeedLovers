@@ -36,3 +36,15 @@
     transform: rotate(360deg);
   }
 }
+
+/*아래 폰트*/
+@font-face {
+  font-family: "Bahnschrift";
+  font-weight: 50;
+  src: url("./fonts/BAHNSCHRIFT.TTF") format("truetype");
+}
+
+@font-face {
+  font-family: "Retro Gaming";
+  src: url("./fonts/RETRO\ GAMING.TTF") format("truetype");
+}
