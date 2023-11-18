@@ -41,10 +41,10 @@
 @font-face {
   font-family: "Bahnschrift";
   font-weight: 50;
-  src: url("../fonts/BAHNSCHRIFT.TTF") format("truetype");
+  src: url("../assets/fonts/BAHNSCHRIFT.TTF") format("truetype");
 }
 
 @font-face {
   font-family: "Retro Gaming";
-  src: url("../fonts/RETRO\ GAMING.TTF") format("truetype");
+  src: url("../assets/fonts/RETRO\ GAMING.TTF") format("truetype");
 }

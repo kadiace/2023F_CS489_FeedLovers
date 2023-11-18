@@ -145,8 +145,8 @@ function Main() {
                   height: "100%",
                   objectFit: "cover",
                   zIndex: 0,
+                  color: "#FFFFFF",
                 }}
-                src="img/ui/user_background.png"
               ></img>
               <img
                 alt=""
@@ -156,8 +156,8 @@ function Main() {
                   height: "100%",
                   objectFit: "cover",
                   zIndex: 1,
+                  color: "#FFFFFF",
                 }}
-                src="img/ui/user_shiny.png"
               ></img>
               <img
                 alt=""
@@ -167,8 +167,8 @@ function Main() {
                   height: "100%",
                   objectFit: "cover",
                   zIndex: 2,
+                  color: "#FFFFFF",
                 }}
-                src="img/ui/user_grid.png"
               ></img>
               <p
                 style={{
@@ -211,8 +211,8 @@ function Main() {
                   height: "100%",
                   objectFit: "cover",
                   zIndex: 0,
+                  color: "#FFFFFF",
                 }}
-                src="img/ui/user_background.png"
               ></img>
               <img
                 alt=""
@@ -222,8 +222,8 @@ function Main() {
                   height: "100%",
                   objectFit: "cover",
                   zIndex: 1,
+                  color: "#FFFFFF",
                 }}
-                src="img/ui/user_shiny.png"
               ></img>
               <img
                 alt=""
@@ -233,8 +233,8 @@ function Main() {
                   height: "100%",
                   objectFit: "cover",
                   zIndex: 2,
+                  color: "#FFFFFF",
                 }}
-                src="img/ui/user_grid.png"
               ></img>
               <p
                 style={{
@@ -277,8 +277,8 @@ function Main() {
                   height: "100%",
                   objectFit: "cover",
                   zIndex: 0,
+                  color: "#FFFFFF",
                 }}
-                src="img/ui/user_background.png"
               ></img>
               <img
                 alt=""
@@ -288,8 +288,8 @@ function Main() {
                   height: "100%",
                   objectFit: "cover",
                   zIndex: 1,
+                  color: "#FFFFFF",
                 }}
-                src="img/ui/user_shiny.png"
               ></img>
               <img
                 alt=""
@@ -299,8 +299,8 @@ function Main() {
                   height: "100%",
                   objectFit: "cover",
                   zIndex: 2,
+                  color: "#FFFFFF",
                 }}
-                src="img/ui/user_grid.png"
               ></img>
               <p
                 style={{

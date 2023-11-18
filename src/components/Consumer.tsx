@@ -1,3 +1,6 @@
+import UserShiny from "../assets/img/ui/user_shiny.png";
+import UserGrid from "../assets/img/ui/user_grid.png";
+
 function Consumer({ number }: { number: string }) {
   return (
     <div
@@ -18,7 +21,7 @@ function Consumer({ number }: { number: string }) {
           objectFit: "cover",
           zIndex: 0,
         }}
-        src="img/ui/user_background.png"
+        src="../src/assets/img/"
       ></img>
       <img
         alt=""
@@ -29,7 +32,7 @@ function Consumer({ number }: { number: string }) {
           objectFit: "cover",
           zIndex: 1,
         }}
-        src="img/ui/user_shiny.png"
+        src={UserShiny}
       ></img>
       <img
         alt=""
@@ -40,7 +43,7 @@ function Consumer({ number }: { number: string }) {
           objectFit: "cover",
           zIndex: 2,
         }}
-        src="img/ui/user_grid.png"
+        src={UserGrid}
       ></img>
       <p
         style={{
