@@ -1,0 +1,11 @@
+/*아래 폰트*/
+@font-face {
+  font-family: "Bahnschrift";
+  font-weight: 50;
+  src: url("../assets/fonts/BAHNSCHRIFT.TTF") format("truetype");
+}
+
+@font-face {
+  font-family: "Retro Gaming";
+  src: url("../assets/fonts/RETRO\ GAMING.TTF") format("truetype");
+}
