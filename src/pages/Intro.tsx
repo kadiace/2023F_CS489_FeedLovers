@@ -1,11 +1,18 @@
 import { IntroAnimation } from "components/Animation";
 import ReactLogo from "assets/img/logo/react.png";
 import CoinseLogo from "assets/img/logo/coinse.png";
+import { Navigate, useNavigate } from "react-router-dom";
 
 function Intro() {
+  const navigate = useNavigate();
+  function navigateLobby() {
+    navigate("/lobby");
+  }
+  const initDelay = 1;
+  const duration = 5;
   return (
     <div
-      className="Main"
+      className="Intro"
       style={{
         position: "absolute",
         backgroundColor: "black",
@@ -18,15 +25,21 @@ function Intro() {
     >
       <IntroAnimation
         path={ReactLogo}
-        delay="1s"
+        delay={initDelay + "s"}
+        duration={duration + "s"}
         style={{
+          // overlap
+          position: "absolute",
           zIndex: 1,
         }}
       />
       <IntroAnimation
+        onAnimationEnd={navigateLobby}
         path={CoinseLogo}
-        delay="11s"
+        delay={initDelay + duration + "s"}
+        duration={duration + "s"}
         style={{
+          // overlap
           position: "absolute",
           zIndex: 2,
         }}

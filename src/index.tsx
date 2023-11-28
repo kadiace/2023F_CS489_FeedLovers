@@ -24,7 +24,7 @@ root.render(
             <Route path="/intro" element={<Intro />} />
             <Route path="/lobby" element={<Lobby />} />
             <Route path="/main" element={<Main />} />
-            <Route path="*" element={<Navigate to="/lobby" replace />} />
+            <Route path="*" element={<Navigate to="/intro" replace />} />
           </Routes>
         </BrowserRouter>
       </RecoilRoot>

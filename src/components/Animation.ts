@@ -9,6 +9,7 @@ const dissolve = keyframes`
 export const IntroAnimation = styled.div<{
   path: string;
   delay: string;
+  duration: string;
 }>`
   width: 600px;
   height: 600px;
@@ -19,7 +20,7 @@ export const IntroAnimation = styled.div<{
   opacity: 0;
   animation: ${dissolve};
   animation-delay: ${(props) => props.delay};
-  animation-duration: 10s;
+  animation-duration: ${(props) => props.duration};
   animation-iteration-count: 1;
   animation-fill-mode: forward;
 `;
