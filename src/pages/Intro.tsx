@@ -1,15 +1,6 @@
-import React from "react";
-import styled, { keyframes } from "styled-components";
-
-const dissolve = keyframes`
-  0%{opacity: 0}
-  50%{opacity: 1}
-  100%{opacity: 0}
-`;
-const AnimatedParagraph = styled.p`
-  animation: ${dissolve} 2s infinite;
-  color: #ffffff;
-`;
+import { IntroAnimation } from "components/Animation";
+import ReactLogo from "assets/img/logo/react.png";
+import CoinseLogo from "assets/img/logo/coinse.png";
 
 function Intro() {
   return (
@@ -20,9 +11,26 @@ function Intro() {
         backgroundColor: "black",
         width: "100%",
         height: "100%",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
       }}
     >
-      <AnimatedParagraph> Logo </AnimatedParagraph>
+      <IntroAnimation
+        path={ReactLogo}
+        delay="1s"
+        style={{
+          zIndex: 1,
+        }}
+      />
+      <IntroAnimation
+        path={CoinseLogo}
+        delay="11s"
+        style={{
+          position: "absolute",
+          zIndex: 2,
+        }}
+      />
     </div>
   );
 }
