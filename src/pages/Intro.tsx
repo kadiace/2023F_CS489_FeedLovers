@@ -1,7 +1,7 @@
 import { IntroAnimation } from "components/Animation";
 import ReactLogo from "assets/img/logo/react.png";
 import CoinseLogo from "assets/img/logo/coinse.png";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function Intro() {
   const navigate = useNavigate();
