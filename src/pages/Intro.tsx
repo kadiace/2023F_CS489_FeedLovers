@@ -1,11 +1,49 @@
-import React from "react";
+import { IntroAnimation } from "components/Animation";
+import ReactLogo from "assets/img/logo/react.png";
+import CoinseLogo from "assets/img/logo/coinse.png";
+import { useNavigate } from "react-router-dom";
 
 function Intro() {
+  const navigate = useNavigate();
+  function navigateLobby() {
+    navigate("/lobby");
+  }
+  const initDelay = 1;
+  const duration = 5;
   return (
-    <div className="Intro">
-      <p>
-        This is <b>Intro</b> page
-      </p>
+    <div
+      className="Intro"
+      style={{
+        position: "absolute",
+        backgroundColor: "black",
+        width: "100%",
+        height: "100%",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <IntroAnimation
+        path={ReactLogo}
+        delay={initDelay + "s"}
+        duration={duration + "s"}
+        style={{
+          // overlap
+          position: "absolute",
+          zIndex: 1,
+        }}
+      />
+      <IntroAnimation
+        onAnimationEnd={navigateLobby}
+        path={CoinseLogo}
+        delay={initDelay + duration + "s"}
+        duration={duration + "s"}
+        style={{
+          // overlap
+          position: "absolute",
+          zIndex: 2,
+        }}
+      />
     </div>
   );
 }
