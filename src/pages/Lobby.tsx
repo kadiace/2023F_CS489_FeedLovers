@@ -1,8 +1,18 @@
-import React from "react";
 import LogoBeforeEnding from "assets/img/logo/doguri-removebg-preview.png";
-import CoinseLogo from "assets/img/logo/coinse.png";
+import { useNavigate } from "react-router-dom";
+import TextButton from "components/TextButton";
 
 function Lobby() {
+  const navigate = useNavigate();
+  function navigateGuide() {
+    navigate("/guide");
+  }
+  function navigateMain() {
+    navigate("/main");
+  }
+  function navigateEnding() {
+    navigate("/ending");
+  }
   return (
     <div
       className="Lobby"
@@ -41,44 +51,60 @@ function Lobby() {
         className="Button-Layout"
         style={{
           flex: 2,
-          backgroundColor: "#0000ff",
           width: "100%",
           height: "100%",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
+          fontFamily: "Retro Gaming",
+          fontSize: "40px",
         }}
       >
         <div
           className="button"
           style={{
-            backgroundColor: "#807299",
             width: "match-parent",
             height: "fit-content",
           }}
         >
-          <p> test1</p>
+          <TextButton
+            text="guide"
+            navigate={navigateGuide}
+            color="#71FF2F"
+            hoverColor="#FFFFFF"
+            clickColor="#60DA28"
+          ></TextButton>
         </div>
         <div
           className="button"
           style={{
-            backgroundColor: "#00ff32",
             width: "match-parent",
             height: "fit-content",
           }}
         >
-          <p> test2</p>
+          <TextButton
+            text="game"
+            navigate={navigateMain}
+            color="#71FF2F"
+            hoverColor="#FFFFFF"
+            clickColor="#60DA28"
+          ></TextButton>
         </div>
         <div
           className="button"
           style={{
-            backgroundColor: "#70ffe2",
             width: "match-parent",
             height: "fit-content",
           }}
         >
-          <p> test3</p>
+          <TextButton
+            text="ending"
+            navigate={navigateEnding}
+            color="#71FF2F"
+            hoverColor="#FFFFFF"
+            clickColor="#60DA28"
+          ></TextButton>
         </div>
       </div>
     </div>

@@ -10,6 +10,7 @@ import Main from "./pages/Main";
 import Guide from "./pages/Guide";
 import Intro from "./pages/Intro";
 import Lobby from "./pages/Lobby";
+import Ending from "pages/Ending";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -24,6 +25,7 @@ root.render(
             <Route path="/intro" element={<Intro />} />
             <Route path="/lobby" element={<Lobby />} />
             <Route path="/main" element={<Main />} />
+            <Route path="/ending" element={<Ending />} />
             <Route path="*" element={<Navigate to="/intro" replace />} />
           </Routes>
         </BrowserRouter>
