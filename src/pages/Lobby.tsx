@@ -13,6 +13,9 @@ function Lobby() {
   function navigateEnding() {
     navigate("/ending");
   }
+  const color = "#71FF2F";
+  const hoverColor = "#FFFFFF";
+  const clickColor = "#60DA28";
   return (
     <div
       className="Lobby"
@@ -71,9 +74,9 @@ function Lobby() {
           <TextButton
             text="guide"
             navigate={navigateGuide}
-            color="#71FF2F"
-            hoverColor="#FFFFFF"
-            clickColor="#60DA28"
+            color={color}
+            hoverColor={hoverColor}
+            clickColor={clickColor}
           ></TextButton>
         </div>
         <div
@@ -86,9 +89,9 @@ function Lobby() {
           <TextButton
             text="game"
             navigate={navigateMain}
-            color="#71FF2F"
-            hoverColor="#FFFFFF"
-            clickColor="#60DA28"
+            color={color}
+            hoverColor={hoverColor}
+            clickColor={clickColor}
           ></TextButton>
         </div>
         <div
@@ -101,9 +104,9 @@ function Lobby() {
           <TextButton
             text="ending"
             navigate={navigateEnding}
-            color="#71FF2F"
-            hoverColor="#FFFFFF"
-            clickColor="#60DA28"
+            color={color}
+            hoverColor={hoverColor}
+            clickColor={clickColor}
           ></TextButton>
         </div>
       </div>
