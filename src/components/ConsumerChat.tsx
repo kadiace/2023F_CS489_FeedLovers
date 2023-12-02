@@ -20,9 +20,9 @@ function ConsumerChat({ type }: { type: number }) {
       <div
         style={{
           position: "absolute",
-          width: "47px",
-          height: "47px",
-          top: "-35px",
+          width: "40px",
+          height: "40px",
+          top: "-32px",
           objectFit: "contain",
           zIndex: 6,
         }}
@@ -39,7 +39,7 @@ function ConsumerChat({ type }: { type: number }) {
           <Content type={type} id={-1} />
         </div>
 
-        <img
+        {/* <img
           alt=""
           style={{
             position: "absolute",
@@ -49,7 +49,7 @@ function ConsumerChat({ type }: { type: number }) {
             zIndex: 7,
           }}
           src={ChatBan}
-        />
+        /> */}
       </div>
     </>
   );

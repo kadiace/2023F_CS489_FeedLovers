@@ -1,6 +1,9 @@
+import { useRecoilState } from "recoil";
 import Content from "./Content";
+import { contentsAtom } from "recoils";
 
 function StoreContents() {
+  const [contents, setContents] = useRecoilState(contentsAtom);
   return (
     <div
       style={{
@@ -27,7 +30,7 @@ function StoreContents() {
             height: "50px",
           }}
         >
-          <Content type={1} id={1} />
+          <Content type={contents[0]} id={0} />
         </div>
         <div
           style={{
@@ -36,34 +39,7 @@ function StoreContents() {
             height: "50px",
           }}
         >
-          <Content type={2} id={2} />
-        </div>
-      </div>
-      <div
-        style={{
-          position: "relative",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "space-evenly",
-        }}
-      >
-        <div
-          style={{
-            position: "relative",
-            width: "50px",
-            height: "50px",
-          }}
-        >
-          <Content type={3} id={3} />
-        </div>
-        <div
-          style={{
-            position: "relative",
-            width: "50px",
-            height: "50px",
-          }}
-        >
-          <Content type={4} id={4} />
+          <Content type={contents[1]} id={1} />
         </div>
       </div>
       <div
@@ -81,7 +57,7 @@ function StoreContents() {
             height: "50px",
           }}
         >
-          <Content type={5} id={5} />
+          <Content type={contents[2]} id={2} />
         </div>
         <div
           style={{
@@ -90,34 +66,7 @@ function StoreContents() {
             height: "50px",
           }}
         >
-          <Content type={1} id={6} />
-        </div>
-      </div>
-      <div
-        style={{
-          position: "relative",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "space-evenly",
-        }}
-      >
-        <div
-          style={{
-            position: "relative",
-            width: "50px",
-            height: "50px",
-          }}
-        >
-          <Content type={2} id={7} />
-        </div>
-        <div
-          style={{
-            position: "relative",
-            width: "50px",
-            height: "50px",
-          }}
-        >
-          <Content type={3} id={8} />
+          <Content type={contents[3]} id={3} />
         </div>
       </div>
       <div
@@ -135,7 +84,7 @@ function StoreContents() {
             height: "50px",
           }}
         >
-          <Content type={4} id={9} />
+          <Content type={contents[4]} id={4} />
         </div>
         <div
           style={{
@@ -144,7 +93,7 @@ function StoreContents() {
             height: "50px",
           }}
         >
-          <Content type={5} id={10} />
+          <Content type={contents[5]} id={5} />
         </div>
       </div>
       <div
@@ -162,7 +111,7 @@ function StoreContents() {
             height: "50px",
           }}
         >
-          <Content type={1} id={11} />
+          <Content type={contents[6]} id={6} />
         </div>
         <div
           style={{
@@ -171,7 +120,61 @@ function StoreContents() {
             height: "50px",
           }}
         >
-          <Content type={2} id={12} />
+          <Content type={contents[7]} id={7} />
+        </div>
+      </div>
+      <div
+        style={{
+          position: "relative",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-evenly",
+        }}
+      >
+        <div
+          style={{
+            position: "relative",
+            width: "50px",
+            height: "50px",
+          }}
+        >
+          <Content type={contents[8]} id={8} />
+        </div>
+        <div
+          style={{
+            position: "relative",
+            width: "50px",
+            height: "50px",
+          }}
+        >
+          <Content type={contents[9]} id={9} />
+        </div>
+      </div>
+      <div
+        style={{
+          position: "relative",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-evenly",
+        }}
+      >
+        <div
+          style={{
+            position: "relative",
+            width: "50px",
+            height: "50px",
+          }}
+        >
+          <Content type={contents[10]} id={10} />
+        </div>
+        <div
+          style={{
+            position: "relative",
+            width: "50px",
+            height: "50px",
+          }}
+        >
+          <Content type={contents[11]} id={11} />
         </div>
       </div>
     </div>

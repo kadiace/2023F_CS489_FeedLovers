@@ -1,17 +1,53 @@
 import ConsumerShiny from "../assets/img/ui/consumer_shiny.png";
 import ConsumerGrid from "../assets/img/ui/consumer_grid.png";
 import ConsumerBackground from "../assets/img/ui/consumer_background.png";
+import ConsumerGridHover from "../assets/img/ui/consumer_grid_hover_alt2.png";
+import ConsumerBackgroundHover from "../assets/img/ui/consumer_background_hover_alt2.png";
 import ConsumerTorso from "../assets/img/ui/consumer_torso.png";
-import { useDrop } from "react-dnd";
+import { ConnectDropTarget, useDrop } from "react-dnd";
 import ConsumerChat from "./ConsumerChat";
+import Content from "./Content";
+import { useEffect, useState } from "react";
+import { useRecoilState } from "recoil";
+import { goalAtom } from "recoils";
 
 function Consumer({ id }: { id: number }) {
-  const [{ isOver }, drop] = useDrop(() => ({
-    accept: "CONSUMER",
-    collect: (monitor) => ({
-      isOver: !!monitor.isOver(),
-    }),
-  }));
+  var acceptTypeVar = Math.floor(Math.random() * 5);
+  const [acceptType, setAcceptType] = useState(acceptTypeVar);
+  const [hoverType, setHoverType] = useState(-1);
+
+  function updateAcceptType(type: number) {
+    acceptTypeVar = type;
+    setAcceptType(acceptTypeVar);
+  }
+
+  const [goal, setGoal] = useRecoilState(goalAtom);
+
+  const [{ isOver }, drop] = useDrop(
+    () => ({
+      accept: "CONTENT",
+      hover(item: { type: number }, monitor) {
+        setHoverType(item.type);
+      },
+      drop: (item: { type: number }, monitor) => {
+        console.log(item.type, acceptType, acceptTypeVar);
+        if (item.type === acceptTypeVar) {
+          setGoal((prev) => {
+            return prev - 100;
+          });
+          updateAcceptType(Math.floor(Math.random() * 5));
+        }
+      },
+      canDrop: (item: { type: number }, monitor) => {
+        console.log(item.type, acceptType, acceptTypeVar);
+        return item.type === acceptTypeVar;
+      },
+      collect: (monitor) => ({
+        isOver: !!monitor.isOver(),
+      }),
+    })
+    // [x, y]
+  );
 
   return (
     <div
@@ -24,10 +60,35 @@ function Consumer({ id }: { id: number }) {
         justifyContent: "center",
       }}
     >
-      {isOver ? (
-        <ConsumerChat type={(id % 5) + 1} />
+      {isOver && hoverType === acceptType ? (
+        <>
+          <ConsumerChat type={acceptType} />
+          <img
+            alt=""
+            style={{
+              position: "absolute",
+              width: "100%",
+              height: "100%",
+              objectFit: "contain",
+              zIndex: 0,
+            }}
+            src={ConsumerBackgroundHover}
+          ></img>
+          <img
+            alt=""
+            style={{
+              position: "absolute",
+              width: "100%",
+              height: "100%",
+              objectFit: "contain",
+              zIndex: 3,
+            }}
+            src={ConsumerGridHover}
+          ></img>
+        </>
       ) : (
         <>
+          <ConsumerChat type={acceptType} />
           <img
             alt=""
             style={{
@@ -38,6 +99,17 @@ function Consumer({ id }: { id: number }) {
               zIndex: 0,
             }}
             src={ConsumerBackground}
+          ></img>
+          <img
+            alt=""
+            style={{
+              position: "absolute",
+              width: "100%",
+              height: "100%",
+              objectFit: "contain",
+              zIndex: 3,
+            }}
+            src={ConsumerGrid}
           ></img>
         </>
       )}
@@ -63,17 +135,6 @@ function Consumer({ id }: { id: number }) {
           zIndex: 2,
         }}
         src={ConsumerShiny}
-      ></img>
-      <img
-        alt=""
-        style={{
-          position: "absolute",
-          width: "100%",
-          height: "100%",
-          objectFit: "contain",
-          zIndex: 3,
-        }}
-        src={ConsumerGrid}
       ></img>
       <p
         style={{
