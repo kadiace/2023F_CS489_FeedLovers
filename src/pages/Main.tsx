@@ -1,35 +1,44 @@
-import React from "react";
+import React, { useLayoutEffect } from "react";
 import "./Main.css";
 import Consumer from "components/Consumer";
 import Store from "components/Store";
 import Command from "components/Command";
 import News from "components/News";
+import { useRecoilCallback, useRecoilState } from "recoil";
+import { goalRemainAtom, selectRoundAtom, waveCountAtom } from "recoils";
+import { RoundInformation } from "components/Round";
 
 function Main() {
-  function changeRound(n: number) {}
-  const round: any = {
-    A: {
-      goal: 1000,
-      Wave: [30, 40, 50],
-    },
-    // "Round B": {
-    //   goal: 1000,
-    //   Wave: [30, 30, 40, 40, 50],
-    // },
-    C: {
-      goal: 2000,
-      Wave: [30, 40, 50],
-    },
-    // "Round D": {
-    //   goal: 1000,
-    //   Wave: [30, 30, 40, 40, 50],
-    // },
-    E: {
-      goal: 3000,
-      Wave: [30],
-    },
-  };
-  var goal = round["A"]["goal"];
+  // States.
+  const [roundAlias, setRoundAlias] = useRecoilState(selectRoundAtom);
+  const [waveCount, setWaveCount] = useRecoilState(waveCountAtom);
+  const [goalRemain, setGoalRemain] = useRecoilState(goalRemainAtom);
+
+  // Init Recoil States.
+  const setInitialRound = useRecoilCallback(({ snapshot, set }) => () => {
+    const roundAlias = snapshot.getLoadable(selectRoundAtom).getValue();
+    if (roundAlias.alias === undefined) {
+      set(selectRoundAtom, { alias: RoundInformation[0].alias });
+    }
+  });
+  const setInitialWave = useRecoilCallback(({ snapshot, set }) => () => {
+    const waveCount = snapshot.getLoadable(waveCountAtom).getValue();
+    if (waveCount.count === undefined) {
+      set(waveCountAtom, { count: RoundInformation[0].wave[0] });
+    }
+  });
+  const setInitialGoal = useRecoilCallback(({ snapshot, set }) => () => {
+    const goalRemain = snapshot.getLoadable(goalRemainAtom).getValue();
+    if (goalRemain.goal === undefined) {
+      set(goalRemainAtom, { goal: RoundInformation[0].goal });
+    }
+  });
+
+  useLayoutEffect(() => {
+    setInitialRound();
+    setInitialWave();
+    setInitialGoal();
+  }, []);
 
   return (
     <div
@@ -141,7 +150,7 @@ function Main() {
                 margin: "0px",
               }}
             >
-              Round C - Remain $ {goal}M
+              Round {roundAlias.alias} - Remain $ {goalRemain.goal}M
             </p>
           </div>
           <div
@@ -151,7 +160,7 @@ function Main() {
               justifyContent: "right",
             }}
           >
-            <Store changeRound={changeRound} />
+            <Store />
           </div>
           <div
             style={{

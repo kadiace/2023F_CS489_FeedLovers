@@ -1,25 +1,26 @@
 import { useEffect, useState } from "react";
 
-const getSeconds = (time: number) => {
-  const seconds = Number(time % 60);
-  if (seconds < 10) {
-    return "0" + String(seconds);
-  } else {
-    return String(seconds);
-  }
+const getTime = (time: number) => {
+  const minutes: string = "0" + Math.floor(time / 60);
+  const seconds: string = "0" + Number(time % 60);
+  return (
+    minutes.substring(minutes.length - 2) +
+    ":" +
+    seconds.substring(seconds.length - 2)
+  );
 };
 
-function Timer(changeRound: any) {
-  const [time, setTime] = useState(300); // 남은 시간 (단위: 초)
+function Timer() {
+  const [time, setTime] = useState(10); // 남은 시간 (단위: 초)
   useEffect(() => {
     const timer = setInterval(() => {
-      setTime((prev) => prev - 1);
+      setTime((prev) => (prev == 0 ? 10 : prev - 1));
     }, 1000);
     return () => clearInterval(timer);
   }, []);
   return (
     <div>
-      <p>{getSeconds(time)}</p>
+      <p>{getTime(time)}</p>
     </div>
   );
 }
