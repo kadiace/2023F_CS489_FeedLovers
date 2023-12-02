@@ -1,11 +1,115 @@
-import React from "react";
+import LogoBeforeEnding from "assets/img/logo/doguri-removebg-preview.png";
+import { useNavigate } from "react-router-dom";
+import TextButton from "components/TextButton";
 
 function Lobby() {
+  const navigate = useNavigate();
+  function navigateGuide() {
+    navigate("/guide");
+  }
+  function navigateMain() {
+    navigate("/main");
+  }
+  function navigateEnding() {
+    navigate("/ending");
+  }
+  const color = "#71FF2F";
+  const hoverColor = "#FFFFFF";
+  const clickColor = "#60DA28";
   return (
-    <div className="Lobby">
-      <p>
-        This is <b>Lobby</b> page
-      </p>
+    <div
+      className="Lobby"
+      style={{
+        position: "absolute",
+        backgroundColor: "black",
+        width: "100%",
+        height: "100%",
+        display: "flex",
+      }}
+    >
+      <div
+        className="Logo-Layout"
+        style={{
+          flex: 3,
+          width: "100%",
+          height: "100%",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <div
+          className="Logo-Image"
+          style={{
+            width: "600px",
+            height: "600px",
+            backgroundImage: `url(${LogoBeforeEnding})`,
+            backgroundSize: "contain",
+            backgroundRepeat: "no-repeat",
+            backgroundPosition: "center center",
+          }}
+        ></div>
+      </div>
+      <div
+        className="Button-Layout"
+        style={{
+          flex: 2,
+          width: "100%",
+          height: "100%",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          fontFamily: "Retro Gaming",
+          fontSize: "40px",
+        }}
+      >
+        <div
+          className="button"
+          style={{
+            width: "match-parent",
+            height: "fit-content",
+          }}
+        >
+          <TextButton
+            text="guide"
+            navigate={navigateGuide}
+            color={color}
+            hoverColor={hoverColor}
+            clickColor={clickColor}
+          ></TextButton>
+        </div>
+        <div
+          className="button"
+          style={{
+            width: "match-parent",
+            height: "fit-content",
+          }}
+        >
+          <TextButton
+            text="game"
+            navigate={navigateMain}
+            color={color}
+            hoverColor={hoverColor}
+            clickColor={clickColor}
+          ></TextButton>
+        </div>
+        <div
+          className="button"
+          style={{
+            width: "match-parent",
+            height: "fit-content",
+          }}
+        >
+          <TextButton
+            text="ending"
+            navigate={navigateEnding}
+            color={color}
+            hoverColor={hoverColor}
+            clickColor={clickColor}
+          ></TextButton>
+        </div>
+      </div>
     </div>
   );
 }
