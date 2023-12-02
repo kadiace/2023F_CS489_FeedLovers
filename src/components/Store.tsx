@@ -4,13 +4,13 @@ import StoreBackground from "../assets/img/ui/store_background.png";
 import StoreContents from "./StoreContents";
 import Timer from "./Timer";
 import { useRecoilState } from "recoil";
-import { roundCountAtom, waveCountAtom } from "recoils";
+import { roundWaveCountAtom } from "recoils";
 import { RoundInformation } from "./Round";
 
 function Store() {
   // States.
-  const [roundCount, setRoundCount] = useRecoilState(roundCountAtom);
-  const [waveCount, setWaveCount] = useRecoilState(waveCountAtom);
+  const [roundWaveCount, setRoundWaveCount] =
+    useRecoilState(roundWaveCountAtom);
 
   return (
     <div
@@ -67,7 +67,8 @@ function Store() {
             }}
           >
             <p style={{}}>
-              Wave {waveCount + 1}/{RoundInformation[roundCount].wave.length}
+              Wave {roundWaveCount["wave"] + 1}/
+              {RoundInformation[roundWaveCount["round"]].wave.length}
             </p>
             <Timer />
           </div>
