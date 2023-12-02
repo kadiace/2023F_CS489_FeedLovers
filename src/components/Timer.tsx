@@ -27,15 +27,12 @@ function Timer() {
       setTime((prevTime) => {
         if (prevTime === 0) {
           setRoundWaveCount((prev) => {
-            console.log(prev["wave"] + 1);
-            console.log(RoundInformation[prev["round"]].wave.length);
-            if (
-              prev["wave"] + 1 >=
-              RoundInformation[prev["round"]].wave.length
-            ) {
-              return { round: prev["round"] + 1, wave: 0 };
+            const wave = prev["wave"];
+            const round = prev["round"];
+            if (wave + 1 >= RoundInformation[round].wave.length) {
+              return { round: round + 1, wave: 0 };
             }
-            return { round: prev["round"], wave: prev["wave"] + 1 };
+            return { round: round, wave: wave + 1 };
           });
           return 5;
         }
