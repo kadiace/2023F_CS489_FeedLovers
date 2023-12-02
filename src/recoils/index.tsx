@@ -1,16 +1,12 @@
+import { Round, RoundInformation } from "components/Round";
 import { atom } from "recoil";
 
-export const selectRoundAtom = atom<{ alias?: string }>({
+export const roundCountAtom = atom<number>({
   key: "selectRoundAtom",
-  default: { alias: undefined },
+  default: 0,
 });
 
-export const waveCountAtom = atom<{ count?: number }>({
+export const waveCountAtom = atom<number>({
   key: "waveCountAtom",
-  default: { count: undefined },
-});
-
-export const goalRemainAtom = atom<{ goal?: number }>({
-  key: "goalRemainAtom",
-  default: { goal: undefined },
+  default: 0,
 });

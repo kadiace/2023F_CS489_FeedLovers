@@ -1,4 +1,7 @@
 import { useEffect, useState } from "react";
+import { useRecoilState } from "recoil";
+import { roundCountAtom, waveCountAtom } from "recoils";
+import { RoundInformation } from "./Round";
 
 const getTime = (time: number) => {
   const minutes: string = "0" + Math.floor(time / 60);
@@ -11,10 +14,31 @@ const getTime = (time: number) => {
 };
 
 function Timer() {
-  const [time, setTime] = useState(10); // 남은 시간 (단위: 초)
+  // Constants=
+
+  // States
+  const [time, setTime] = useState(5); // 남은 시간 (단위: 초)
+
+  // States
+  const [roundCount, setRoundCount] = useRecoilState(roundCountAtom);
+  const [waveCount, setWaveCount] = useRecoilState(waveCountAtom);
   useEffect(() => {
     const timer = setInterval(() => {
-      setTime((prev) => (prev == 0 ? 10 : prev - 1));
+      setTime((prevTime) => {
+        if (prevTime === 0) {
+          setWaveCount((prev) => {
+            if (prev + 1 >= RoundInformation[roundCount].wave.length) {
+              setRoundCount((prev) => prev + 1);
+              return 0;
+            } else {
+              return prev + 1;
+            }
+          });
+          return 5;
+        } else {
+          return prevTime - 1;
+        }
+      });
     }, 1000);
     return () => clearInterval(timer);
   }, []);

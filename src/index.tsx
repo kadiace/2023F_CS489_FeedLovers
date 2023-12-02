@@ -16,22 +16,20 @@ const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
-  <React.StrictMode>
-    <DndProvider backend={HTML5Backend}>
-      <RecoilRoot>
-        <BrowserRouter basename={process.env.PUBLIC_URL}>
-          <Routes>
-            <Route path="/guide" element={<Guide />} />
-            <Route path="/intro" element={<Intro />} />
-            <Route path="/lobby" element={<Lobby />} />
-            <Route path="/main" element={<Main />} />
-            <Route path="/ending" element={<Ending />} />
-            <Route path="*" element={<Navigate to="/intro" replace />} />
-          </Routes>
-        </BrowserRouter>
-      </RecoilRoot>
-    </DndProvider>
-  </React.StrictMode>
+  <DndProvider backend={HTML5Backend}>
+    <RecoilRoot>
+      <BrowserRouter basename={process.env.PUBLIC_URL}>
+        <Routes>
+          <Route path="/guide" element={<Guide />} />
+          <Route path="/intro" element={<Intro />} />
+          <Route path="/lobby" element={<Lobby />} />
+          <Route path="/main" element={<Main />} />
+          <Route path="/ending" element={<Ending />} />
+          <Route path="*" element={<Navigate to="/intro" replace />} />
+        </Routes>
+      </BrowserRouter>
+    </RecoilRoot>
+  </DndProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function

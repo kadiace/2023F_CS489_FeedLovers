@@ -1,44 +1,15 @@
-import React, { useLayoutEffect } from "react";
 import "./Main.css";
 import Consumer from "components/Consumer";
 import Store from "components/Store";
 import Command from "components/Command";
 import News from "components/News";
-import { useRecoilCallback, useRecoilState } from "recoil";
-import { goalRemainAtom, selectRoundAtom, waveCountAtom } from "recoils";
+import { useRecoilState } from "recoil";
+import { roundCountAtom } from "recoils";
 import { RoundInformation } from "components/Round";
 
 function Main() {
   // States.
-  const [roundAlias, setRoundAlias] = useRecoilState(selectRoundAtom);
-  const [waveCount, setWaveCount] = useRecoilState(waveCountAtom);
-  const [goalRemain, setGoalRemain] = useRecoilState(goalRemainAtom);
-
-  // Init Recoil States.
-  const setInitialRound = useRecoilCallback(({ snapshot, set }) => () => {
-    const roundAlias = snapshot.getLoadable(selectRoundAtom).getValue();
-    if (roundAlias.alias === undefined) {
-      set(selectRoundAtom, { alias: RoundInformation[0].alias });
-    }
-  });
-  const setInitialWave = useRecoilCallback(({ snapshot, set }) => () => {
-    const waveCount = snapshot.getLoadable(waveCountAtom).getValue();
-    if (waveCount.count === undefined) {
-      set(waveCountAtom, { count: RoundInformation[0].wave[0] });
-    }
-  });
-  const setInitialGoal = useRecoilCallback(({ snapshot, set }) => () => {
-    const goalRemain = snapshot.getLoadable(goalRemainAtom).getValue();
-    if (goalRemain.goal === undefined) {
-      set(goalRemainAtom, { goal: RoundInformation[0].goal });
-    }
-  });
-
-  useLayoutEffect(() => {
-    setInitialRound();
-    setInitialWave();
-    setInitialGoal();
-  }, []);
+  const [roundCount, setRoundCount] = useRecoilState(roundCountAtom);
 
   return (
     <div
@@ -150,7 +121,8 @@ function Main() {
                 margin: "0px",
               }}
             >
-              Round {roundAlias.alias} - Remain $ {goalRemain.goal}M
+              Round {RoundInformation[roundCount].alias} - Remain $
+              {RoundInformation[roundCount].goal}M
             </p>
           </div>
           <div
