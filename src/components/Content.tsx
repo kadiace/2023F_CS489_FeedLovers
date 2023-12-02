@@ -38,14 +38,23 @@ function Content({ type, id }: { type: number; id: number }) {
   return isDragging ? (
     <div ref={dragPreview} />
   ) : (
-    <div ref={drag}>
+    <div
+      ref={drag}
+      style={{
+        position: "relative",
+        display: "flex",
+        width: "100%",
+        height: "100%",
+        objectFit: "contain",
+      }}
+    >
       <img
         alt=""
         style={{
           position: "relative",
           display: "flex",
-          width: "50px",
-          height: "50px",
+          width: "100%",
+          height: "100%",
           objectFit: "contain",
         }}
         src={src}

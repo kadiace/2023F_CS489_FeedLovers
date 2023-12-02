@@ -1,49 +1,57 @@
-import UserShiny from "../assets/img/ui/user_shiny.png";
-import UserGrid from "../assets/img/ui/user_grid.png";
-import UserBackground from "../assets/img/ui/user_background.png";
+import ConsumerShiny from "../assets/img/ui/consumer_shiny.png";
+import ConsumerGrid from "../assets/img/ui/consumer_grid.png";
+import ConsumerBackground from "../assets/img/ui/consumer_background.png";
+import ConsumerTorso from "../assets/img/ui/consumer_torso.png";
 import { useDrop } from "react-dnd";
+import ConsumerChat from "./ConsumerChat";
 
-function Consumer({ number }: { number: string }) {
+function Consumer({ id }: { id: number }) {
   const [{ isOver }, drop] = useDrop(() => ({
     accept: "CONSUMER",
-    // drop: () => moveKnight(x, y),
     collect: (monitor) => ({
       isOver: !!monitor.isOver(),
     }),
   }));
 
-  return isOver ? (
+  return (
     <div
       ref={drop}
       style={{
         position: "relative",
         display: "flex",
-        width: "150px",
-        height: "150px",
+        width: "140px",
+        height: "140px",
         justifyContent: "center",
       }}
     >
-      {/* <img
-        alt=""
-        style={{
-          position: "absolute",
-          width: "100%",
-          height: "100%",
-          objectFit: "contain",
-          zIndex: 0,
-        }}
-        src={UserBackground}
-      ></img> */}
+      {isOver ? (
+        <ConsumerChat type={(id % 5) + 1} />
+      ) : (
+        <>
+          <img
+            alt=""
+            style={{
+              position: "absolute",
+              width: "100%",
+              height: "100%",
+              objectFit: "contain",
+              zIndex: 0,
+            }}
+            src={ConsumerBackground}
+          ></img>
+        </>
+      )}
       <img
         alt=""
         style={{
           position: "absolute",
-          width: "100%",
-          height: "100%",
+          width: "80%",
+          height: "80%",
+          bottom: "0px",
           objectFit: "contain",
           zIndex: 1,
         }}
-        src={UserShiny}
+        src={ConsumerTorso}
       ></img>
       <img
         alt=""
@@ -54,78 +62,31 @@ function Consumer({ number }: { number: string }) {
           objectFit: "contain",
           zIndex: 2,
         }}
-        src={UserGrid}
+        src={ConsumerShiny}
+      ></img>
+      <img
+        alt=""
+        style={{
+          position: "absolute",
+          width: "100%",
+          height: "100%",
+          objectFit: "contain",
+          zIndex: 3,
+        }}
+        src={ConsumerGrid}
       ></img>
       <p
         style={{
           position: "absolute",
           left: "9px",
           top: "-11px",
-          zIndex: 3,
+          zIndex: 4,
           fontFamily: "Retro Gaming",
-          fontSize: "18px",
+          fontSize: "17px",
           textAlign: "center",
         }}
       >
-        {number}
-      </p>
-    </div>
-  ) : (
-    <div
-      ref={drop}
-      style={{
-        position: "relative",
-        display: "flex",
-        width: "150px",
-        height: "150px",
-        justifyContent: "center",
-      }}
-    >
-      <img
-        alt=""
-        style={{
-          position: "absolute",
-          width: "100%",
-          height: "100%",
-          objectFit: "contain",
-          zIndex: 0,
-        }}
-        src={UserBackground}
-      ></img>
-      <img
-        alt=""
-        style={{
-          position: "absolute",
-          width: "100%",
-          height: "100%",
-          objectFit: "contain",
-          zIndex: 1,
-        }}
-        src={UserShiny}
-      ></img>
-      <img
-        alt=""
-        style={{
-          position: "absolute",
-          width: "100%",
-          height: "100%",
-          objectFit: "contain",
-          zIndex: 2,
-        }}
-        src={UserGrid}
-      ></img>
-      <p
-        style={{
-          position: "absolute",
-          left: "9px",
-          top: "-11px",
-          zIndex: 3,
-          fontFamily: "Retro Gaming",
-          fontSize: "18px",
-          textAlign: "center",
-        }}
-      >
-        {number}
+        {id}
       </p>
     </div>
   );

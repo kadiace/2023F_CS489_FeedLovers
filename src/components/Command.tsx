@@ -8,10 +8,10 @@ function Command() {
       style={{
         position: "relative",
         display: "flex",
-        width: "700px",
+        width: "100%",
         height: "150px",
-        left: "105px",
-        justifyContent: "center",
+        // justifyContent: "center",
+        alignItems: "center",
       }}
     >
       <img
@@ -20,12 +20,31 @@ function Command() {
           position: "absolute",
           left: "0px",
           top: "5px",
-          width: "100%",
+          height: "97%",
           objectFit: "contain",
           zIndex: 0,
         }}
         src={CommandBackground}
       ></img>
+      <div
+        style={{
+          position: "absolute",
+          display: "flex",
+          left: "40px",
+          right: "40px",
+          top: "60px",
+          bottom: "20px",
+          zIndex: 4,
+          fontFamily: "Retro Gaming",
+          fontSize: "21px",
+          alignItems: "center",
+          flex: 1,
+          color: "#71ff2f",
+          // background: "red",
+        }}
+      >
+        What are you waiting for?
+      </div>
       <img
         alt=""
         style={{
@@ -35,7 +54,7 @@ function Command() {
           width: "100%",
           height: "95%",
           objectFit: "contain",
-          zIndex: 1,
+          zIndex: 2,
         }}
         src={CommandShiny}
       ></img>
@@ -43,25 +62,25 @@ function Command() {
         alt=""
         style={{
           position: "absolute",
-          width: "100%",
           height: "100%",
           objectFit: "contain",
-          zIndex: 2,
+          zIndex: 3,
         }}
         src={CommandGrid}
       ></img>
       <p
         style={{
           position: "absolute",
-          left: "9px",
+          left: "160px",
           top: "-11px",
-          zIndex: 3,
+          zIndex: 4,
           fontFamily: "Retro Gaming",
-          fontSize: "18px",
+          fontSize: "21px",
           textAlign: "center",
+          color: "white",
         }}
       >
-        1
+        from someone...
       </p>
     </div>
   );
