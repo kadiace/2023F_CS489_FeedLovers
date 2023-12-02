@@ -30,14 +30,12 @@ function Timer() {
             if (prev + 1 >= RoundInformation[roundCount].wave.length) {
               setRoundCount((prev) => prev + 1);
               return 0;
-            } else {
-              return prev + 1;
             }
+            return prev + 1;
           });
           return 5;
-        } else {
-          return prevTime - 1;
         }
+        return prevTime - 1;
       });
     }, 1000);
     return () => clearInterval(timer);
