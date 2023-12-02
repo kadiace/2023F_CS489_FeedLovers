@@ -50,7 +50,7 @@ function Main() {
           flexDirection: "row",
           flex: 1,
           height: "100%",
-          justifyContent: "center",
+          justifyContent: "space-evenly",
         }}
       >
         <div
@@ -58,7 +58,8 @@ function Main() {
             display: "flex",
             flexDirection: "column",
             height: "100%",
-            justifyContent: "space-evenly",
+            justifyContent: "center",
+            gap: "20px",
           }}
         >
           <div
@@ -69,10 +70,10 @@ function Main() {
               width: "100%",
             }}
           >
-            <Consumer number="1" />
-            <Consumer number="2" />
-            <Consumer number="3" />
-            <Consumer number="4" />
+            <Consumer id={1} />
+            <Consumer id={2} />
+            <Consumer id={3} />
+            <Consumer id={4} />
           </div>
           <div
             style={{
@@ -82,10 +83,10 @@ function Main() {
               width: "100%",
             }}
           >
-            <Consumer number="5" />
-            <Consumer number="6" />
-            <Consumer number="7" />
-            <Consumer number="8" />
+            <Consumer id={5} />
+            <Consumer id={6} />
+            <Consumer id={7} />
+            <Consumer id={8} />
           </div>
           <div
             style={{
@@ -95,10 +96,10 @@ function Main() {
               width: "100%",
             }}
           >
-            <Consumer number="9" />
-            <Consumer number="10" />
-            <Consumer number="11" />
-            <Consumer number="12" />
+            <Consumer id={9} />
+            <Consumer id={10} />
+            <Consumer id={11} />
+            <Consumer id={12} />
           </div>
           <div
             style={{
@@ -108,79 +109,38 @@ function Main() {
               width: "100%",
             }}
           >
-            <Consumer number="13" />
-            <Consumer number="14" />
-            <Consumer number="15" />
-            <Consumer number="16" />
+            <Consumer id={13} />
+            <Consumer id={14} />
+            <Consumer id={15} />
+            <Consumer id={16} />
           </div>
         </div>
         <div
           style={{
             display: "flex",
             flexDirection: "column",
+            width: "600px",
             height: "100%",
             justifyContent: "space-evenly",
+            alignItems: "flex-end",
           }}
         >
-          <div
+          <p
             style={{
-              display: "flex",
-              flexDirection: "row",
-              width: "100%",
-              justifyContent: "right",
+              position: "relative",
+              zIndex: 3,
+              fontFamily: "Retro Gaming",
+              fontSize: "23px",
+              textAlign: "right",
+              color: "white",
+              margin: "0px",
             }}
           >
-            <p
-              style={{
-                position: "relative",
-                zIndex: 3,
-                fontFamily: "Retro Gaming",
-                fontSize: "23px",
-                textAlign: "right",
-                color: "white",
-                margin: "0px",
-              }}
-            >
-              Round C - Remain $ {goal}M
-            </p>
-          </div>
-          <div
-            style={{
-              flexDirection: "row",
-              width: "100%",
-              justifyContent: "right",
-            }}
-          >
-            <Store changeRound={changeRound} />
-          </div>
-          <div
-            style={{
-              flexDirection: "row",
-              width: "100%",
-              justifyContent: "right",
-              height: "150px",
-            }}
-          >
-            <div
-              style={{
-                position: "absolute",
-                flexDirection: "row",
-                width: "100%",
-                justifyContent: "right",
-              }}
-            >
-              <Command />
-            </div>
-          </div>
-          <div
-            style={{
-              flexDirection: "row",
-              width: "100%",
-              justifyContent: "right",
-            }}
-          >
-            <News />
-          </div>
+            Round C - Remain $ {goal}M
+          </p>
+          <Store changeRound={changeRound} />
+          <Command />
+          <News />
         </div>
       </div>
     </div>

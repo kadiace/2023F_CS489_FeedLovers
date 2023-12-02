@@ -10,7 +10,8 @@ function Store(changeRound: any) {
       style={{
         position: "relative",
         display: "flex",
-        height: "220px",
+        width: "100%",
+        height: "223px",
       }}
     >
       <img
@@ -30,10 +31,7 @@ function Store(changeRound: any) {
         style={{
           position: "absolute",
           display: "flex",
-          left: "117px",
-          right: "10px",
-          top: "10px",
-          bottom: "10px",
+          inset: "10px",
           zIndex: 1,
           flexDirection: "column",
         }}
@@ -42,7 +40,7 @@ function Store(changeRound: any) {
           style={{
             position: "relative",
             display: "flex",
-            height: "70px",
+            height: "60px",
           }}
         >
           <div
@@ -55,7 +53,7 @@ function Store(changeRound: any) {
               zIndex: 3,
               fontFamily: "Retro Gaming",
               fontSize: "23px",
-              color: "cyan",
+              color: "#95d7d0",
               gap: "50px",
             }}
           >
@@ -99,19 +97,6 @@ function Store(changeRound: any) {
         }}
         src={StoreGrid}
       ></img>
-      <p
-        style={{
-          position: "absolute",
-          left: "9px",
-          top: "-11px",
-          zIndex: 3,
-          fontFamily: "Retro Gaming",
-          fontSize: "18px",
-          textAlign: "center",
-        }}
-      >
-        1
-      </p>
     </div>
   );
 }

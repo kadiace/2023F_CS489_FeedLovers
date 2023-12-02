@@ -7,7 +7,7 @@ function News() {
       style={{
         position: "relative",
         display: "flex",
-        width: "700px",
+        width: "100%",
         height: "150px",
       }}
     >
@@ -16,7 +16,7 @@ function News() {
         style={{
           position: "absolute",
           right: "0px",
-          height: "93%",
+          width: "100%",
           objectFit: "contain",
           zIndex: 0,
         }}
@@ -33,19 +33,26 @@ function News() {
         }}
         src={NewsShiny}
       ></img>
-      <p
+
+      <div
         style={{
           position: "absolute",
-          right: "9px",
-          top: "-11px",
-          zIndex: 3,
+          display: "flex",
+          left: "30px",
+          right: "140px",
+          top: "10px",
+          bottom: "25px",
+          zIndex: 4,
           fontFamily: "Retro Gaming",
-          fontSize: "18px",
-          textAlign: "center",
+          fontSize: "21px",
+          alignItems: "center",
+          flex: 1,
+          color: "black",
+          // background: "red",
         }}
       >
-        1
-      </p>
+        Mass shooting left 80 victims...
+      </div>
     </div>
   );
 }
