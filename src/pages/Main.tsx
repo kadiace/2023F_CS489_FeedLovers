@@ -1,35 +1,16 @@
-import React from "react";
 import "./Main.css";
 import Consumer from "components/Consumer";
 import Store from "components/Store";
 import Command from "components/Command";
 import News from "components/News";
+import { useRecoilState } from "recoil";
+import { roundWaveCountAtom } from "recoils";
+import { RoundInformation } from "components/Round";
 
 function Main() {
-  function changeRound(n: number) {}
-  const round: any = {
-    A: {
-      goal: 1000,
-      Wave: [30, 40, 50],
-    },
-    // "Round B": {
-    //   goal: 1000,
-    //   Wave: [30, 30, 40, 40, 50],
-    // },
-    C: {
-      goal: 2000,
-      Wave: [30, 40, 50],
-    },
-    // "Round D": {
-    //   goal: 1000,
-    //   Wave: [30, 30, 40, 40, 50],
-    // },
-    E: {
-      goal: 3000,
-      Wave: [30],
-    },
-  };
-  var goal = round["A"]["goal"];
+  // States.
+  const [roundWaveCount, setRoundWaveCount] =
+    useRecoilState(roundWaveCountAtom);
 
   return (
     <div
@@ -136,7 +117,8 @@ function Main() {
               margin: "0px",
             }}
           >
-            Round C - Remain $ {goal}M
+            Round {RoundInformation[roundWaveCount["round"]].alias} - Remain $
+              {RoundInformation[roundWaveCount["round"]].goal}M
           </p>
           <Store changeRound={changeRound} />
           <Command />

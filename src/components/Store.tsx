@@ -3,8 +3,15 @@ import StoreGrid from "../assets/img/ui/store_grid.png";
 import StoreBackground from "../assets/img/ui/store_background.png";
 import StoreContents from "./StoreContents";
 import Timer from "./Timer";
+import { useRecoilState } from "recoil";
+import { roundWaveCountAtom } from "recoils";
+import { RoundInformation } from "./Round";
 
-function Store(changeRound: any) {
+function Store() {
+  // States.
+  const [roundWaveCount, setRoundWaveCount] =
+    useRecoilState(roundWaveCountAtom);
+
   return (
     <div
       style={{
@@ -57,8 +64,11 @@ function Store(changeRound: any) {
               gap: "50px",
             }}
           >
-            <p style={{}}>Wave 3/10</p>
-            <Timer changeRound={changeRound} />
+            <p style={{}}>
+              Wave {roundWaveCount["wave"] + 1}/
+              {RoundInformation[roundWaveCount["round"]].wave.length}
+            </p>
+            <Timer />
           </div>
         </div>
         <div
