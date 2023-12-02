@@ -65,8 +65,8 @@ function Store() {
             }}
           >
             <p style={{}}>
-              Wave {roundWaveCount["wave"] + 1}/
-              {RoundInformation[roundWaveCount["round"]].wave.length}
+              Wave {roundWaveCount.wave + 1}/
+              {RoundInformation[roundWaveCount.round].wave.length}
             </p>
             <Timer />
           </div>

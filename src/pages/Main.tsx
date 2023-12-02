@@ -117,8 +117,8 @@ function Main() {
               margin: "0px",
             }}
           >
-            Round {RoundInformation[roundWaveCount["round"]].alias} - Remain $
-            {RoundInformation[roundWaveCount["round"]].goal}M
+            Round {RoundInformation[roundWaveCount.round].alias} - Remain $
+            {RoundInformation[roundWaveCount.round].goal}M
           </p>
           <Store />
           <Command />

@@ -27,8 +27,8 @@ function Timer() {
       setTime((prevTime) => {
         if (prevTime === 0) {
           setRoundWaveCount((prev) => {
-            const wave = prev["wave"];
-            const round = prev["round"];
+            const wave = prev.wave;
+            const round = prev.round;
             if (wave + 1 >= RoundInformation[round].wave.length) {
               return { round: round + 1, wave: 0 };
             }
@@ -38,7 +38,7 @@ function Timer() {
         }
         return prevTime - 1;
       });
-    }, 1000);
+    }, 100);
     return () => clearInterval(timer);
   }, []);
   return (
