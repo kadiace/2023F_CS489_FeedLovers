@@ -1,12 +1,9 @@
-import { Round, RoundInformation } from "components/Round";
 import { atom } from "recoil";
 
-export const roundCountAtom = atom<number>({
-  key: "selectRoundAtom",
-  default: 0,
-});
-
-export const waveCountAtom = atom<number>({
-  key: "waveCountAtom",
-  default: 0,
+export const roundWaveCountAtom = atom<{ round: number; wave: number }>({
+  key: "selectRoundWaveAtom",
+  default: {
+    round: 0,
+    wave: 0,
+  },
 });

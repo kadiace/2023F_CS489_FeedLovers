@@ -4,12 +4,13 @@ import Store from "components/Store";
 import Command from "components/Command";
 import News from "components/News";
 import { useRecoilState } from "recoil";
-import { roundCountAtom } from "recoils";
+import { roundWaveCountAtom } from "recoils";
 import { RoundInformation } from "components/Round";
 
 function Main() {
   // States.
-  const [roundCount, setRoundCount] = useRecoilState(roundCountAtom);
+  const [roundWaveCount, setRoundWaveCount] =
+    useRecoilState(roundWaveCountAtom);
 
   return (
     <div
@@ -121,8 +122,8 @@ function Main() {
                 margin: "0px",
               }}
             >
-              Round {RoundInformation[roundCount].alias} - Remain $
-              {RoundInformation[roundCount].goal}M
+              Round {RoundInformation[roundWaveCount["round"]].alias} - Remain $
+              {RoundInformation[roundWaveCount["round"]].goal}M
             </p>
           </div>
           <div
