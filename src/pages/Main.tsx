@@ -118,9 +118,9 @@ function Main() {
             }}
           >
             Round {RoundInformation[roundWaveCount["round"]].alias} - Remain $
-              {RoundInformation[roundWaveCount["round"]].goal}M
+            {RoundInformation[roundWaveCount["round"]].goal}M
           </p>
-          <Store changeRound={changeRound} />
+          <Store />
           <Command />
           <News />
         </div>
