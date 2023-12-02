@@ -1,8 +1,36 @@
 import React from "react";
 import "./Main.css";
 import Consumer from "components/Consumer";
+import Store from "components/Store";
+import Command from "components/Command";
+import News from "components/News";
 
 function Main() {
+  function changeRound(n: number) {}
+  const round: any = {
+    A: {
+      goal: 1000,
+      Wave: [30, 40, 50],
+    },
+    // "Round B": {
+    //   goal: 1000,
+    //   Wave: [30, 30, 40, 40, 50],
+    // },
+    C: {
+      goal: 2000,
+      Wave: [30, 40, 50],
+    },
+    // "Round D": {
+    //   goal: 1000,
+    //   Wave: [30, 30, 40, 40, 50],
+    // },
+    E: {
+      goal: 3000,
+      Wave: [30],
+    },
+  };
+  var goal = round["A"]["goal"];
+
   return (
     <div
       className="Main"
@@ -11,6 +39,9 @@ function Main() {
         backgroundColor: "black",
         width: "100%",
         height: "100%",
+        msOverflowStyle: "none",
+        scrollbarWidth: "none",
+        overflow: "hidden",
       }}
     >
       <div
@@ -25,12 +56,9 @@ function Main() {
         <div
           style={{
             display: "flex",
-            flex: 1,
             flexDirection: "column",
-            gap: "20px",
             height: "100%",
-            justifyContent: "center",
-            marginLeft: "20px",
+            justifyContent: "space-evenly",
           }}
         >
           <div
@@ -89,233 +117,69 @@ function Main() {
         <div
           style={{
             display: "flex",
-            flex: 1,
             flexDirection: "column",
-            gap: "20px",
             height: "100%",
-            marginRight: "20px",
+            justifyContent: "space-evenly",
           }}
         >
           <div
             style={{
               display: "flex",
-              flex: 1,
               flexDirection: "row",
-              gap: "20px",
               width: "100%",
               justifyContent: "right",
             }}
           >
             <p
               style={{
-                position: "absolute",
+                position: "relative",
                 zIndex: 3,
                 fontFamily: "Retro Gaming",
                 fontSize: "23px",
                 textAlign: "right",
                 color: "white",
+                margin: "0px",
               }}
             >
-              Round C - Remain $ 370M
+              Round C - Remain $ {goal}M
             </p>
           </div>
           <div
             style={{
-              display: "flex",
-              flex: 1,
               flexDirection: "row",
-              gap: "20px",
               width: "100%",
+              justifyContent: "right",
+            }}
+          >
+            <Store changeRound={changeRound} />
+          </div>
+          <div
+            style={{
+              flexDirection: "row",
+              width: "100%",
+              justifyContent: "right",
+              height: "150px",
             }}
           >
             <div
               style={{
-                position: "relative",
-                display: "flex",
-                width: "150px",
-                height: "150px",
-                justifyContent: "center",
+                position: "absolute",
+                flexDirection: "row",
+                width: "100%",
+                justifyContent: "right",
               }}
             >
-              <img
-                alt=""
-                style={{
-                  position: "absolute",
-                  width: "100%",
-                  height: "100%",
-                  objectFit: "cover",
-                  zIndex: 0,
-                  color: "#FFFFFF",
-                }}
-              ></img>
-              <img
-                alt=""
-                style={{
-                  position: "absolute",
-                  width: "100%",
-                  height: "100%",
-                  objectFit: "cover",
-                  zIndex: 1,
-                  color: "#FFFFFF",
-                }}
-              ></img>
-              <img
-                alt=""
-                style={{
-                  position: "absolute",
-                  width: "100%",
-                  height: "100%",
-                  objectFit: "cover",
-                  zIndex: 2,
-                  color: "#FFFFFF",
-                }}
-              ></img>
-              <p
-                style={{
-                  position: "absolute",
-                  left: "9px",
-                  top: "-11px",
-                  zIndex: 3,
-                  fontFamily: "Retro Gaming",
-                  fontSize: "18px",
-                  textAlign: "center",
-                }}
-              >
-                1
-              </p>
+              <Command />
             </div>
           </div>
           <div
             style={{
-              display: "flex",
-              flex: 1,
               flexDirection: "row",
-              gap: "20px",
               width: "100%",
+              justifyContent: "right",
             }}
           >
-            <div
-              style={{
-                position: "relative",
-                display: "flex",
-                width: "150px",
-                height: "150px",
-                justifyContent: "center",
-              }}
-            >
-              <img
-                alt=""
-                style={{
-                  position: "absolute",
-                  width: "100%",
-                  height: "100%",
-                  objectFit: "cover",
-                  zIndex: 0,
-                  color: "#FFFFFF",
-                }}
-              ></img>
-              <img
-                alt=""
-                style={{
-                  position: "absolute",
-                  width: "100%",
-                  height: "100%",
-                  objectFit: "cover",
-                  zIndex: 1,
-                  color: "#FFFFFF",
-                }}
-              ></img>
-              <img
-                alt=""
-                style={{
-                  position: "absolute",
-                  width: "100%",
-                  height: "100%",
-                  objectFit: "cover",
-                  zIndex: 2,
-                  color: "#FFFFFF",
-                }}
-              ></img>
-              <p
-                style={{
-                  position: "absolute",
-                  left: "9px",
-                  top: "-11px",
-                  zIndex: 3,
-                  fontFamily: "Retro Gaming",
-                  fontSize: "18px",
-                  textAlign: "center",
-                }}
-              >
-                1
-              </p>
-            </div>
-          </div>
-          <div
-            style={{
-              display: "flex",
-              flex: 1,
-              flexDirection: "row",
-              gap: "20px",
-              width: "100%",
-            }}
-          >
-            <div
-              style={{
-                position: "relative",
-                display: "flex",
-                width: "150px",
-                height: "150px",
-                justifyContent: "center",
-              }}
-            >
-              <img
-                alt=""
-                style={{
-                  position: "absolute",
-                  width: "100%",
-                  height: "100%",
-                  objectFit: "cover",
-                  zIndex: 0,
-                  color: "#FFFFFF",
-                }}
-              ></img>
-              <img
-                alt=""
-                style={{
-                  position: "absolute",
-                  width: "100%",
-                  height: "100%",
-                  objectFit: "cover",
-                  zIndex: 1,
-                  color: "#FFFFFF",
-                }}
-              ></img>
-              <img
-                alt=""
-                style={{
-                  position: "absolute",
-                  width: "100%",
-                  height: "100%",
-                  objectFit: "cover",
-                  zIndex: 2,
-                  color: "#FFFFFF",
-                }}
-              ></img>
-              <p
-                style={{
-                  position: "absolute",
-                  left: "9px",
-                  top: "-11px",
-                  zIndex: 3,
-                  fontFamily: "Retro Gaming",
-                  fontSize: "18px",
-                  textAlign: "center",
-                }}
-              >
-                1
-              </p>
-            </div>
+            <News />
           </div>
         </div>
       </div>
