@@ -4,39 +4,52 @@ import money from "../assets/img/contents/money.png";
 import politics from "../assets/img/contents/politics.png";
 import sports_game from "../assets/img/contents/sports_game.png";
 import { useDrag } from "react-dnd";
+import { useState } from "react";
+import { useRecoilState } from "recoil";
+import { contentsAtom } from "recoils";
 
 function Content({ type, id }: { type: number; id: number }) {
-  var src;
-  switch (type) {
-    case 1:
-      src = celeb;
-      break;
-    case 2:
-      src = info_knowledge;
-      break;
-    case 3:
-      src = money;
-      break;
-    case 4:
-      src = politics;
-      break;
-    case 5:
-      src = sports_game;
-      break;
-    default:
-      break;
+  const [contents, setContents] = useRecoilState(contentsAtom);
+
+  function typeToImage(type: number) {
+    console.log(type);
+    switch (type) {
+      case 0:
+        return celeb;
+      case 1:
+        return info_knowledge;
+      case 2:
+        return money;
+      case 3:
+        return politics;
+      case 4:
+        return sports_game;
+      default:
+        break;
+    }
   }
 
-  const [{ isDragging }, drag, dragPreview] = useDrag(() => ({
-    type: "CONSUMER",
-    item: { id },
+  const [{ isDragging }, drag, dragPreview] = useDrag({
+    type: "CONTENT",
+    item: { type },
+    end(item, monitor) {
+      if (monitor.didDrop()) {
+        setContents((prev) => {
+          const next = prev.slice();
+          next[id] = -1;
+          return next;
+        });
+      }
+    },
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
     }),
-  }));
+  });
 
   return isDragging ? (
     <div ref={dragPreview} />
+  ) : contents[id] === -1 ? (
+    <></>
   ) : (
     <div
       ref={drag}
@@ -57,7 +70,7 @@ function Content({ type, id }: { type: number; id: number }) {
           height: "100%",
           objectFit: "contain",
         }}
-        src={src}
+        src={typeToImage(id === -1 ? type : contents[id])}
       ></img>
     </div>
   );
