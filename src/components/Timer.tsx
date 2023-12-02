@@ -38,7 +38,7 @@ function Timer() {
         }
         return prevTime - 1;
       });
-    }, 100);
+    }, 1000);
     return () => clearInterval(timer);
   }, []);
   return (
