@@ -1,17 +1,16 @@
 import { MouseEvent, MouseEventHandler, useState } from "react";
 import Typist from "react-typist";
 
-function GuideCommandMessage(props: {
+function GuideWindowMessage(props: {
   counter: number;
-  maxCount: number;
   messageList: string[];
   navigate: MouseEventHandler;
 }) {
-  const { counter: initCounter, maxCount, messageList, navigate } = props;
+  const { counter: initCounter, messageList, navigate } = props;
   const [counter, setCounter] = useState(initCounter);
 
   const increment: MouseEventHandler = (e: MouseEvent) => {
-    if (counter < maxCount) setCounter(counter + 1);
+    if (counter + 1 < messageList.length) setCounter(counter + 1);
     else {
       navigate(e);
     }
@@ -34,7 +33,7 @@ function GuideCommandMessage(props: {
           letterSpacing: "0.25px",
         }}
       >
-        <Typist avgTypingDelay={30} key={counter}>
+        <Typist avgTypingDelay={15} key={counter}>
           {messageList[counter]}
         </Typist>
       </div>
@@ -70,4 +69,4 @@ function GuideCommandMessage(props: {
   );
 }
 
-export default GuideCommandMessage;
+export default GuideWindowMessage;

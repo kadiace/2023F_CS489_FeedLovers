@@ -6,8 +6,16 @@ import News from "components/News";
 import { useRecoilState } from "recoil";
 import { goalAtom, roundWaveCountAtom } from "recoils";
 import { RoundInformation } from "components/Round";
+import { useNavigate } from "react-router-dom";
+import GuideWindow from "components/GuideWindow";
 
 function Main() {
+  // navigate
+  const navigate = useNavigate();
+  function navigateLobby() {
+    navigate("/lobby");
+  }
+
   // States.
   const [roundWaveCount, setRoundWaveCount] =
     useRecoilState(roundWaveCountAtom);
@@ -26,6 +34,21 @@ function Main() {
         overflow: "hidden",
       }}
     >
+      <GuideWindow
+        messageList={[
+          "> Nah... We failed to repay all investments... Let's try again.",
+        ]}
+        navigate={navigateLobby}
+        style={{
+          display: "flex",
+          position: "absolute",
+          alignItems: "center",
+          justifyContent: "center",
+          width: "100%",
+          height: "100%",
+          zIndex: 10,
+        }}
+      />
       <div
         style={{
           display: "flex",
