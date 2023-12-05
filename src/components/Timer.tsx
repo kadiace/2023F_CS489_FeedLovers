@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { SetterOrUpdater, useRecoilState } from "recoil";
 import {
   contentsAtom,
@@ -117,36 +117,13 @@ function Timer() {
                 setRoundState("fail");
                 newTime = 0;
               } else {
-                const nextRound =
-                  round + 1 >= RoundInformation.length ? 0 : round + 1;
-                setRoundWaveCount({
-                  round: nextRound,
-                  wave: 0,
-                });
-                setGoal(RoundInformation[nextRound].goal);
-                setIsEvent(RoundInformation[nextRound].hasEvent);
-                makeRandomContents(setContents, 12);
-                makeRandomContents(setConsumerChat, 16);
-                if (RoundInformation[nextRound].alias === "C") {
-                  setContents((prev) => {
-                    let arr = [...prev];
-                    arr[0] = 4;
-                    return arr;
-                  });
-                } else if (RoundInformation[nextRound].alias === "E") {
-                  setContents((prev) => {
-                    let arr = [...prev];
-                    arr[0] = 3;
-                    return arr;
-                  });
-                }
+                throw new Error("");
               }
             } else {
               setRoundWaveCount({ round: round, wave: wave + 1 });
               setIsEvent(false);
               makeRandomContents(setContents, 12);
             }
-
             newTime = RoundInformation[round].wave[wave];
           } else {
             newTime = prevTime - 1;

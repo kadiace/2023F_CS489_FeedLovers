@@ -1,12 +1,24 @@
 import { useDrop } from "react-dnd";
 import Consumer from "./Consumer";
+import { useRecoilState } from "recoil";
+import { consumerChatAtom } from "recoils/Atom";
 
 function ConsumerGroup() {
+  const [consumerChat, setConsumerChat] = useRecoilState(consumerChatAtom);
   const [{ isOver }, drop] = useDrop(
     () => ({
       accept: "CONTENT_EVENT",
       hover(item: { type: number }, monitor) {},
-      drop: (item: { type: number }, monitor) => {},
+      drop: (item: { type: number }, monitor) => {
+        // 하트 반응 띄우기(타이머 끝날 때까지) | dnd 못하게 막기 | 검은 반투명 화면
+
+        setConsumerChat((prev) => {
+          let next = Array.from({ length: 16 }, (_) => 6);
+          next = next.slice();
+          next[Math.floor(Math.random() * 16)] = 5;
+          return next;
+        });
+      },
       canDrop: (item: { type: number }, monitor) => {
         return true;
         // return item.type === acceptTypeVar;

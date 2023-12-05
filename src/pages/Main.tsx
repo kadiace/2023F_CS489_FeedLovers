@@ -1,5 +1,4 @@
 import "./Main.css";
-import Consumer from "components/Consumer";
 import Store from "components/Store";
 import Command from "components/Command";
 import News from "components/News";
@@ -34,8 +33,6 @@ function Main() {
       wave: 0,
     });
     setGoal(RoundInformation[nextRound].goal);
-    makeRandomContents(setContents, 12);
-    makeRandomContents(setConsumerChat, 16);
     setRoundState("progress");
     setTime(RoundInformation[round].wave[0]);
     setIsEvent(RoundInformation[nextRound].hasEvent);
@@ -45,12 +42,17 @@ function Main() {
         arr[0] = 4;
         return arr;
       });
+      setConsumerChat(Array.from({ length: 16 }, (_) => 4));
     } else if (RoundInformation[nextRound].alias === "E") {
       setContents((prev) => {
         let arr = [...prev];
         arr[0] = 3;
         return arr;
       });
+      setConsumerChat(Array.from({ length: 16 }, (_) => 3));
+    } else {
+      makeRandomContents(setContents, 12);
+      makeRandomContents(setConsumerChat, 16);
     }
   };
 

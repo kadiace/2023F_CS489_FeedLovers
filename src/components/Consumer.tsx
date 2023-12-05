@@ -11,7 +11,7 @@ import { getGoal } from "./Timer";
 import { SetterOrUpdater, useRecoilState } from "recoil";
 import { goalAtom, consumerChatAtom, roundStateAtom } from "recoils/Atom";
 
-const getConsumerChat = (setter: SetterOrUpdater<number[]>) => {
+export const getConsumerChat = (setter: SetterOrUpdater<number[]>) => {
   let consumerChat = [0];
   setter((prev) => {
     consumerChat = prev;
@@ -54,7 +54,6 @@ function Consumer({ id, onEvent }: { id: number; onEvent: boolean }) {
       drop: (item: { type: number }, monitor) => {
         const receiveConsumerChat = getConsumerChat(setConsumerChat);
         // 하트 반응 띄우기(타이머 끝날 때까지) | dnd 못하게 막기 | 검은 반투명 화면
-        console.log(item.type, receiveConsumerChat[id]);
         if (item.type === receiveConsumerChat[id]) {
           setGoal((prev) => {
             return prev - 100;
@@ -69,7 +68,6 @@ function Consumer({ id, onEvent }: { id: number; onEvent: boolean }) {
       },
       canDrop: (item: { type: number }, monitor) => {
         const receiveConsumerChat = getConsumerChat(setConsumerChat);
-        console.log(item.type, receiveConsumerChat[id]);
         return item.type === receiveConsumerChat[id];
       },
       collect: (monitor) => ({
@@ -145,6 +143,32 @@ function Consumer({ id, onEvent }: { id: number; onEvent: boolean }) {
           ></img>
         </>
       )}
+      {/* <div
+        style={{
+          position: "absolute",
+          width: "80%",
+          height: "80%",
+          bottom: "0px",
+          objectFit: "contain",
+          zIndex: 1,
+          mask: 'url("../assets/img/ui/consumer_torso.png")',
+          WebkitMask: 'url("../assets/img/ui/consumer_torso.png")',
+          maskImage: 'url("../assets/img/ui/consumer_torso.png")',
+          WebkitMaskImage: 'url("../assets/img/ui/consumer_torso.png")',
+        }}
+      >
+        <div
+          style={{
+            mask: 'url("../assets/img/ui/consumer_torso.png")',
+            WebkitMask: 'url("../assets/img/ui/consumer_torso.png")',
+            maskImage: 'url("../assets/img/ui/consumer_torso.png")',
+            WebkitMaskImage: 'url("../assets/img/ui/consumer_torso.png")',
+            width: "100%",
+            height: "80%",
+            background: "red",
+          }}
+        />
+      </div> */}
       <img
         alt=""
         style={{
