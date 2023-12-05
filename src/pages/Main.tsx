@@ -4,22 +4,25 @@ import Store from "components/Store";
 import Command from "components/Command";
 import News from "components/News";
 import { useRecoilState } from "recoil";
-import { goalAtom, roundWaveCountAtom } from "recoils";
+import { goalAtom, roundWaveCountAtom, successRoundAtom } from "recoils/Atom";
 import { RoundInformation } from "components/Round";
 import { useNavigate } from "react-router-dom";
 import GuideWindow from "components/GuideWindow";
+import { MouseEventHandler } from "react";
 
 function Main() {
   // navigate
   const navigate = useNavigate();
-  function navigateLobby() {
+  const navigateLobby: MouseEventHandler = () => {
     navigate("/lobby");
-  }
+  };
 
-  // States.
+  // state
+  /* eslint-disable */
   const [roundWaveCount, setRoundWaveCount] =
     useRecoilState(roundWaveCountAtom);
   const [goal, setGoal] = useRecoilState(goalAtom);
+  const [successRound, setSuccessRound] = useRecoilState(successRoundAtom);
 
   return (
     <div
@@ -34,21 +37,23 @@ function Main() {
         overflow: "hidden",
       }}
     >
-      <GuideWindow
-        messageList={[
-          "> Nah... We failed to repay all investments... Let's try again.",
-        ]}
-        navigate={navigateLobby}
-        style={{
-          display: "flex",
-          position: "absolute",
-          alignItems: "center",
-          justifyContent: "center",
-          width: "100%",
-          height: "100%",
-          zIndex: 10,
-        }}
-      />
+      {!successRound && (
+        <GuideWindow
+          messageList={[
+            "> Nah... We failed to repay all investments... Let's try again.",
+          ]}
+          navigate={navigateLobby}
+          style={{
+            display: "flex",
+            position: "absolute",
+            alignItems: "center",
+            justifyContent: "center",
+            width: "100%",
+            height: "100%",
+            zIndex: 10,
+          }}
+        />
+      )}
       <div
         style={{
           display: "flex",

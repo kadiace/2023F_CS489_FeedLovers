@@ -8,7 +8,7 @@ import { useDrop } from "react-dnd";
 import ConsumerChat from "./ConsumerChat";
 import { useState } from "react";
 import { useRecoilState } from "recoil";
-import { goalAtom } from "recoils";
+import { goalAtom } from "recoils/Atom";
 
 function Consumer({ id }: { id: number }) {
   // variable

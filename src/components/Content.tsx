@@ -5,7 +5,7 @@ import politics from "../assets/img/contents/politics.png";
 import sports_game from "../assets/img/contents/sports_game.png";
 import { useDrag } from "react-dnd";
 import { useRecoilState } from "recoil";
-import { contentsAtom } from "recoils";
+import { contentsAtom } from "recoils/Atom";
 
 function Content({ type, id }: { type: number; id: number }) {
   // state

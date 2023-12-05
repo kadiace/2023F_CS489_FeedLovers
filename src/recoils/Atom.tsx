@@ -13,6 +13,11 @@ export const goalAtom = atom<number>({
   default: 0,
 });
 
+export const successRoundAtom = atom<boolean>({
+  key: "successRoundAtom",
+  default: true,
+});
+
 export const contentsAtom = atom<number[]>({
   key: "contentsAtom",
   default: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],

@@ -24,12 +24,12 @@ export type Round = { alias: string; goal: number; wave: RemainTime[] };
 export const RoundInformation: Round[] = [
   {
     alias: "A",
-    goal: 500,
+    goal: 300,
     wave: [5, 5, 5],
   },
   {
     alias: "C",
-    goal: 500,
+    goal: 400,
     wave: [5, 5, 5],
   },
   {

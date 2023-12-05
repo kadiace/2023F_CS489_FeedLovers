@@ -1,6 +1,6 @@
 import { useRecoilState } from "recoil";
 import Content from "./Content";
-import { contentsAtom } from "recoils";
+import { contentsAtom } from "recoils/Atom";
 
 function StoreContents() {
   // state
