@@ -124,11 +124,6 @@ function Timer() {
                   wave: 0,
                 });
                 setGoal(RoundInformation[nextRound].goal);
-                setConsumerChat(
-                  Array.from({ length: 16 }, (_) =>
-                    Math.floor(Math.random() * 5)
-                  )
-                );
                 setIsEvent(RoundInformation[nextRound].hasEvent);
                 makeRandomContents(setContents, 12);
                 makeRandomContents(setConsumerChat, 16);

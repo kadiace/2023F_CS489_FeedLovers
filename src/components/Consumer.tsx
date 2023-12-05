@@ -35,6 +35,11 @@ function Consumer({ id }: { id: number }) {
       next[id] = type;
       return next;
     });
+    setConsumerChat((prev) => {
+      const next = prev.slice();
+      next[id] = type;
+      return next;
+    });
   }
 
   const [{ isOver }, drop] = useDrop(
@@ -44,6 +49,10 @@ function Consumer({ id }: { id: number }) {
         setHoverType(item.type);
       },
       drop: (item: { type: number }, monitor) => {
+        const receiveConsumerChat = getConsumerChat(setConsumerChat);
+        // 하트 반응 띄우기(타이머 끝날 때까지) | dnd 못하게 막기 | 검은 반투명 화면
+        console.log(item.type, receiveConsumerChat[id]);
+        if (item.type === receiveConsumerChat[id]) {
         const receiveConsumerChat = getConsumerChat(setConsumerChat);
         // 하트 반응 띄우기(타이머 끝날 때까지) | dnd 못하게 막기 | 검은 반투명 화면
         console.log(item.type, receiveConsumerChat[id]);
@@ -60,6 +69,9 @@ function Consumer({ id }: { id: number }) {
         }
       },
       canDrop: (item: { type: number }, monitor) => {
+        const receiveConsumerChat = getConsumerChat(setConsumerChat);
+        console.log(item.type, receiveConsumerChat[id]);
+        return item.type === receiveConsumerChat[id];
         const receiveConsumerChat = getConsumerChat(setConsumerChat);
         console.log(item.type, receiveConsumerChat[id]);
         return item.type === receiveConsumerChat[id];
@@ -83,7 +95,9 @@ function Consumer({ id }: { id: number }) {
       }}
     >
       {isOver && hoverType === consumerChat[id] ? (
+      {isOver && hoverType === consumerChat[id] ? (
         <>
+          <ConsumerChat type={consumerChat[id]} />
           <ConsumerChat type={consumerChat[id]} />
           <img
             alt=""
@@ -111,6 +125,7 @@ function Consumer({ id }: { id: number }) {
         </>
       ) : (
         <>
+          <ConsumerChat type={consumerChat[id]} />
           <ConsumerChat type={consumerChat[id]} />
           <img
             alt=""
