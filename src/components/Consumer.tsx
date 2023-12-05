@@ -11,7 +11,7 @@ import { getGoal } from "./Timer";
 import { SetterOrUpdater, useRecoilState } from "recoil";
 import { goalAtom, consumerChatAtom, roundStateAtom } from "recoils/Atom";
 
-const getConsumerChat = (setter: SetterOrUpdater<number[]>) => {
+export const getConsumerChat = (setter: SetterOrUpdater<number[]>) => {
   let consumerChat = [0];
   setter((prev) => {
     consumerChat = prev;
@@ -42,34 +42,37 @@ function Consumer({ id, onEvent }: { id: number; onEvent: boolean }) {
     });
   }
 
-  const [{ isOver }, drop] = useDrop(() => ({
-    accept: "CONTENT",
-    hover(item: { type: number }, monitor) {
-      setHoverType(item.type);
-    },
-    drop: (item: { type: number }, monitor) => {
-      const receiveConsumerChat = getConsumerChat(setConsumerChat);
-      console.log(item.type, receiveConsumerChat[id]);
-      if (item.type === receiveConsumerChat[id]) {
-        setGoal((prev) => {
-          return prev - 100;
-        });
-        const remain = getGoal(setGoal);
-        if (remain <= 0) {
-          setRoundState("success");
+  const [{ isOver }, drop] = useDrop(
+    () => ({
+      accept: "CONTENT",
+      hover(item: { type: number }, monitor) {
+        setHoverType(item.type);
+      },
+      drop: (item: { type: number }, monitor) => {
+        const receiveConsumerChat = getConsumerChat(setConsumerChat);
+        // 하트 반응 띄우기(타이머 끝날 때까지) | dnd 못하게 막기 | 검은 반투명 화면
+        if (item.type === receiveConsumerChat[id]) {
+          setGoal((prev) => {
+            return prev - 100;
+          });
+          const remain = getGoal(setGoal);
+          if (remain <= 0) {
+            setRoundState("success");
+          }
+          updateAcceptType(5);
+          // updateAcceptType(Math.floor(Math.random() * 5));
         }
-        updateAcceptType(5);
-      }
-    },
-    canDrop: (item: { type: number }, monitor) => {
-      const receiveConsumerChat = getConsumerChat(setConsumerChat);
-      console.log(item.type, receiveConsumerChat[id]);
-      return item.type === receiveConsumerChat[id];
-    },
-    collect: (monitor) => ({
-      isOver: !!monitor.isOver(),
-    }),
-  }));
+      },
+      canDrop: (item: { type: number }, monitor) => {
+        const receiveConsumerChat = getConsumerChat(setConsumerChat);
+        return item.type === receiveConsumerChat[id];
+      },
+      collect: (monitor) => ({
+        isOver: !!monitor.isOver(),
+      }),
+    })
+    // [x, y]
+  );
 
   return (
     <div>
