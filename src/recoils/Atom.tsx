@@ -18,6 +18,11 @@ export const successRoundAtom = atom<boolean>({
   default: true,
 });
 
+export const isEventAtom = atom<boolean>({
+  key: "isEventAtom",
+  default: false,
+});
+
 export const contentsAtom = atom<number[]>({
   key: "contentsAtom",
   default: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],

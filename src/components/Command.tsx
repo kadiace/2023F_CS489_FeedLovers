@@ -2,7 +2,8 @@ import CommandShiny from "../assets/img/ui/command_shiny.png";
 import CommandGrid from "../assets/img/ui/command_grid.png";
 import CommandBackground from "../assets/img/ui/command_background.png";
 
-function Command() {
+function Command(props: { message: string }) {
+  const { message } = props;
   return (
     <div
       style={{
@@ -10,7 +11,6 @@ function Command() {
         display: "flex",
         width: "100%",
         height: "150px",
-        // justifyContent: "center",
         alignItems: "center",
       }}
     >
@@ -35,7 +35,7 @@ function Command() {
           top: "60px",
           bottom: "20px",
           zIndex: 4,
-          fontFamily: "Retro Gaming",
+          fontFamily: "SairaCondensed",
           fontSize: "21px",
           alignItems: "center",
           flex: 1,
@@ -43,7 +43,7 @@ function Command() {
           // background: "red",
         }}
       >
-        What are you waiting for?
+        {message}
       </div>
       <img
         alt=""

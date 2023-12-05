@@ -1,7 +1,9 @@
 import NewsShiny from "../assets/img/ui/news_shiny.png";
 import NewsBackground from "../assets/img/ui/news_background.png";
 
-function News() {
+function News(props: { message: string }) {
+  // const
+  const { message } = props;
   return (
     <div
       style={{
@@ -51,7 +53,7 @@ function News() {
           // background: "red",
         }}
       >
-        Mass shooting left 80 victims...
+        {message}
       </div>
     </div>
   );

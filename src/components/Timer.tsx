@@ -3,6 +3,7 @@ import { SetterOrUpdater, useRecoilState } from "recoil";
 import {
   contentsAtom,
   goalAtom,
+  isEventAtom,
   roundWaveCountAtom,
   successRoundAtom,
 } from "recoils/Atom";
@@ -52,13 +53,14 @@ function Timer() {
   const [goal, setGoal] = useRecoilState(goalAtom);
   const [successRound, setSuccessRound] = useRecoilState(successRoundAtom);
   const [contents, setContents] = useRecoilState(contentsAtom);
+  const [isEvent, setIsEvent] = useRecoilState(isEventAtom);
 
   // function
-  function makeRandomContents() {
+  const makeRandomContents = () => {
     setContents(
       Array.from({ length: 12 }, (_) => Math.floor(Math.random() * 5))
     );
-  }
+  };
 
   /* eslint-disable */
   useEffect(() => {
@@ -85,9 +87,24 @@ function Timer() {
               wave: 0,
             });
             setGoal(RoundInformation[nextRound].goal);
+            setIsEvent(RoundInformation[nextRound].hasEvent);
             makeRandomContents();
+            if (RoundInformation[nextRound].alias === "C") {
+              setContents((prev) => {
+                let arr = [...prev];
+                arr[0] = 4;
+                return arr;
+              });
+            } else if (RoundInformation[nextRound].alias === "E") {
+              setContents((prev) => {
+                let arr = [...prev];
+                arr[0] = 3;
+                return arr;
+              });
+            }
           } else {
             setRoundWaveCount({ round: round, wave: wave + 1 });
+            setIsEvent(false);
             makeRandomContents();
           }
 

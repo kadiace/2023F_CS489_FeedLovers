@@ -4,7 +4,12 @@ import Store from "components/Store";
 import Command from "components/Command";
 import News from "components/News";
 import { useRecoilState } from "recoil";
-import { goalAtom, roundWaveCountAtom, successRoundAtom } from "recoils/Atom";
+import {
+  goalAtom,
+  isEventAtom,
+  roundWaveCountAtom,
+  successRoundAtom,
+} from "recoils/Atom";
 import { RoundInformation } from "components/Round";
 import { useNavigate } from "react-router-dom";
 import GuideWindow from "components/GuideWindow";
@@ -23,6 +28,7 @@ function Main() {
     useRecoilState(roundWaveCountAtom);
   const [goal, setGoal] = useRecoilState(goalAtom);
   const [successRound, setSuccessRound] = useRecoilState(successRoundAtom);
+  const [isEvent, setIsEvent] = useRecoilState(isEventAtom);
 
   return (
     <div
@@ -150,8 +156,20 @@ function Main() {
             {goal}M
           </p>
           <Store />
-          <Command />
-          <News />
+          <Command
+            message={
+              isEvent
+                ? RoundInformation[roundWaveCount.round].commandMessage
+                : "..."
+            }
+          />
+          <News
+            message={
+              isEvent
+                ? RoundInformation[roundWaveCount.round].newsMessage
+                : "..."
+            }
+          />
         </div>
       </div>
     </div>
