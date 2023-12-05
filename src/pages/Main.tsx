@@ -10,6 +10,7 @@ import {
   roundWaveCountAtom,
   roundStateAtom,
   contentsAtom,
+  consumerChatAtom,
   timeAtom,
 } from "recoils/Atom";
 import { RoundInformation } from "components/Round";
@@ -32,7 +33,8 @@ function Main() {
       wave: 0,
     });
     setGoal(RoundInformation[nextRound].goal);
-    makeRandomContents(setContents);
+    makeRandomContents(setContents, 12);
+    makeRandomContents(setConsumerChat, 16);
     setRoundState("progress");
     setTime(RoundInformation[round].wave[0]);
     setIsEvent(RoundInformation[nextRound].hasEvent);
@@ -59,6 +61,7 @@ function Main() {
   const [roundState, setRoundState] = useRecoilState(roundStateAtom);
   const [isEvent, setIsEvent] = useRecoilState(isEventAtom);
   const [contents, setContents] = useRecoilState(contentsAtom);
+  const [consumerChat, setConsumerChat] = useRecoilState(consumerChatAtom);
   const [time, setTime] = useRecoilState(timeAtom);
 
   return (
@@ -160,10 +163,10 @@ function Main() {
               width: "100%",
             }}
           >
+            <Consumer id={0} />
             <Consumer id={1} />
             <Consumer id={2} />
             <Consumer id={3} />
-            <Consumer id={4} />
           </div>
           <div
             style={{
@@ -173,10 +176,10 @@ function Main() {
               width: "100%",
             }}
           >
+            <Consumer id={4} />
             <Consumer id={5} />
             <Consumer id={6} />
             <Consumer id={7} />
-            <Consumer id={8} />
           </div>
           <div
             style={{
@@ -186,10 +189,10 @@ function Main() {
               width: "100%",
             }}
           >
+            <Consumer id={8} />
             <Consumer id={9} />
             <Consumer id={10} />
             <Consumer id={11} />
-            <Consumer id={12} />
           </div>
           <div
             style={{
@@ -199,10 +202,10 @@ function Main() {
               width: "100%",
             }}
           >
+            <Consumer id={12} />
             <Consumer id={13} />
             <Consumer id={14} />
             <Consumer id={15} />
-            <Consumer id={16} />
           </div>
         </div>
         <div
