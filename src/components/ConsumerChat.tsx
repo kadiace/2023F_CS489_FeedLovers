@@ -1,4 +1,5 @@
 import ChatGrid from "../assets/img/ui/chat_grid.png";
+import ChatGridReaction from "../assets/img/ui/chat_grid_reaction.png";
 import ChatBan from "../assets/img/ui/chat_ban.png";
 import Content from "./Content";
 
@@ -15,7 +16,7 @@ function ConsumerChat({ type }: { type: number }) {
           objectFit: "contain",
           zIndex: 5,
         }}
-        src={ChatGrid}
+        src={type >= 5 ? ChatGridReaction : ChatGrid}
       ></img>
       <div
         style={{

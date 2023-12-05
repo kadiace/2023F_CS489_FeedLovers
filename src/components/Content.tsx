@@ -3,6 +3,7 @@ import info_knowledge from "../assets/img/contents/info_knowledge.png";
 import money from "../assets/img/contents/money.png";
 import politics from "../assets/img/contents/politics.png";
 import sports_game from "../assets/img/contents/sports_game.png";
+import reaction_heart from "../assets/img/ui/reaction_heart.png";
 import { useDrag } from "react-dnd";
 import { useRecoilState } from "recoil";
 import { contentsAtom } from "recoils/Atom";
@@ -24,6 +25,8 @@ function Content({ type, id }: { type: number; id: number }) {
         return politics;
       case 4:
         return sports_game;
+      case 5:
+        return reaction_heart;
       default:
         break;
     }
