@@ -4,24 +4,27 @@ import ConsumerBackground from "../assets/img/ui/consumer_background.png";
 import ConsumerGridHover from "../assets/img/ui/consumer_grid_hover_alt2.png";
 import ConsumerBackgroundHover from "../assets/img/ui/consumer_background_hover_alt2.png";
 import ConsumerTorso from "../assets/img/ui/consumer_torso.png";
-import { ConnectDropTarget, useDrop } from "react-dnd";
+import { useDrop } from "react-dnd";
 import ConsumerChat from "./ConsumerChat";
-import Content from "./Content";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useRecoilState } from "recoil";
-import { goalAtom } from "recoils";
+import { goalAtom } from "recoils/Atom";
 
 function Consumer({ id }: { id: number }) {
-  var acceptTypeVar = Math.floor(Math.random() * 5);
+  // variable
+  let acceptTypeVar = Math.floor(Math.random() * 5);
+
+  // state
+  /* eslint-disable */
   const [acceptType, setAcceptType] = useState(acceptTypeVar);
   const [hoverType, setHoverType] = useState(-1);
+  const [goal, setGoal] = useRecoilState(goalAtom);
 
+  // function
   function updateAcceptType(type: number) {
     acceptTypeVar = type;
     setAcceptType(acceptTypeVar);
   }
-
-  const [goal, setGoal] = useRecoilState(goalAtom);
 
   const [{ isOver }, drop] = useDrop(
     () => ({

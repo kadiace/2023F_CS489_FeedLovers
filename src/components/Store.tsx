@@ -4,11 +4,12 @@ import StoreBackground from "../assets/img/ui/store_background.png";
 import StoreContents from "./StoreContents";
 import Timer from "./Timer";
 import { useRecoilState } from "recoil";
-import { roundWaveCountAtom } from "recoils";
+import { roundWaveCountAtom } from "recoils/Atom";
 import { RoundInformation } from "./Round";
 
 function Store() {
-  // States.
+  // state
+  /* eslint-disable */
   const [roundWaveCount, setRoundWaveCount] =
     useRecoilState(roundWaveCountAtom);
 

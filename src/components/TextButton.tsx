@@ -1,26 +1,24 @@
 import { ComponentState, MouseEventHandler, useState } from "react";
 
-function TextButton({
-  text,
-  navigate,
-  color,
-  hoverColor,
-  clickColor,
-}: {
+function TextButton(props: {
   text: string;
   navigate: MouseEventHandler;
   color: string;
   hoverColor: string;
   clickColor: string;
 }) {
+  // extract
+  const { text, navigate, color, hoverColor, clickColor } = props;
+
+  // states
   const [fontColor, setFontColor]: ComponentState = useState(color);
-  const changeColorMouseOver = () => {
+  const changeColorMouseOver: MouseEventHandler = () => {
     setFontColor(hoverColor);
   };
-  const changeColorMouseLeave = () => {
+  const changeColorMouseLeave: MouseEventHandler = () => {
     setFontColor(color);
   };
-  const changeColorClick = () => {
+  const changeColorClick: MouseEventHandler = () => {
     setFontColor(clickColor);
   };
   return (
