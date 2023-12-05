@@ -1,7 +1,8 @@
 import NewsShiny from "../assets/img/ui/news_shiny.png";
 import NewsBackground from "../assets/img/ui/news_background.png";
+import { ReactNode } from "react";
 
-function News(props: { message: string }) {
+function News(props: { message: ReactNode }) {
   // const
   const { message } = props;
   return (

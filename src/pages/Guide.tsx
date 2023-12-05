@@ -24,7 +24,7 @@ function Guide() {
         messageList={[
           "> Do you see me?",
           "> Oh! This works! Nice to meet you!",
-          "> Hello, you are 'Feed', developed by our platform's content recommendation \nalgorithm.",
+          "> Hello, you are 'Feed', developed for our platform's content recommendation \nalgorithm.",
           "> No time to talk. There are so many people already waiting for you! Let’s go to \nmeet them.",
         ]}
         navigate={navigateMain}

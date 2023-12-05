@@ -1,8 +1,9 @@
 import CommandShiny from "../assets/img/ui/command_shiny.png";
 import CommandGrid from "../assets/img/ui/command_grid.png";
 import CommandBackground from "../assets/img/ui/command_background.png";
+import { ReactNode } from "react";
 
-function Command(props: { message: string }) {
+function Command(props: { message: ReactNode }) {
   const { message } = props;
   return (
     <div
