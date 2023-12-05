@@ -232,7 +232,7 @@ function Main() {
           <Store />
           <Command
             message={
-              isEvent
+              isEvent && time < 10
                 ? RoundInformation[roundWaveCount.round].commandMessage
                 : "..."
             }

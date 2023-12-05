@@ -52,7 +52,7 @@ export const RoundInformation: Round[] = [
     wave: [5],
     hasEvent: true,
     newsMessage:
-      "“Promotes hate speech”... Starts regulating platform <Feed lovers>",
+      "“Promotes hate speech”... Starts regulating platform <Feed lovers>.",
     commandMessage:
       "Wait...what? We just do our best!.. This can't be happened!",
   },
