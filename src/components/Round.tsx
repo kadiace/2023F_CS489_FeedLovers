@@ -7,6 +7,7 @@ export type Round = {
   newsMessage: string;
   commandMessage: string;
 };
+export type RoundState = "progress" | "success" | "fail";
 
 // // Round constant value.
 // export const RoundInformation: Round[] = [
