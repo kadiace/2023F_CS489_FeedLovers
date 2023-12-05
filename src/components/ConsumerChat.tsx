@@ -36,7 +36,7 @@ function ConsumerChat({ type }: { type: number }) {
             zIndex: 6,
           }}
         >
-          <Content type={type} id={-1} />
+          <Content type={type} id={-1} event={false} />
         </div>
 
         {/* <img

@@ -1,8 +1,8 @@
 import ConsumerShiny from "../assets/img/ui/consumer_shiny.png";
 import ConsumerGrid from "../assets/img/ui/consumer_grid.png";
 import ConsumerBackground from "../assets/img/ui/consumer_background.png";
-import ConsumerGridHover from "../assets/img/ui/consumer_grid_hover_alt2.png";
-import ConsumerBackgroundHover from "../assets/img/ui/consumer_background_hover_alt2_opaque.png";
+import ConsumerGridHover from "../assets/img/ui/consumer_grid_hover.png";
+import ConsumerBackgroundHover from "../assets/img/ui/consumer_background_hover.png";
 import ConsumerTorso from "../assets/img/ui/consumer_torso.png";
 import { useDrop } from "react-dnd";
 import ConsumerChat from "./ConsumerChat";
@@ -11,7 +11,7 @@ import { useRecoilState } from "recoil";
 import { goalAtom, roundStateAtom } from "recoils/Atom";
 import { getGoal } from "./Timer";
 
-function Consumer({ id }: { id: number }) {
+function Consumer({ id, onEvent }: { id: number; onEvent: boolean }) {
   // variable
   let acceptTypeVar = Math.floor(Math.random() * 5);
 
@@ -67,7 +67,7 @@ function Consumer({ id }: { id: number }) {
         justifyContent: "center",
       }}
     >
-      {isOver && hoverType === acceptType ? (
+      {onEvent || (isOver && hoverType === acceptType) ? (
         <>
           <ConsumerChat type={acceptType} />
           <img

@@ -17,6 +17,7 @@ import { useNavigate } from "react-router-dom";
 import GuideWindow from "components/GuideWindow";
 import { MouseEventHandler } from "react";
 import { getRoundWaveCount, makeRandomContents } from "components/Timer";
+import ConsumerGroup from "components/ConsumerGroup";
 
 function Main() {
   // navigate
@@ -143,68 +144,7 @@ function Main() {
           justifyContent: "space-evenly",
         }}
       >
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            height: "100%",
-            justifyContent: "center",
-            gap: "20px",
-          }}
-        >
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              gap: "20px",
-              width: "100%",
-            }}
-          >
-            <Consumer id={1} />
-            <Consumer id={2} />
-            <Consumer id={3} />
-            <Consumer id={4} />
-          </div>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              gap: "20px",
-              width: "100%",
-            }}
-          >
-            <Consumer id={5} />
-            <Consumer id={6} />
-            <Consumer id={7} />
-            <Consumer id={8} />
-          </div>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              gap: "20px",
-              width: "100%",
-            }}
-          >
-            <Consumer id={9} />
-            <Consumer id={10} />
-            <Consumer id={11} />
-            <Consumer id={12} />
-          </div>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              gap: "20px",
-              width: "100%",
-            }}
-          >
-            <Consumer id={13} />
-            <Consumer id={14} />
-            <Consumer id={15} />
-            <Consumer id={16} />
-          </div>
-        </div>
+        <ConsumerGroup />
         <div
           style={{
             display: "flex",
