@@ -53,25 +53,23 @@ function Consumer({ id }: { id: number }) {
         // 하트 반응 띄우기(타이머 끝날 때까지) | dnd 못하게 막기 | 검은 반투명 화면
         console.log(item.type, receiveConsumerChat[id]);
         if (item.type === receiveConsumerChat[id]) {
-        const receiveConsumerChat = getConsumerChat(setConsumerChat);
-        // 하트 반응 띄우기(타이머 끝날 때까지) | dnd 못하게 막기 | 검은 반투명 화면
-        console.log(item.type, receiveConsumerChat[id]);
-        if (item.type === receiveConsumerChat[id]) {
-          setGoal((prev) => {
-            return prev - 100;
-          });
-          const remain = getGoal(setGoal);
-          if (remain <= 0) {
-            setRoundState("success");
+          const receiveConsumerChat = getConsumerChat(setConsumerChat);
+          // 하트 반응 띄우기(타이머 끝날 때까지) | dnd 못하게 막기 | 검은 반투명 화면
+          console.log(item.type, receiveConsumerChat[id]);
+          if (item.type === receiveConsumerChat[id]) {
+            setGoal((prev) => {
+              return prev - 100;
+            });
+            const remain = getGoal(setGoal);
+            if (remain <= 0) {
+              setRoundState("success");
+            }
+            updateAcceptType(5);
+            // updateAcceptType(Math.floor(Math.random() * 5));
           }
-          updateAcceptType(5);
-          // updateAcceptType(Math.floor(Math.random() * 5));
         }
       },
       canDrop: (item: { type: number }, monitor) => {
-        const receiveConsumerChat = getConsumerChat(setConsumerChat);
-        console.log(item.type, receiveConsumerChat[id]);
-        return item.type === receiveConsumerChat[id];
         const receiveConsumerChat = getConsumerChat(setConsumerChat);
         console.log(item.type, receiveConsumerChat[id]);
         return item.type === receiveConsumerChat[id];
@@ -95,9 +93,7 @@ function Consumer({ id }: { id: number }) {
       }}
     >
       {isOver && hoverType === consumerChat[id] ? (
-      {isOver && hoverType === consumerChat[id] ? (
         <>
-          <ConsumerChat type={consumerChat[id]} />
           <ConsumerChat type={consumerChat[id]} />
           <img
             alt=""
@@ -125,7 +121,6 @@ function Consumer({ id }: { id: number }) {
         </>
       ) : (
         <>
-          <ConsumerChat type={consumerChat[id]} />
           <ConsumerChat type={consumerChat[id]} />
           <img
             alt=""
