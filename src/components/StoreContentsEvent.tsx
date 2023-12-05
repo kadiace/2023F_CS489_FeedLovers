@@ -24,7 +24,7 @@ function StoreContentsEvent() {
           height: "100px",
         }}
       >
-        <Content type={contents[0]} id={0} />
+        <Content type={contents[0]} id={0} event={true} />
       </div>
     </div>
   );

@@ -32,7 +32,7 @@ function StoreContents() {
             height: "50px",
           }}
         >
-          <Content type={contents[0]} id={0} />
+          <Content type={contents[0]} id={0} event={false} />
         </div>
         <div
           style={{
@@ -41,34 +41,7 @@ function StoreContents() {
             height: "50px",
           }}
         >
-          <Content type={contents[1]} id={1} />
-        </div>
-      </div>
-      <div
-        style={{
-          position: "relative",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "space-evenly",
-        }}
-      >
-        <div
-          style={{
-            position: "relative",
-            width: "50px",
-            height: "50px",
-          }}
-        >
-          <Content type={contents[2]} id={2} />
-        </div>
-        <div
-          style={{
-            position: "relative",
-            width: "50px",
-            height: "50px",
-          }}
-        >
-          <Content type={contents[3]} id={3} />
+          <Content type={contents[1]} id={1} event={false} />
         </div>
       </div>
       <div
@@ -86,7 +59,7 @@ function StoreContents() {
             height: "50px",
           }}
         >
-          <Content type={contents[4]} id={4} />
+          <Content type={contents[2]} id={2} event={false} />
         </div>
         <div
           style={{
@@ -95,34 +68,7 @@ function StoreContents() {
             height: "50px",
           }}
         >
-          <Content type={contents[5]} id={5} />
-        </div>
-      </div>
-      <div
-        style={{
-          position: "relative",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "space-evenly",
-        }}
-      >
-        <div
-          style={{
-            position: "relative",
-            width: "50px",
-            height: "50px",
-          }}
-        >
-          <Content type={contents[6]} id={6} />
-        </div>
-        <div
-          style={{
-            position: "relative",
-            width: "50px",
-            height: "50px",
-          }}
-        >
-          <Content type={contents[7]} id={7} />
+          <Content type={contents[3]} id={3} event={false} />
         </div>
       </div>
       <div
@@ -140,7 +86,7 @@ function StoreContents() {
             height: "50px",
           }}
         >
-          <Content type={contents[8]} id={8} />
+          <Content type={contents[4]} id={4} event={false} />
         </div>
         <div
           style={{
@@ -149,7 +95,7 @@ function StoreContents() {
             height: "50px",
           }}
         >
-          <Content type={contents[9]} id={9} />
+          <Content type={contents[5]} id={5} event={false} />
         </div>
       </div>
       <div
@@ -167,7 +113,7 @@ function StoreContents() {
             height: "50px",
           }}
         >
-          <Content type={contents[10]} id={10} />
+          <Content type={contents[6]} id={6} event={false} />
         </div>
         <div
           style={{
@@ -176,7 +122,61 @@ function StoreContents() {
             height: "50px",
           }}
         >
-          <Content type={contents[11]} id={11} />
+          <Content type={contents[7]} id={7} event={false} />
+        </div>
+      </div>
+      <div
+        style={{
+          position: "relative",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-evenly",
+        }}
+      >
+        <div
+          style={{
+            position: "relative",
+            width: "50px",
+            height: "50px",
+          }}
+        >
+          <Content type={contents[8]} id={8} event={false} />
+        </div>
+        <div
+          style={{
+            position: "relative",
+            width: "50px",
+            height: "50px",
+          }}
+        >
+          <Content type={contents[9]} id={9} event={false} />
+        </div>
+      </div>
+      <div
+        style={{
+          position: "relative",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-evenly",
+        }}
+      >
+        <div
+          style={{
+            position: "relative",
+            width: "50px",
+            height: "50px",
+          }}
+        >
+          <Content type={contents[10]} id={10} event={false} />
+        </div>
+        <div
+          style={{
+            position: "relative",
+            width: "50px",
+            height: "50px",
+          }}
+        >
+          <Content type={contents[11]} id={11} event={false} />
         </div>
       </div>
     </div>
