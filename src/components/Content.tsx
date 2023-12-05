@@ -4,15 +4,15 @@ import money from "../assets/img/contents/money.png";
 import politics from "../assets/img/contents/politics.png";
 import sports_game from "../assets/img/contents/sports_game.png";
 import { useDrag } from "react-dnd";
-import { useState } from "react";
 import { useRecoilState } from "recoil";
 import { contentsAtom } from "recoils";
 
 function Content({ type, id }: { type: number; id: number }) {
+  // state
+  /* eslint-disable */
   const [contents, setContents] = useRecoilState(contentsAtom);
 
   function typeToImage(type: number) {
-    console.log(type);
     switch (type) {
       case 0:
         return celeb;

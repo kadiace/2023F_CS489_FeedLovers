@@ -1,9 +1,4 @@
-import {
-  ChangeEventHandler,
-  ComponentState,
-  MouseEventHandler,
-  useState,
-} from "react";
+import { ComponentState, MouseEventHandler, useState } from "react";
 
 function TextButton(props: {
   text: string;

@@ -3,6 +3,8 @@ import Content from "./Content";
 import { contentsAtom } from "recoils";
 
 function StoreContents() {
+  // state
+  /* eslint-disable */
   const [contents, setContents] = useRecoilState(contentsAtom);
   return (
     <div

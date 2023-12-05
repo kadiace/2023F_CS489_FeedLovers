@@ -8,7 +8,8 @@ import { roundWaveCountAtom } from "recoils";
 import { RoundInformation } from "./Round";
 
 function Store() {
-  // States.
+  // state
+  /* eslint-disable */
   const [roundWaveCount, setRoundWaveCount] =
     useRecoilState(roundWaveCountAtom);
 
