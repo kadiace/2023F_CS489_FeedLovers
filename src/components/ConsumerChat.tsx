@@ -15,6 +15,7 @@ function ConsumerChat({ type }: { type: number }) {
           top: "-40px",
           objectFit: "contain",
           zIndex: 5,
+          pointerEvents: "none",
         }}
         src={type >= 5 ? ChatGridReaction : ChatGrid}
       ></img>
@@ -35,6 +36,7 @@ function ConsumerChat({ type }: { type: number }) {
             height: "100%",
             objectFit: "contain",
             zIndex: 6,
+            pointerEvents: "none",
           }}
         >
           <Content type={type} id={-1} event={false} />
