@@ -8,7 +8,15 @@ import { useDrag } from "react-dnd";
 import { useRecoilState } from "recoil";
 import { contentsAtom } from "recoils/Atom";
 
-function Content({ type, id }: { type: number; id: number }) {
+function Content({
+  type,
+  id,
+  event,
+}: {
+  type: number;
+  id: number;
+  event: boolean;
+}) {
   // state
   /* eslint-disable */
   const [contents, setContents] = useRecoilState(contentsAtom);
@@ -33,7 +41,7 @@ function Content({ type, id }: { type: number; id: number }) {
   }
 
   const [{ isDragging }, drag, dragPreview] = useDrag({
-    type: "CONTENT",
+    type: event ? "CONTENT_EVENT" : "CONTENT",
     item: { type },
     end(item, monitor) {
       if (monitor.didDrop()) {
