@@ -1,3 +1,4 @@
+import { RoundState } from "components/Round";
 import { atom } from "recoil";
 
 export const roundWaveCountAtom = atom<{ round: number; wave: number }>({
@@ -13,9 +14,9 @@ export const goalAtom = atom<number>({
   default: 0,
 });
 
-export const successRoundAtom = atom<boolean>({
-  key: "successRoundAtom",
-  default: true,
+export const roundStateAtom = atom<RoundState>({
+  key: "roundStateAtom",
+  default: "progress",
 });
 
 export const isEventAtom = atom<boolean>({
@@ -26,4 +27,9 @@ export const isEventAtom = atom<boolean>({
 export const contentsAtom = atom<number[]>({
   key: "contentsAtom",
   default: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+});
+
+export const timeAtom = atom<number>({
+  key: "timeAtom",
+  default: 0,
 });

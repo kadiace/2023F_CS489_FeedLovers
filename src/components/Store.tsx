@@ -34,6 +34,7 @@ function Store() {
           objectFit: "contain",
           zIndex: 0,
           pointerEvents: "none",
+          opacity: 0.5,
         }}
         src={StoreBackground}
       ></img>

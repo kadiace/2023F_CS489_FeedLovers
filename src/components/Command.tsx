@@ -23,6 +23,7 @@ function Command(props: { message: string }) {
           height: "97%",
           objectFit: "contain",
           zIndex: 0,
+          opacity: 0.5,
         }}
         src={CommandBackground}
       ></img>

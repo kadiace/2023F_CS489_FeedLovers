@@ -5,9 +5,10 @@ import {
   goalAtom,
   isEventAtom,
   roundWaveCountAtom,
-  successRoundAtom,
+  roundStateAtom,
+  timeAtom,
 } from "recoils/Atom";
-import { RoundInformation } from "./Round";
+import { RoundInformation, RoundState } from "./Round";
 
 const displayTime = (time: number) => {
   const minutes: string = "0" + Math.floor(time / 60);
@@ -19,7 +20,7 @@ const displayTime = (time: number) => {
   );
 };
 
-const getRoundWaveCount = (
+export const getRoundWaveCount = (
   setter: SetterOrUpdater<{
     round: number;
     wave: number;
@@ -35,7 +36,7 @@ const getRoundWaveCount = (
   return [wave, round];
 };
 
-const getGoal = (setter: SetterOrUpdater<number>) => {
+export const getGoal = (setter: SetterOrUpdater<number>) => {
   let goal = 0;
   setter((prev) => {
     goal = prev;
@@ -44,74 +45,99 @@ const getGoal = (setter: SetterOrUpdater<number>) => {
   return goal;
 };
 
+const getRoundState = (setter: SetterOrUpdater<RoundState>) => {
+  let roundState: RoundState = "progress";
+  setter((prev) => {
+    roundState = prev;
+    return roundState;
+  });
+  return roundState;
+};
+
+const getTime = (setter: SetterOrUpdater<number>) => {
+  let time = 0;
+  setter((prev: any) => {
+    time = prev;
+    return time;
+  });
+  return time;
+};
+
+export const makeRandomContents = (setter: SetterOrUpdater<number[]>) => {
+  setter(Array.from({ length: 12 }, (_) => Math.floor(Math.random() * 5)));
+};
+
 function Timer() {
   // state
   /* eslint-disable */
-  const [time, setTime] = useState(RoundInformation[0].wave[0]); // 남은 시간 (단위: 초)
+  const [time, setTime] = useRecoilState(timeAtom); // 남은 시간 (단위: 초)
+  // const [time, setTime] = useRecoilState(RoundInformation[0].wave[0]); // 남은 시간 (단위: 초)
   const [roundWaveCount, setRoundWaveCount] =
     useRecoilState(roundWaveCountAtom);
   const [goal, setGoal] = useRecoilState(goalAtom);
-  const [successRound, setSuccessRound] = useRecoilState(successRoundAtom);
+  const [roundState, setRoundState] = useRecoilState(roundStateAtom);
   const [contents, setContents] = useRecoilState(contentsAtom);
   const [isEvent, setIsEvent] = useRecoilState(isEventAtom);
-
-  // function
-  const makeRandomContents = () => {
-    setContents(
-      Array.from({ length: 12 }, (_) => Math.floor(Math.random() * 5))
-    );
-  };
 
   /* eslint-disable */
   useEffect(() => {
     setRoundWaveCount({ round: 0, wave: 0 });
     setGoal(RoundInformation[0].goal);
-    setSuccessRound(true);
-    makeRandomContents();
+    setTime(RoundInformation[0].wave[0]);
+    setRoundState("progress");
+    makeRandomContents(setContents);
     const timer = setInterval(() => {
-      setTime((prevTime) => {
-        // Reach timeout
-        if (prevTime === 0) {
-          const [wave, round] = getRoundWaveCount(setRoundWaveCount);
-          // Reach max wave
-          if (wave + 1 >= RoundInformation[round].wave.length) {
-            const remain = getGoal(setGoal);
-            if (remain > 0) {
-              setSuccessRound(false);
+      let roundState = getRoundState(setRoundState);
+      if (roundState === "progress") {
+        let prevTime = getTime(setTime);
+        let newTime;
+        {
+          // Reach timeout
+          if (prevTime === 0) {
+            const [wave, round] = getRoundWaveCount(setRoundWaveCount);
+            // Reach max wave
+            if (wave + 1 >= RoundInformation[round].wave.length) {
+              const remain = getGoal(setGoal);
+              if (remain > 0) {
+                setRoundState("fail");
+                newTime = 0;
+              } else {
+                const nextRound =
+                  round + 1 >= RoundInformation.length ? 0 : round + 1;
+                setRoundWaveCount({
+                  round: nextRound,
+                  wave: 0,
+                });
+                setGoal(RoundInformation[nextRound].goal);
+                setIsEvent(RoundInformation[nextRound].hasEvent);
+                makeRandomContents(setContents);
+                if (RoundInformation[nextRound].alias === "C") {
+                  setContents((prev) => {
+                    let arr = [...prev];
+                    arr[0] = 4;
+                    return arr;
+                  });
+                } else if (RoundInformation[nextRound].alias === "E") {
+                  setContents((prev) => {
+                    let arr = [...prev];
+                    arr[0] = 3;
+                    return arr;
+                  });
+                }
+              }
+            } else {
+              setRoundWaveCount({ round: round, wave: wave + 1 });
+              setIsEvent(false);
+              makeRandomContents(setContents);
             }
-            // For debugging
-            const nextRound =
-              round + 1 >= RoundInformation.length ? 0 : round + 1;
-            setRoundWaveCount({
-              round: nextRound,
-              wave: 0,
-            });
-            setGoal(RoundInformation[nextRound].goal);
-            setIsEvent(RoundInformation[nextRound].hasEvent);
-            makeRandomContents();
-            if (RoundInformation[nextRound].alias === "C") {
-              setContents((prev) => {
-                let arr = [...prev];
-                arr[0] = 4;
-                return arr;
-              });
-            } else if (RoundInformation[nextRound].alias === "E") {
-              setContents((prev) => {
-                let arr = [...prev];
-                arr[0] = 3;
-                return arr;
-              });
-            }
-          } else {
-            setRoundWaveCount({ round: round, wave: wave + 1 });
-            setIsEvent(false);
-            makeRandomContents();
-          }
 
-          return RoundInformation[round].wave[wave];
+            newTime = RoundInformation[round].wave[wave];
+          } else {
+            newTime = prevTime - 1;
+          }
         }
-        return prevTime - 1;
-      });
+        setTime(newTime);
+      }
     }, 1000);
     return () => clearInterval(timer);
   }, []);

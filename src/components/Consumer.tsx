@@ -2,13 +2,14 @@ import ConsumerShiny from "../assets/img/ui/consumer_shiny.png";
 import ConsumerGrid from "../assets/img/ui/consumer_grid.png";
 import ConsumerBackground from "../assets/img/ui/consumer_background.png";
 import ConsumerGridHover from "../assets/img/ui/consumer_grid_hover_alt2.png";
-import ConsumerBackgroundHover from "../assets/img/ui/consumer_background_hover_alt2.png";
+import ConsumerBackgroundHover from "../assets/img/ui/consumer_background_hover_alt2_opaque.png";
 import ConsumerTorso from "../assets/img/ui/consumer_torso.png";
 import { useDrop } from "react-dnd";
 import ConsumerChat from "./ConsumerChat";
 import { useState } from "react";
 import { useRecoilState } from "recoil";
-import { goalAtom } from "recoils/Atom";
+import { goalAtom, roundStateAtom } from "recoils/Atom";
+import { getGoal } from "./Timer";
 
 function Consumer({ id }: { id: number }) {
   // variable
@@ -19,6 +20,7 @@ function Consumer({ id }: { id: number }) {
   const [acceptType, setAcceptType] = useState(acceptTypeVar);
   const [hoverType, setHoverType] = useState(-1);
   const [goal, setGoal] = useRecoilState(goalAtom);
+  const [roundState, setRoundState] = useRecoilState(roundStateAtom);
 
   // function
   function updateAcceptType(type: number) {
@@ -33,16 +35,18 @@ function Consumer({ id }: { id: number }) {
         setHoverType(item.type);
       },
       drop: (item: { type: number }, monitor) => {
-        console.log(item.type, acceptType, acceptTypeVar);
         if (item.type === acceptTypeVar) {
           setGoal((prev) => {
             return prev - 100;
           });
+          const remain = getGoal(setGoal);
+          if (remain <= 0) {
+            setRoundState("success");
+          }
           updateAcceptType(Math.floor(Math.random() * 5));
         }
       },
       canDrop: (item: { type: number }, monitor) => {
-        console.log(item.type, acceptType, acceptTypeVar);
         return item.type === acceptTypeVar;
       },
       collect: (monitor) => ({
@@ -74,6 +78,7 @@ function Consumer({ id }: { id: number }) {
               height: "100%",
               objectFit: "contain",
               zIndex: 0,
+              opacity: 0.5,
             }}
             src={ConsumerBackgroundHover}
           ></img>
@@ -100,6 +105,7 @@ function Consumer({ id }: { id: number }) {
               height: "100%",
               objectFit: "contain",
               zIndex: 0,
+              opacity: 0.5,
             }}
             src={ConsumerBackground}
           ></img>
