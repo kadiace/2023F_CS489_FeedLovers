@@ -57,8 +57,8 @@ function GuideWindowLayout() {
           fontSize: "23px",
           textAlign: "right",
           color: "white",
-          right: "114vh",
-          top: "24vh",
+          width: "66%",
+          top: "-5%",
           zIndex: 4,
         }}
       >
