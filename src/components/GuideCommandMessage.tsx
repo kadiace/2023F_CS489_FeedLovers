@@ -1,18 +1,20 @@
-import { useState } from "react";
+import { MouseEvent, MouseEventHandler, useState } from "react";
 import Typist from "react-typist";
 
-function GuideCommandMessage(props: { counter: number }) {
-  const messageList = [
-    "> Do you see me?",
-    "> Oh! This works! Nice to meet you!",
-    "> Hello, you are 'Feed', developed by our platform's content recommendation \nalgorithm.",
-    "> No time to talk. There are so many people already waiting for you! Let’s go to \nmeet them.",
-  ];
+function GuideCommandMessage(props: {
+  counter: number;
+  maxCount: number;
+  messageList: string[];
+  navigate: MouseEventHandler;
+}) {
+  const { counter: initCounter, maxCount, messageList, navigate } = props;
+  const [counter, setCounter] = useState(initCounter);
 
-  const [counter, setCounter] = useState(props.counter);
-
-  const increment = () => {
-    if (counter < 3) setCounter(counter + 1);
+  const increment: MouseEventHandler = (e: MouseEvent) => {
+    if (counter < maxCount) setCounter(counter + 1);
+    else {
+      navigate(e);
+    }
   };
 
   return (

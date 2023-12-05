@@ -1,18 +1,22 @@
 import LogoBeforeEnding from "assets/img/logo/doguri-removebg-preview.png";
 import { useNavigate } from "react-router-dom";
 import TextButton from "components/TextButton";
+import { MouseEventHandler } from "react";
 
 function Lobby() {
+  // navigate
   const navigate = useNavigate();
-  function navigateGuide() {
+  const navigateGuide: MouseEventHandler = () => {
     navigate("/guide");
-  }
-  function navigateMain() {
+  };
+  const navigateMain: MouseEventHandler = () => {
     navigate("/main");
-  }
-  function navigateEnding() {
+  };
+  const navigateEnding: MouseEventHandler = () => {
     navigate("/ending");
-  }
+  };
+
+  // constants
   const color = "#71FF2F";
   const hoverColor = "#FFFFFF";
   const clickColor = "#60DA28";

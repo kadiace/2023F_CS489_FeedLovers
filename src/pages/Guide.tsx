@@ -2,8 +2,14 @@ import React from "react";
 import "./Guide.css";
 import GuideCommand from "components/GuideCommand";
 import GuideCommandMessage from "components/GuideCommandMessage";
+import { useNavigate } from "react-router-dom";
 
 function Guide() {
+  // navigate
+  const navigate = useNavigate();
+  function navigateMain() {
+    navigate("/main");
+  }
   return (
     <div
       className="Guide"
@@ -55,7 +61,17 @@ function Guide() {
           zIndex: 2,
         }}
       >
-        <GuideCommandMessage counter={0} />
+        <GuideCommandMessage
+          counter={0}
+          maxCount={3}
+          messageList={[
+            "> Do you see me?",
+            "> Oh! This works! Nice to meet you!",
+            "> Hello, you are 'Feed', developed by our platform's content recommendation \nalgorithm.",
+            "> No time to talk. There are so many people already waiting for you! Let’s go to \nmeet them.",
+          ]}
+          navigate={navigateMain}
+        />
       </div>
     </div>
   );
