@@ -45,7 +45,7 @@ function News(props: { message: string }) {
           top: "10px",
           bottom: "25px",
           zIndex: 4,
-          fontFamily: "Retro Gaming",
+          fontFamily: "Sairacondensed",
           fontSize: "21px",
           alignItems: "center",
           flex: 1,

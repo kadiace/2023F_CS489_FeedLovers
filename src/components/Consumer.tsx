@@ -21,9 +21,6 @@ const getConsumerChat = (setter: SetterOrUpdater<number[]>) => {
 };
 
 function Consumer({ id, onEvent }: { id: number; onEvent: boolean }) {
-  // variable
-  let acceptTypeVar = Math.floor(Math.random() * 5);
-
   // state
   /* eslint-disable */
   const [hoverType, setHoverType] = useState(-1);
