@@ -1,4 +1,4 @@
-import LogoBeforeEnding from "assets/img/logo/doguri-removebg-preview.png";
+import LogoBeforeEnding from "assets/img/logo/logo.png";
 import { useNavigate } from "react-router-dom";
 import TextButton from "components/TextButton";
 import { MouseEventHandler } from "react";
