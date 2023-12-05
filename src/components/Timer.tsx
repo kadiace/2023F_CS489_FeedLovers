@@ -5,6 +5,7 @@ import {
   goalAtom,
   roundWaveCountAtom,
   successRoundAtom,
+  consumerChatAtom,
 } from "recoils/Atom";
 import { RoundInformation } from "./Round";
 
@@ -43,6 +44,15 @@ const getGoal = (setter: SetterOrUpdater<number>) => {
   return goal;
 };
 
+const getConsumerChat = (setter: SetterOrUpdater<number[]>) => {
+  let consumerChat = [0];
+  setter((prev) => {
+    consumerChat = prev;
+    return consumerChat;
+  });
+  return consumerChat;
+};
+
 function Timer() {
   // state
   /* eslint-disable */
@@ -52,6 +62,7 @@ function Timer() {
   const [goal, setGoal] = useRecoilState(goalAtom);
   const [successRound, setSuccessRound] = useRecoilState(successRoundAtom);
   const [contents, setContents] = useRecoilState(contentsAtom);
+  const [consumerChat, setConsumerChat] = useRecoilState(consumerChatAtom);
 
   // function
   function makeRandomContents() {
@@ -85,6 +96,9 @@ function Timer() {
               wave: 0,
             });
             setGoal(RoundInformation[nextRound].goal);
+            setConsumerChat(
+              Array.from({ length: 16 }, (_) => Math.floor(Math.random() * 5))
+            );
             makeRandomContents();
           } else {
             setRoundWaveCount({ round: round, wave: wave + 1 });

@@ -7,23 +7,32 @@ import ConsumerTorso from "../assets/img/ui/consumer_torso.png";
 import { useDrop } from "react-dnd";
 import ConsumerChat from "./ConsumerChat";
 import { useState } from "react";
-import { useRecoilState } from "recoil";
-import { goalAtom } from "recoils/Atom";
+import { SetterOrUpdater, useRecoilState } from "recoil";
+import { goalAtom, consumerChatAtom } from "recoils/Atom";
+
+const getConsumerChat = (setter: SetterOrUpdater<number[]>) => {
+  let consumerChat = [0];
+  setter((prev) => {
+    consumerChat = prev;
+    return consumerChat;
+  });
+  return consumerChat;
+};
 
 function Consumer({ id }: { id: number }) {
-  // variable
-  let acceptTypeVar = Math.floor(Math.random() * 5);
-
   // state
   /* eslint-disable */
-  const [acceptType, setAcceptType] = useState(acceptTypeVar);
   const [hoverType, setHoverType] = useState(-1);
   const [goal, setGoal] = useRecoilState(goalAtom);
+  const [consumerChat, setConsumerChat] = useRecoilState(consumerChatAtom);
 
   // function
   function updateAcceptType(type: number) {
-    acceptTypeVar = type;
-    setAcceptType(acceptTypeVar);
+    setConsumerChat((prev) => {
+      const next = prev.slice();
+      next[id] = type;
+      return next;
+    });
   }
 
   const [{ isOver }, drop] = useDrop(
@@ -33,17 +42,21 @@ function Consumer({ id }: { id: number }) {
         setHoverType(item.type);
       },
       drop: (item: { type: number }, monitor) => {
-        console.log(item.type, acceptType, acceptTypeVar);
-        if (item.type === acceptTypeVar) {
+        const receiveConsumerChat = getConsumerChat(setConsumerChat);
+        // 하트 반응 띄우기(타이머 끝날 때까지) | dnd 못하게 막기 | 검은 반투명 화면
+        console.log(item.type, receiveConsumerChat[id]);
+        if (item.type === receiveConsumerChat[id]) {
           setGoal((prev) => {
             return prev - 100;
           });
-          updateAcceptType(Math.floor(Math.random() * 5));
+          updateAcceptType(5);
+          // updateAcceptType(Math.floor(Math.random() * 5));
         }
       },
       canDrop: (item: { type: number }, monitor) => {
-        console.log(item.type, acceptType, acceptTypeVar);
-        return item.type === acceptTypeVar;
+        const receiveConsumerChat = getConsumerChat(setConsumerChat);
+        console.log(item.type, receiveConsumerChat[id]);
+        return item.type === receiveConsumerChat[id];
       },
       collect: (monitor) => ({
         isOver: !!monitor.isOver(),
@@ -63,9 +76,9 @@ function Consumer({ id }: { id: number }) {
         justifyContent: "center",
       }}
     >
-      {isOver && hoverType === acceptType ? (
+      {isOver && hoverType === consumerChat[id] ? (
         <>
-          <ConsumerChat type={acceptType} />
+          <ConsumerChat type={consumerChat[id]} />
           <img
             alt=""
             style={{
@@ -91,7 +104,7 @@ function Consumer({ id }: { id: number }) {
         </>
       ) : (
         <>
-          <ConsumerChat type={acceptType} />
+          <ConsumerChat type={consumerChat[id]} />
           <img
             alt=""
             style={{
@@ -150,7 +163,7 @@ function Consumer({ id }: { id: number }) {
           textAlign: "center",
         }}
       >
-        {id}
+        {id + 1}
       </p>
     </div>
   );

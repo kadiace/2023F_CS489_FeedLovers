@@ -22,3 +22,8 @@ export const contentsAtom = atom<number[]>({
   key: "contentsAtom",
   default: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 });
+
+export const consumerChatAtom = atom<number[]>({
+  key: "consumerChatAtom",
+  default: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+});
