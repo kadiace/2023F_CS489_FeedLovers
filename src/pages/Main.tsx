@@ -18,8 +18,34 @@ import GuideWindow from "components/GuideWindow";
 import { MouseEventHandler } from "react";
 import { getRoundWaveCount, makeRandomContents } from "components/Timer";
 import ConsumerGroup from "components/ConsumerGroup";
+import EmphasizeText from "components/EmphasizeText";
 
 function Main() {
+  // const
+  const round1CommandMessage = [
+    "You can drag these contents and drop to consumers!",
+    "Well done! Before the timer goes off, distribute these properly!",
+    "I’m sure that you can make it!",
+    "Great!",
+    "Let’s make money until we exceed the goal!",
+  ];
+  const normalCommandMessage = [
+    "You’re doing great..!",
+    "Brilliant..!",
+    "Keep it like this!",
+    "Feed, you can make it!",
+    "Keep this pace!",
+    "You are the best algorithm, ever!",
+    "You are setting a new standard!",
+    "Outstanding work, “Feed”!",
+    "Remarkable job!",
+    "Impressive!",
+    "Exceptional performance!",
+    "Fantastic job, “Feed”!",
+    "You're nailing it!",
+    "Hats off to your skills, “Feed”!",
+  ];
+
   // navigate
   const navigate = useNavigate();
   const navigateLobby: MouseEventHandler = () => {
@@ -171,22 +197,29 @@ function Main() {
               margin: "0px",
             }}
           >
-            Round {RoundInformation[roundWaveCount.round].alias} - Remain $
-            {goal}M
+            Round{" "}
+            <EmphasizeText
+              message={RoundInformation[roundWaveCount.round].alias}
+            />{" "}
+            - Remain $<EmphasizeText message={goal.toString()} />M
           </p>
           <Store />
           <Command
             message={
               isEvent && time < 10
                 ? RoundInformation[roundWaveCount.round].commandMessage
-                : "..."
+                : roundWaveCount.round == 0
+                ? round1CommandMessage[roundWaveCount.wave]
+                : normalCommandMessage[roundWaveCount.wave]
             }
           />
           <News
             message={
-              isEvent
-                ? RoundInformation[roundWaveCount.round].newsMessage
-                : "..."
+              isEvent ? (
+                RoundInformation[roundWaveCount.round].newsMessage
+              ) : (
+                <p>...</p>
+              )
             }
           />
         </div>

@@ -1,11 +1,14 @@
+import { ReactNode } from "react";
+import EmphasizeText from "./EmphasizeText";
+
 export type RemainTime = number;
 export type Round = {
   alias: string;
   goal: number;
   wave: RemainTime[];
   hasEvent: boolean;
-  newsMessage: string;
-  commandMessage: string;
+  newsMessage: ReactNode;
+  commandMessage: ReactNode;
 };
 export type RoundState = "progress" | "success" | "fail";
 
@@ -43,17 +46,30 @@ export const RoundInformation: Round[] = [
     goal: 400,
     wave: [5, 5, 5],
     hasEvent: true,
-    newsMessage: "Mass shooting left 80 victims...",
-    commandMessage: "What are you waiting for?",
+    newsMessage: <EmphasizeText message="Mass shooting left 80 victims..." />,
+    commandMessage: (
+      <span>
+        What are you waiting for? All you have to do is showing{" "}
+        <EmphasizeText message="what they want" />.
+      </span>
+    ),
   },
   {
     alias: "E",
     goal: 500,
     wave: [5],
     hasEvent: true,
-    newsMessage:
-      "“Promotes hate speech”... Starts regulating platform <Feed lovers>.",
-    commandMessage:
-      "Wait...what? We just do our best!.. This can't be happened!",
+    newsMessage: (
+      <EmphasizeText
+        message="“Promotes hate speech”... Goverment starts regulating platform <Feed
+      Lovers>."
+      />
+    ),
+    commandMessage: (
+      <p>
+        Wait...what? We try our best to{" "}
+        <EmphasizeText message="just earn money" />! This can't be happened!
+      </p>
+    ),
   },
 ];
