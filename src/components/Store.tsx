@@ -4,14 +4,16 @@ import StoreBackground from "../assets/img/ui/store_background.png";
 import StoreContents from "./StoreContents";
 import Timer from "./Timer";
 import { useRecoilState } from "recoil";
-import { roundWaveCountAtom } from "recoils/Atom";
+import { isEventAtom, roundWaveCountAtom } from "recoils/Atom";
 import { RoundInformation } from "./Round";
+import StoreContentsEvent from "./StoreContentsEvent";
 
 function Store() {
   // state
   /* eslint-disable */
   const [roundWaveCount, setRoundWaveCount] =
     useRecoilState(roundWaveCountAtom);
+  const [isEvent, setIsEvent] = useRecoilState(isEventAtom);
 
   return (
     <div
@@ -65,7 +67,7 @@ function Store() {
               gap: "50px",
             }}
           >
-            <p style={{}}>
+            <p>
               Wave {roundWaveCount.wave + 1}/
               {RoundInformation[roundWaveCount.round].wave.length}
             </p>
@@ -77,10 +79,9 @@ function Store() {
             position: "relative",
             display: "flex",
             flexGrow: 1,
-            // background: "yellow",
           }}
         >
-          <StoreContents />
+          {isEvent ? <StoreContentsEvent /> : <StoreContents />}
         </div>
       </div>
       <img
