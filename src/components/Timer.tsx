@@ -11,6 +11,7 @@ import {
 } from "recoils/Atom";
 import { RoundInformation } from "./Round";
 import { arrayBuffer } from "stream/consumers";
+import { setSourceMapRange } from "typescript";
 
 const displayTime = (time: number) => {
   const minutes: string = "0" + Math.floor(time / 60);
@@ -95,8 +96,6 @@ function Timer() {
           if (prevTime === 0) {
             // Reach timeout
             const { wave, round } = getRecoilValue(setRoundWaveCount);
-            const contents = getRecoilValue(setContents);
-            const consumerChat = getRecoilValue(setConsumerChat);
             if (wave + 1 >= RoundInformation[round].wave.length) {
               // Reach max wave
               const remain = getRecoilValue(setGoal);
@@ -113,8 +112,17 @@ function Timer() {
                 setIsEvent(false);
                 killBlamers(setConsumerChat, 1);
               }
-              setContents(updateContentsId(true, false, -1, contents));
-              setConsumerChat(updateContentsId(false, true, -1, consumerChat));
+              setContents(
+                updateContentsId(true, false, -1, getRecoilValue(setContents))
+              );
+              setConsumerChat(
+                updateContentsId(
+                  false,
+                  true,
+                  -1,
+                  getRecoilValue(setConsumerChat)
+                )
+              );
             }
             newTime = RoundInformation[round].wave[wave + 1];
           } else {
