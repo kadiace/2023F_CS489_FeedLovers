@@ -42,37 +42,34 @@ function Consumer({ id, onEvent }: { id: number; onEvent: boolean }) {
     });
   }
 
-  const [{ isOver }, drop] = useDrop(
-    () => ({
-      accept: "CONTENT",
-      hover(item: { type: number }, monitor) {
-        setHoverType(item.type);
-      },
-      drop: (item: { type: number }, monitor) => {
-        const receiveConsumerChat = getConsumerChat(setConsumerChat);
-        // 하트 반응 띄우기(타이머 끝날 때까지) | dnd 못하게 막기 | 검은 반투명 화면
-        if (item.type === receiveConsumerChat[id]) {
-          setGoal((prev) => {
-            return prev - 100;
-          });
-          const remain = getRecoilValue(setGoal);
-          if (remain <= 0) {
-            setRoundState("success");
-          }
-          updateAcceptType(5);
-          // updateAcceptType(Math.floor(Math.random() * 5));
+  const [{ isOver }, drop] = useDrop(() => ({
+    accept: "CONTENT",
+    hover(item: { type: number }, monitor) {
+      setHoverType(item.type);
+    },
+    drop: (item: { type: number }, monitor) => {
+      const receiveConsumerChat = getConsumerChat(setConsumerChat);
+      if (item.type === receiveConsumerChat[id]) {
+        setGoal((prev) => {
+          return prev - 100;
+        });
+        const remain = getRecoilValue(setGoal);
+        if (remain <= 0) {
+          setRoundState("success");
         }
-      },
-      canDrop: (item: { type: number }, monitor) => {
-        const receiveConsumerChat = getConsumerChat(setConsumerChat);
-        return item.type === receiveConsumerChat[id];
-      },
-      collect: (monitor) => ({
-        isOver: !!monitor.isOver(),
-      }),
-    })
-    // [x, y]
-  );
+        updateAcceptType(5);
+      }
+    },
+    canDrop: (item: { type: number }, monitor) => {
+      const receiveConsumerChat = getConsumerChat(setConsumerChat);
+      return receiveConsumerChat[id] === -1
+        ? true
+        : item.type === receiveConsumerChat[id];
+    },
+    collect: (monitor) => ({
+      isOver: !!monitor.isOver(),
+    }),
+  }));
 
   return (
     <div>
@@ -93,149 +90,163 @@ function Consumer({ id, onEvent }: { id: number; onEvent: boolean }) {
         <></>
       )}
       <div
-        ref={drop}
         style={{
           position: "relative",
           display: "flex",
-          width: "140px",
-          height: "140px",
+          width: "100%",
+          height: "100%",
           justifyContent: "center",
         }}
       >
-        {onEvent || (isOver && hoverType === consumerChat[id]) ? (
-          <>
-            <ConsumerChat type={consumerChat[id]} />
-            <img
-              alt=""
-              style={{
-                position: "absolute",
-                width: "100%",
-                height: "100%",
-                objectFit: "contain",
-                zIndex: 0,
-                opacity: 0.5,
-              }}
-              src={ConsumerBackgroundHover}
-            ></img>
-            <img
-              alt=""
-              style={{
-                position: "absolute",
-                width: "100%",
-                height: "100%",
-                objectFit: "contain",
-                zIndex: 3,
-              }}
-              src={ConsumerGridHover}
-            ></img>
-          </>
+        {consumerChat[id] < 0 ? (
+          <></>
         ) : (
-          <>
-            <ConsumerChat type={consumerChat[id]} />
-            <img
-              alt=""
-              style={{
-                position: "absolute",
-                width: "100%",
-                height: "100%",
-                objectFit: "contain",
-                zIndex: 0,
-                opacity: 0.5,
-              }}
-              src={ConsumerBackground}
-            ></img>
-            <img
-              alt=""
-              style={{
-                position: "absolute",
-                width: "100%",
-                height: "100%",
-                objectFit: "contain",
-                zIndex: 3,
-              }}
-              src={ConsumerGrid}
-            ></img>
-          </>
+          <ConsumerChat type={consumerChat[id]} />
         )}
+
         <div
+          ref={drop}
           style={{
+            position: "relative",
             display: "flex",
-            flexDirection: "column",
-            position: "absolute",
-            width: "80%",
-            height: "80%",
-            bottom: "0px",
-            // objectFit: "contain",
-            zIndex: 1,
-            WebkitMaskImage: `url(${ConsumerTorso})`,
-            WebkitMaskSize: "contain",
+            width: "140px",
+            height: "140px",
+            justifyContent: "center",
           }}
         >
+          {onEvent || (isOver && hoverType === consumerChat[id]) ? (
+            <>
+              <img
+                alt=""
+                style={{
+                  position: "absolute",
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "contain",
+                  zIndex: 0,
+                  opacity: 0.5,
+                }}
+                src={ConsumerBackgroundHover}
+              ></img>
+              <img
+                alt=""
+                style={{
+                  position: "absolute",
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "contain",
+                  zIndex: 3,
+                }}
+                src={ConsumerGridHover}
+              ></img>
+            </>
+          ) : (
+            <>
+              <img
+                alt=""
+                style={{
+                  position: "absolute",
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "contain",
+                  zIndex: 0,
+                  opacity: 0.5,
+                }}
+                src={ConsumerBackground}
+              ></img>
+              <img
+                alt=""
+                style={{
+                  position: "absolute",
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "contain",
+                  zIndex: 3,
+                }}
+                src={ConsumerGrid}
+              ></img>
+            </>
+          )}
           <div
             style={{
               display: "flex",
-              flex: 8,
               flexDirection: "column",
-              position: "relative",
+              position: "absolute",
+              width: "80%",
+              height: "80%",
+              bottom: "0px",
+              // objectFit: "contain",
               zIndex: 1,
-              background: "white",
+              WebkitMaskImage: `url(${ConsumerTorso})`,
+              WebkitMaskSize: "contain",
             }}
-          ></div>
-          <div
+          >
+            <div
+              style={{
+                display: "flex",
+                flex: 8,
+                flexDirection: "column",
+                position: "relative",
+                zIndex: 1,
+                background: "white",
+              }}
+            ></div>
+            <div
+              style={{
+                display: "flex",
+                flex: 3,
+                flexDirection: "column",
+                position: "relative",
+                zIndex: 1,
+                background: "pink",
+              }}
+            ></div>
+            <div
+              style={{
+                display: "flex",
+                flex: 0.5,
+                flexDirection: "column",
+                position: "relative",
+                zIndex: 1,
+                background: "blue",
+              }}
+            ></div>
+            <div
+              style={{
+                display: "flex",
+                flex: 1,
+                flexDirection: "column",
+                position: "relative",
+                zIndex: 1,
+                background: "green",
+              }}
+            ></div>
+          </div>
+          <img
+            alt=""
             style={{
-              display: "flex",
-              flex: 3,
-              flexDirection: "column",
-              position: "relative",
-              zIndex: 1,
-              background: "pink",
+              position: "absolute",
+              width: "100%",
+              height: "100%",
+              objectFit: "contain",
+              zIndex: 2,
             }}
-          ></div>
-          <div
+            src={ConsumerShiny}
+          ></img>
+          <p
             style={{
-              display: "flex",
-              flex: 0.5,
-              flexDirection: "column",
-              position: "relative",
-              zIndex: 1,
-              background: "blue",
+              position: "absolute",
+              left: "9px",
+              top: "-11px",
+              zIndex: 4,
+              fontFamily: "Retro Gaming",
+              fontSize: "17px",
+              textAlign: "center",
             }}
-          ></div>
-          <div
-            style={{
-              display: "flex",
-              flex: 1,
-              flexDirection: "column",
-              position: "relative",
-              zIndex: 1,
-              background: "green",
-            }}
-          ></div>
+          >
+            {id + 1}
+          </p>
         </div>
-        <img
-          alt=""
-          style={{
-            position: "absolute",
-            width: "100%",
-            height: "100%",
-            objectFit: "contain",
-            zIndex: 2,
-          }}
-          src={ConsumerShiny}
-        ></img>
-        <p
-          style={{
-            position: "absolute",
-            left: "9px",
-            top: "-11px",
-            zIndex: 4,
-            fontFamily: "Retro Gaming",
-            fontSize: "17px",
-            textAlign: "center",
-          }}
-        >
-          {id + 1}
-        </p>
       </div>
     </div>
   );

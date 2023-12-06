@@ -81,8 +81,8 @@ function Main() {
       });
       setConsumerChat(Array.from({ length: 16 }, (_) => 3));
     } else {
-      updateContents(setContents, true);
-      updateContents(setConsumerChat, true);
+      updateContents(setContents, true, false);
+      updateContents(setConsumerChat, true, true);
     }
   };
 
