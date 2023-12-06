@@ -36,13 +36,18 @@ export const getRecoilValue = (setter: SetterOrUpdater<any>) => {
 
 export const updateContents = (
   setter: SetterOrUpdater<number[]>,
-  strong: boolean
+  strong: boolean,
+  probBiased: boolean
 ) => {
   let contents = getRecoilValue(setter);
   setter(
     contents.map((n: number) => {
       if (strong || n === 6) {
         return Math.floor(Math.random() * 5);
+      } else if (probBiased) {
+        return Math.floor(Math.random() * 4) === 0
+          ? -1
+          : Math.floor(Math.random() * 5);
       } else return n;
     })
   );
@@ -67,8 +72,8 @@ function Timer() {
     setGoal(RoundInformation[0].goal);
     setTime(RoundInformation[0].wave[0]);
     setRoundState("progress");
-    updateContents(setContents, true);
-    updateContents(setConsumerChat, true);
+    updateContents(setContents, true, false);
+    updateContents(setConsumerChat, true, true);
     const timer = setInterval(() => {
       let roundState = getRecoilValue(setRoundState);
       if (roundState === "progress" || roundState === "pending") {
@@ -90,8 +95,8 @@ function Timer() {
             } else {
               setRoundWaveCount({ round: round, wave: wave + 1 });
               setIsEvent(false);
-              updateContents(setContents, true);
-              updateContents(setConsumerChat, false);
+              updateContents(setContents, true, false);
+              updateContents(setConsumerChat, false, false);
             }
             newTime = RoundInformation[round].wave[wave];
           } else {
