@@ -10,7 +10,7 @@ export type Round = {
   newsMessage: ReactNode;
   commandMessage: ReactNode;
 };
-export type RoundState = "progress" | "success" | "fail";
+export type RoundState = "progress" | "pending" | "success" | "fail";
 
 // // Round constant value.
 // export const RoundInformation: Round[] = [

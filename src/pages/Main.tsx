@@ -16,7 +16,7 @@ import { RoundInformation } from "components/Round";
 import { useNavigate } from "react-router-dom";
 import GuideWindow from "components/GuideWindow";
 import { MouseEventHandler } from "react";
-import { getRoundWaveCount, makeRandomContents } from "components/Timer";
+import { getRecoilValue, updateContents } from "components/Timer";
 import ConsumerGroup from "components/ConsumerGroup";
 import EmphasizeText from "components/EmphasizeText";
 
@@ -52,16 +52,20 @@ function Main() {
     navigate("/lobby");
   };
   const nextRound: MouseEventHandler = () => {
-    const [wave, round] = getRoundWaveCount(setRoundWaveCount);
+    const { wave, round } = getRecoilValue(setRoundWaveCount);
     const nextRound = round + 1 >= RoundInformation.length ? 0 : round + 1;
     setRoundWaveCount({
       round: nextRound,
       wave: 0,
     });
     setGoal(RoundInformation[nextRound].goal);
-    setRoundState("progress");
     setTime(RoundInformation[round].wave[0]);
     setIsEvent(RoundInformation[nextRound].hasEvent);
+    if (RoundInformation[nextRound].hasEvent) {
+      setRoundState("pending");
+    } else {
+      setRoundState("progress");
+    }
     if (RoundInformation[nextRound].alias === "C") {
       setContents((prev) => {
         let arr = [...prev];
@@ -77,8 +81,8 @@ function Main() {
       });
       setConsumerChat(Array.from({ length: 16 }, (_) => 3));
     } else {
-      makeRandomContents(setContents, 12);
-      makeRandomContents(setConsumerChat, 16);
+      updateContents(setContents, true);
+      updateContents(setConsumerChat, true);
     }
   };
 

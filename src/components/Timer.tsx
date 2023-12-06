@@ -21,63 +21,31 @@ const displayTime = (time: number) => {
   );
 };
 
-export const getRoundWaveCount = (
-  setter: SetterOrUpdater<{
-    round: number;
-    wave: number;
-  }>
-) => {
-  let wave = 0;
-  let round = 0;
-  setter((prev) => {
-    wave = prev.wave;
-    round = prev.round;
-    return { wave: wave, round: round };
-  });
-  return [wave, round];
-};
-
-export const getGoal = (setter: SetterOrUpdater<number>) => {
-  let goal = 0;
-  setter((prev) => {
-    goal = prev;
-    return goal;
-  });
-  return goal;
-};
-
-const getConsumerChat = (setter: SetterOrUpdater<number[]>) => {
-  let consumerChat = [0];
-  setter((prev) => {
-    consumerChat = prev;
-    return consumerChat;
-  });
-  return consumerChat;
-};
-
-const getRoundState = (setter: SetterOrUpdater<RoundState>) => {
-  let roundState: RoundState = "progress";
-  setter((prev) => {
-    roundState = prev;
-    return roundState;
-  });
-  return roundState;
-};
-
-const getTime = (setter: SetterOrUpdater<number>) => {
-  let time = 0;
+const getRecoilValueHelper = (temp: any, setter: SetterOrUpdater<any>) => {
+  let value = temp;
   setter((prev: any) => {
-    time = prev;
-    return time;
+    value = prev;
+    return value;
   });
-  return time;
+  return value;
 };
 
-export const makeRandomContents = (
+export const getRecoilValue = (setter: SetterOrUpdater<any>) => {
+  return getRecoilValueHelper(0, setter);
+};
+
+export const updateContents = (
   setter: SetterOrUpdater<number[]>,
-  length: number
+  strong: boolean
 ) => {
-  setter(Array.from({ length: length }, (_) => Math.floor(Math.random() * 5)));
+  let contents = getRecoilValue(setter);
+  setter(
+    contents.map((n: number) => {
+      if (strong || n === 6) {
+        return Math.floor(Math.random() * 5);
+      } else return n;
+    })
+  );
 };
 
 function Timer() {
@@ -99,20 +67,20 @@ function Timer() {
     setGoal(RoundInformation[0].goal);
     setTime(RoundInformation[0].wave[0]);
     setRoundState("progress");
-    makeRandomContents(setContents, 12);
-    makeRandomContents(setConsumerChat, 16);
+    updateContents(setContents, true);
+    updateContents(setConsumerChat, true);
     const timer = setInterval(() => {
-      let roundState = getRoundState(setRoundState);
-      if (roundState === "progress") {
-        let prevTime = getTime(setTime);
+      let roundState = getRecoilValue(setRoundState);
+      if (roundState === "progress" || roundState === "pending") {
+        let prevTime = getRecoilValue(setTime);
         let newTime;
         {
-          // Reach timeout
           if (prevTime === 0) {
-            const [wave, round] = getRoundWaveCount(setRoundWaveCount);
-            // Reach max wave
+            // Reach timeout
+            const { wave, round } = getRecoilValue(setRoundWaveCount);
             if (wave + 1 >= RoundInformation[round].wave.length) {
-              const remain = getGoal(setGoal);
+              // Reach max wave
+              const remain = getRecoilValue(setGoal);
               if (remain > 0) {
                 setRoundState("fail");
                 newTime = 0;
@@ -122,11 +90,16 @@ function Timer() {
             } else {
               setRoundWaveCount({ round: round, wave: wave + 1 });
               setIsEvent(false);
-              makeRandomContents(setContents, 12);
+              updateContents(setContents, true);
+              updateContents(setConsumerChat, false);
             }
             newTime = RoundInformation[round].wave[wave];
           } else {
-            newTime = prevTime - 1;
+            if (roundState === "progress" || prevTime > 1) {
+              newTime = prevTime - 1;
+            } else {
+              newTime = prevTime;
+            }
           }
         }
         setTime(newTime);

@@ -1,10 +1,12 @@
 import { useDrop } from "react-dnd";
 import Consumer from "./Consumer";
 import { useRecoilState } from "recoil";
-import { consumerChatAtom } from "recoils/Atom";
+import { consumerChatAtom, roundStateAtom, timeAtom } from "recoils/Atom";
 
 function ConsumerGroup() {
   const [consumerChat, setConsumerChat] = useRecoilState(consumerChatAtom);
+  const [time, setTime] = useRecoilState(timeAtom);
+  const [roundState, setRoundState] = useRecoilState(roundStateAtom);
   const [{ isOver }, drop] = useDrop(
     () => ({
       accept: "CONTENT_EVENT",
@@ -18,10 +20,11 @@ function ConsumerGroup() {
           next[Math.floor(Math.random() * 16)] = 5;
           return next;
         });
+        setRoundState("progress");
+        setTime(1);
       },
       canDrop: (item: { type: number }, monitor) => {
         return true;
-        // return item.type === acceptTypeVar;
       },
       collect: (monitor) => ({
         isOver: !!monitor.isOver(),

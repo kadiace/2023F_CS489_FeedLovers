@@ -7,9 +7,9 @@ import ConsumerTorso from "../assets/img/ui/consumer_torso.png";
 import { useDrop } from "react-dnd";
 import ConsumerChat from "./ConsumerChat";
 import { useState } from "react";
-import { getGoal } from "./Timer";
 import { SetterOrUpdater, useRecoilState } from "recoil";
 import { goalAtom, consumerChatAtom, roundStateAtom } from "recoils/Atom";
+import { getRecoilValue } from "./Timer";
 
 export const getConsumerChat = (setter: SetterOrUpdater<number[]>) => {
   let consumerChat = [0];
@@ -55,7 +55,7 @@ function Consumer({ id, onEvent }: { id: number; onEvent: boolean }) {
           setGoal((prev) => {
             return prev - 100;
           });
-          const remain = getGoal(setGoal);
+          const remain = getRecoilValue(setGoal);
           if (remain <= 0) {
             setRoundState("success");
           }
@@ -157,18 +157,61 @@ function Consumer({ id, onEvent }: { id: number; onEvent: boolean }) {
             ></img>
           </>
         )}
-        <img
-          alt=""
+        <div
           style={{
+            display: "flex",
+            flexDirection: "column",
             position: "absolute",
             width: "80%",
             height: "80%",
             bottom: "0px",
-            objectFit: "contain",
+            // objectFit: "contain",
             zIndex: 1,
+            WebkitMaskImage: `url(${ConsumerTorso})`,
+            WebkitMaskSize: "contain",
           }}
-          src={ConsumerTorso}
-        ></img>
+        >
+          <div
+            style={{
+              display: "flex",
+              flex: 8,
+              flexDirection: "column",
+              position: "relative",
+              zIndex: 1,
+              background: "white",
+            }}
+          ></div>
+          <div
+            style={{
+              display: "flex",
+              flex: 3,
+              flexDirection: "column",
+              position: "relative",
+              zIndex: 1,
+              background: "pink",
+            }}
+          ></div>
+          <div
+            style={{
+              display: "flex",
+              flex: 0.5,
+              flexDirection: "column",
+              position: "relative",
+              zIndex: 1,
+              background: "blue",
+            }}
+          ></div>
+          <div
+            style={{
+              display: "flex",
+              flex: 1,
+              flexDirection: "column",
+              position: "relative",
+              zIndex: 1,
+              background: "green",
+            }}
+          ></div>
+        </div>
         <img
           alt=""
           style={{
