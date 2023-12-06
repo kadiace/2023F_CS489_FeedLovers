@@ -73,7 +73,7 @@ function Consumer({ id, onEvent }: { id: number; onEvent: boolean }) {
 
   return (
     <div>
-      {consumerChat[id] === 5 ? (
+      {consumerChat[id] === 5 || consumerChat[id] === -2 ? (
         <div
           style={{
             position: "absolute",

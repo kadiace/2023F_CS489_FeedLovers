@@ -10,6 +10,7 @@ import {
   consumerChatAtom,
 } from "recoils/Atom";
 import { RoundInformation, RoundState } from "./Round";
+import { arrayBuffer } from "stream/consumers";
 
 const displayTime = (time: number) => {
   const minutes: string = "0" + Math.floor(time / 60);
@@ -51,6 +52,18 @@ export const updateContents = (
       } else return n;
     })
   );
+};
+
+const killOneBlamer = (setter: SetterOrUpdater<number[]>, n: number) => {
+  let contents = getRecoilValue(setter).slice();
+  let blamers = Array.from({ length: 16 }, (v, i) => i).filter(
+    (n) => contents[n] === 6
+  );
+  blamers.sort(() => Math.random() - 0.5);
+  for (let i = 0; i < n; i++) {
+    contents[i] = -2;
+  }
+  setter(contents);
 };
 
 function Timer() {
@@ -96,6 +109,7 @@ function Timer() {
               setRoundWaveCount({ round: round, wave: wave + 1 });
               setIsEvent(false);
               updateContents(setContents, true, false);
+              killOneBlamer(setConsumerChat, 1);
               updateContents(setConsumerChat, false, false);
             }
             newTime = RoundInformation[round].wave[wave];
