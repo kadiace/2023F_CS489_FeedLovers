@@ -49,10 +49,12 @@ export const updateContents = (
       } else {
         if (eventContent >= 0) {
           return eventContent;
-        } else if (probBiased || strong || n === 6) {
-          return Math.floor(Math.random() * 4) === 0
-            ? -1
-            : Math.floor(Math.random() * 5);
+        } else if (strong || n === 6) {
+          if (probBiased) {
+            return Math.floor(Math.random() * 4) === 0
+              ? -1
+              : Math.floor(Math.random() * 5);
+          } else return Math.floor(Math.random() * 5);
         } else return n;
       }
     })
@@ -113,10 +115,12 @@ function Timer() {
             } else {
               // Go to next wave
               setRoundWaveCount({ round: round, wave: wave + 1 });
-              setIsEvent(false);
+              if (getRecoilValue(setIsEvent)) {
+                setIsEvent(false);
+                killBlamers(setConsumerChat, 1);
+              }
+              updateContents(setConsumerChat, false, true, -1);
               updateContents(setContents, true, false, -1);
-              killBlamers(setConsumerChat, 1);
-              updateContents(setConsumerChat, false, false, -1);
             }
             newTime = RoundInformation[round].wave[wave];
           } else {
