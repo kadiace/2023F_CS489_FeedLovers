@@ -15,21 +15,21 @@ import {
 import { RoundInformation } from "components/Round";
 import { useNavigate } from "react-router-dom";
 import GuideWindow from "components/GuideWindow";
-import { MouseEventHandler } from "react";
-import { getRecoilValue, updateContents } from "components/Timer";
+import { MouseEventHandler, ReactNode, useEffect, useState } from "react";
+import { getRecoilValue, updateContentsId } from "components/Timer";
 import ConsumerGroup from "components/ConsumerGroup";
 import EmphasizeText from "components/EmphasizeText";
 
 function Main() {
   // const
-  const round1CommandMessage = [
+  const round1CommandMessage: ReactNode[] = [
     "You can drag these contents and drop to consumers!",
     "Well done! Before the timer goes off, distribute these properly!",
     "I’m sure that you can make it!",
     "Great!",
     "Let’s make money until we exceed the goal!",
   ];
-  const normalCommandMessage = [
+  const normalCommandMessage: ReactNode[] = [
     "You’re doing great..!",
     "Brilliant..!",
     "Keep it like this!",
@@ -46,12 +46,14 @@ function Main() {
     "Hats off to your skills, “Feed”!",
   ];
 
-  // navigate
+  // const
   const navigate = useNavigate();
   const navigateLobby: MouseEventHandler = () => {
     navigate("/lobby");
   };
   const nextRound: MouseEventHandler = () => {
+    const contents = getRecoilValue(setContents);
+    const consumerChat = getRecoilValue(setConsumerChat);
     const { wave, round } = getRecoilValue(setRoundWaveCount);
     const nextRound = round + 1 >= RoundInformation.length ? 0 : round + 1;
     setRoundWaveCount({
@@ -59,7 +61,7 @@ function Main() {
       wave: 0,
     });
     setGoal(RoundInformation[nextRound].goal);
-    setTime(RoundInformation[round].wave[0]);
+    setTime(RoundInformation[nextRound].wave[0]);
     setIsEvent(RoundInformation[nextRound].hasEvent);
     if (RoundInformation[nextRound].hasEvent) {
       setRoundState("pending");
@@ -72,7 +74,7 @@ function Main() {
         arr[0] = 4;
         return arr;
       });
-      updateContents(setConsumerChat, false, false, 4);
+      setConsumerChat(updateContentsId(false, false, 4, consumerChat));
       // setConsumerChat(
       //   Array.from({ length: 16 }, (v, n) => (n === -2 ? -2 : 4))
       // );
@@ -82,13 +84,13 @@ function Main() {
         arr[0] = 3;
         return arr;
       });
-      updateContents(setConsumerChat, false, false, 3);
+      setConsumerChat(updateContentsId(false, false, 3, consumerChat));
       // setConsumerChat(
       //   Array.from({ length: 16 }, (v, n) => (n === -2 ? -2 : 3))
       // );
     } else {
-      updateContents(setContents, true, false, -1);
-      updateContents(setConsumerChat, true, true, -1);
+      setContents(updateContentsId(true, false, -1, contents));
+      setConsumerChat(updateContentsId(true, true, -1, consumerChat));
     }
   };
 
@@ -102,6 +104,47 @@ function Main() {
   const [contents, setContents] = useRecoilState(contentsAtom);
   const [consumerChat, setConsumerChat] = useRecoilState(consumerChatAtom);
   const [time, setTime] = useRecoilState(timeAtom);
+  const [commandMessage, setCommandMessage] = useState<ReactNode>(
+    <span>"..."</span>
+  );
+  const [newsMessage, setNewsMessage] = useState<ReactNode>(<span>"..."</span>);
+
+  useEffect(() => {
+    // Get recoil value.
+    const { round, wave } = getRecoilValue(setRoundWaveCount);
+    const isEvent = getRecoilValue(setIsEvent);
+    const time = getRecoilValue(setTime);
+    const roundState = getRecoilValue(setRoundState);
+
+    // Get value.
+    const roundInfo = RoundInformation[round];
+    const maxTime = roundInfo.wave[wave];
+    const eventMessages = roundInfo.commandMessage;
+
+    // Get message list.
+    let commandMessage: ReactNode;
+    let newsMessage: ReactNode;
+
+    if (isEvent) {
+      if (roundState === "pending") {
+        commandMessage =
+          eventMessages[
+            Math.floor((1 - time / maxTime) * eventMessages.length)
+          ];
+      } else {
+        commandMessage = roundInfo.eventMessage;
+      }
+      newsMessage = roundInfo.newsMessage;
+    } else {
+      commandMessage =
+        round === 0 ? round1CommandMessage[wave] : normalCommandMessage[wave];
+      newsMessage = <span>"..."</span>;
+    }
+
+    // Set message.
+    setCommandMessage(commandMessage);
+    setNewsMessage(newsMessage!);
+  }, [roundWaveCount, isEvent, time, roundState]);
 
   return (
     <div
@@ -214,24 +257,8 @@ function Main() {
             - Remain $<EmphasizeText message={goal.toString()} />M
           </p>
           <Store />
-          <Command
-            message={
-              isEvent && time < 10
-                ? RoundInformation[roundWaveCount.round].commandMessage
-                : roundWaveCount.round == 0
-                ? round1CommandMessage[roundWaveCount.wave]
-                : normalCommandMessage[roundWaveCount.wave]
-            }
-          />
-          <News
-            message={
-              isEvent ? (
-                RoundInformation[roundWaveCount.round].newsMessage
-              ) : (
-                <p>...</p>
-              )
-            }
-          />
+          <Command message={commandMessage} />
+          <News message={newsMessage} />
         </div>
       </div>
     </div>

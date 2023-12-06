@@ -9,7 +9,7 @@ import {
   timeAtom,
   consumerChatAtom,
 } from "recoils/Atom";
-import { RoundInformation, RoundState } from "./Round";
+import { RoundInformation } from "./Round";
 import { arrayBuffer } from "stream/consumers";
 
 const displayTime = (time: number) => {
@@ -22,44 +22,36 @@ const displayTime = (time: number) => {
   );
 };
 
-const getRecoilValueHelper = (temp: any, setter: SetterOrUpdater<any>) => {
-  let value = temp;
-  setter((prev: any) => {
+export const getRecoilValue = <T,>(setter: SetterOrUpdater<T>) => {
+  let value: T;
+  setter((prev: T) => {
     value = prev;
     return value;
   });
-  return value;
+  return value!;
 };
 
-export const getRecoilValue = (setter: SetterOrUpdater<any>) => {
-  return getRecoilValueHelper(0, setter);
-};
-
-export const updateContents = (
-  setter: SetterOrUpdater<number[]>,
+export const updateContentsId = (
   strong: boolean,
   probBiased: boolean,
-  eventContent: number
-) => {
-  let contents = getRecoilValue(setter);
-  setter(
-    contents.map((n: number) => {
-      if (n === -2) {
-        return n;
-      } else {
-        if (eventContent >= 0) {
-          return eventContent;
-        } else if (strong || n === 6) {
-          if (probBiased) {
-            return Math.floor(Math.random() * 4) === 0
-              ? -1
-              : Math.floor(Math.random() * 5);
-          } else return Math.floor(Math.random() * 5);
-        } else return n;
-      }
-    })
-  );
-};
+  eventContent: number,
+  prev: number[]
+) =>
+  prev.map((n: number) => {
+    if (n === -2) {
+      return n;
+    } else {
+      if (eventContent >= 0) {
+        return eventContent;
+      } else if (strong || n === 6) {
+        if (probBiased) {
+          return Math.floor(Math.random() * 4) === 0
+            ? -1
+            : Math.floor(Math.random() * 5);
+        } else return Math.floor(Math.random() * 5);
+      } else return n;
+    }
+  });
 
 const killBlamers = (setter: SetterOrUpdater<number[]>, n: number) => {
   let contents = getRecoilValue(setter).slice();
@@ -92,8 +84,8 @@ function Timer() {
     setGoal(RoundInformation[0].goal);
     setTime(RoundInformation[0].wave[0]);
     setRoundState("progress");
-    updateContents(setContents, true, false, -1);
-    updateContents(setConsumerChat, true, true, -1);
+    setContents(updateContentsId(true, false, -1, contents));
+    setConsumerChat(updateContentsId(true, true, -1, consumerChat));
     const timer = setInterval(() => {
       let roundState = getRecoilValue(setRoundState);
       if (roundState === "progress" || roundState === "pending") {
@@ -103,6 +95,8 @@ function Timer() {
           if (prevTime === 0) {
             // Reach timeout
             const { wave, round } = getRecoilValue(setRoundWaveCount);
+            const contents = getRecoilValue(setContents);
+            const consumerChat = getRecoilValue(setConsumerChat);
             if (wave + 1 >= RoundInformation[round].wave.length) {
               // Reach max wave
               const remain = getRecoilValue(setGoal);
@@ -119,10 +113,10 @@ function Timer() {
                 setIsEvent(false);
                 killBlamers(setConsumerChat, 1);
               }
-              updateContents(setConsumerChat, false, true, -1);
-              updateContents(setContents, true, false, -1);
+              setContents(updateContentsId(true, false, -1, contents));
+              setConsumerChat(updateContentsId(false, true, -1, consumerChat));
             }
-            newTime = RoundInformation[round].wave[wave];
+            newTime = RoundInformation[round].wave[wave + 1];
           } else {
             if (roundState === "progress" || prevTime > 1) {
               newTime = prevTime - 1;
