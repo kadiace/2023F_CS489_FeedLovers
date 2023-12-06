@@ -72,17 +72,23 @@ function Main() {
         arr[0] = 4;
         return arr;
       });
-      setConsumerChat(Array.from({ length: 16 }, (_) => 4));
+      updateContents(setConsumerChat, false, false, 4);
+      // setConsumerChat(
+      //   Array.from({ length: 16 }, (v, n) => (n === -2 ? -2 : 4))
+      // );
     } else if (RoundInformation[nextRound].alias === "E") {
       setContents((prev) => {
         let arr = [...prev];
         arr[0] = 3;
         return arr;
       });
-      setConsumerChat(Array.from({ length: 16 }, (_) => 3));
+      updateContents(setConsumerChat, false, false, 3);
+      // setConsumerChat(
+      //   Array.from({ length: 16 }, (v, n) => (n === -2 ? -2 : 3))
+      // );
     } else {
-      updateContents(setContents, true, false);
-      updateContents(setConsumerChat, true, true);
+      updateContents(setContents, true, false, -1);
+      updateContents(setConsumerChat, true, true, -1);
     }
   };
 

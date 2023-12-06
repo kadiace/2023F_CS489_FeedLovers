@@ -4,6 +4,7 @@ import ConsumerBackground from "../assets/img/ui/consumer_background.png";
 import ConsumerGridHover from "../assets/img/ui/consumer_grid_hover.png";
 import ConsumerBackgroundHover from "../assets/img/ui/consumer_background_hover.png";
 import ConsumerTorso from "../assets/img/ui/consumer_torso.png";
+import ConsumerBan from "../assets/img/ui/consumer_ban.png";
 import { useDrop } from "react-dnd";
 import ConsumerChat from "./ConsumerChat";
 import { useState } from "react";
@@ -42,23 +43,20 @@ function Consumer({ id, onEvent }: { id: number; onEvent: boolean }) {
     });
   }
 
-  const [{ isOver }, drop] = useDrop(() => ({
+  const [{ isOver, canDrop }, drop] = useDrop(() => ({
     accept: "CONTENT",
     hover(item: { type: number }, monitor) {
       setHoverType(item.type);
     },
     drop: (item: { type: number }, monitor) => {
-      const receiveConsumerChat = getConsumerChat(setConsumerChat);
-      if (item.type === receiveConsumerChat[id]) {
-        setGoal((prev) => {
-          return prev - 100;
-        });
-        const remain = getRecoilValue(setGoal);
-        if (remain <= 0) {
-          setRoundState("success");
-        }
-        updateAcceptType(5);
+      setGoal((prev) => {
+        return prev - 100;
+      });
+      const remain = getRecoilValue(setGoal);
+      if (remain <= 0) {
+        setRoundState("success");
       }
+      updateAcceptType(5);
     },
     canDrop: (item: { type: number }, monitor) => {
       const receiveConsumerChat = getConsumerChat(setConsumerChat);
@@ -68,6 +66,7 @@ function Consumer({ id, onEvent }: { id: number; onEvent: boolean }) {
     },
     collect: (monitor) => ({
       isOver: !!monitor.isOver(),
+      canDrop: !!monitor.canDrop(),
     }),
   }));
 
@@ -81,11 +80,38 @@ function Consumer({ id, onEvent }: { id: number; onEvent: boolean }) {
             width: "140px",
             height: "140px",
             justifyContent: "center",
-            backgroundColor: "black",
-            opacity: 0.6,
             zIndex: 5,
+            alignItems: "center",
           }}
-        ></div>
+        >
+          <div
+            style={{
+              position: "absolute",
+              display: "flex",
+              width: "100%",
+              height: "100%",
+              justifyContent: "center",
+              backgroundColor: "black",
+              opacity: 0.6,
+              zIndex: 5,
+            }}
+          />
+          {consumerChat[id] === -2 ? (
+            <img
+              style={{
+                position: "absolute",
+                display: "flex",
+                width: "100px",
+                height: "100px",
+                justifyContent: "center",
+                zIndex: 6,
+              }}
+              src={ConsumerBan}
+            ></img>
+          ) : (
+            <></>
+          )}
+        </div>
       ) : (
         <></>
       )}
@@ -114,7 +140,7 @@ function Consumer({ id, onEvent }: { id: number; onEvent: boolean }) {
             justifyContent: "center",
           }}
         >
-          {onEvent || (isOver && hoverType === consumerChat[id]) ? (
+          {(onEvent || (isOver && canDrop)) && consumerChat[id] !== -2 ? (
             <>
               <img
                 alt=""

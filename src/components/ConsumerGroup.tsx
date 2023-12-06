@@ -2,6 +2,7 @@ import { useDrop } from "react-dnd";
 import Consumer from "./Consumer";
 import { useRecoilState } from "recoil";
 import { consumerChatAtom, roundStateAtom, timeAtom } from "recoils/Atom";
+import { updateContents } from "./Timer";
 
 function ConsumerGroup() {
   const [consumerChat, setConsumerChat] = useRecoilState(consumerChatAtom);
@@ -13,11 +14,14 @@ function ConsumerGroup() {
       hover(item: { type: number }, monitor) {},
       drop: (item: { type: number }, monitor) => {
         // 하트 반응 띄우기(타이머 끝날 때까지) | dnd 못하게 막기 | 검은 반투명 화면
-
+        updateContents(setConsumerChat, false, false, 6);
         setConsumerChat((prev) => {
-          let next = Array.from({ length: 16 }, (_) => 6);
-          next = next.slice();
-          next[Math.floor(Math.random() * 16)] = 5;
+          let next = prev.slice();
+          let liker = Math.floor(Math.random() * 16);
+          while (next[liker] === -2) {
+            liker = Math.floor(Math.random() * 16);
+          }
+          next[liker] = 5;
           return next;
         });
         setRoundState("progress");

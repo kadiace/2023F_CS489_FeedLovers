@@ -38,30 +38,35 @@ export const getRecoilValue = (setter: SetterOrUpdater<any>) => {
 export const updateContents = (
   setter: SetterOrUpdater<number[]>,
   strong: boolean,
-  probBiased: boolean
+  probBiased: boolean,
+  eventContent: number
 ) => {
   let contents = getRecoilValue(setter);
   setter(
     contents.map((n: number) => {
-      if (strong || n === 6) {
-        return Math.floor(Math.random() * 5);
-      } else if (probBiased) {
-        return Math.floor(Math.random() * 4) === 0
-          ? -1
-          : Math.floor(Math.random() * 5);
-      } else return n;
+      if (n === -2) {
+        return n;
+      } else {
+        if (eventContent >= 0) {
+          return eventContent;
+        } else if (probBiased || strong || n === 6) {
+          return Math.floor(Math.random() * 4) === 0
+            ? -1
+            : Math.floor(Math.random() * 5);
+        } else return n;
+      }
     })
   );
 };
 
-const killOneBlamer = (setter: SetterOrUpdater<number[]>, n: number) => {
+const killBlamers = (setter: SetterOrUpdater<number[]>, n: number) => {
   let contents = getRecoilValue(setter).slice();
   let blamers = Array.from({ length: 16 }, (v, i) => i).filter(
     (n) => contents[n] === 6
   );
   blamers.sort(() => Math.random() - 0.5);
-  for (let i = 0; i < n; i++) {
-    contents[i] = -2;
+  for (let i = 0; i < Math.min(n, blamers.length); i++) {
+    contents[blamers[i]] = -2;
   }
   setter(contents);
 };
@@ -85,8 +90,8 @@ function Timer() {
     setGoal(RoundInformation[0].goal);
     setTime(RoundInformation[0].wave[0]);
     setRoundState("progress");
-    updateContents(setContents, true, false);
-    updateContents(setConsumerChat, true, true);
+    updateContents(setContents, true, false, -1);
+    updateContents(setConsumerChat, true, true, -1);
     const timer = setInterval(() => {
       let roundState = getRecoilValue(setRoundState);
       if (roundState === "progress" || roundState === "pending") {
@@ -106,11 +111,12 @@ function Timer() {
                 throw new Error("");
               }
             } else {
+              // Go to next wave
               setRoundWaveCount({ round: round, wave: wave + 1 });
               setIsEvent(false);
-              updateContents(setContents, true, false);
-              killOneBlamer(setConsumerChat, 1);
-              updateContents(setConsumerChat, false, false);
+              updateContents(setContents, true, false, -1);
+              killBlamers(setConsumerChat, 1);
+              updateContents(setConsumerChat, false, false, -1);
             }
             newTime = RoundInformation[round].wave[wave];
           } else {
