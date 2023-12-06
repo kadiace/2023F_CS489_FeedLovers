@@ -1,20 +1,28 @@
 import { useDrop } from "react-dnd";
 import Consumer from "./Consumer";
 import { useRecoilState } from "recoil";
-import { consumerChatAtom, roundStateAtom, timeAtom } from "recoils/Atom";
-import { updateContents } from "./Timer";
+import {
+  consumerChatAtom,
+  goalAtom,
+  roundStateAtom,
+  timeAtom,
+} from "recoils/Atom";
+import { updateContentsId } from "./Timer";
+import { getRecoilValue } from "./Timer";
 
 function ConsumerGroup() {
+  /* eslint-disable */
   const [consumerChat, setConsumerChat] = useRecoilState(consumerChatAtom);
   const [time, setTime] = useRecoilState(timeAtom);
   const [roundState, setRoundState] = useRecoilState(roundStateAtom);
+  const [goal, setGoal] = useRecoilState(goalAtom);
   const [{ isOver }, drop] = useDrop(
     () => ({
       accept: "CONTENT_EVENT",
       hover(item: { type: number }, monitor) {},
       drop: (item: { type: number }, monitor) => {
         // 하트 반응 띄우기(타이머 끝날 때까지) | dnd 못하게 막기 | 검은 반투명 화면
-        updateContents(setConsumerChat, false, false, 6);
+        setConsumerChat(updateContentsId(false, false, 6, consumerChat));
         setConsumerChat((prev) => {
           let next = prev.slice();
           let liker = Math.floor(Math.random() * 16);
@@ -25,7 +33,14 @@ function ConsumerGroup() {
           return next;
         });
         setRoundState("progress");
-        setTime(1);
+        setTime(5);
+        setGoal((prev) => {
+          return prev - 100 * 16 < 0 ? 0 : prev - 100 * 16;
+        });
+        const remain = getRecoilValue(setGoal);
+        if (remain <= 0) {
+          setRoundState("success");
+        }
       },
       canDrop: (item: { type: number }, monitor) => {
         return true;

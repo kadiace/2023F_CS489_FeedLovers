@@ -50,7 +50,7 @@ function Consumer({ id, onEvent }: { id: number; onEvent: boolean }) {
     },
     drop: (item: { type: number }, monitor) => {
       setGoal((prev) => {
-        return prev - 100;
+        return prev - 100 < 0 ? 0 : prev - 100;
       });
       const remain = getRecoilValue(setGoal);
       if (remain <= 0) {
