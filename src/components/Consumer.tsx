@@ -9,7 +9,12 @@ import { useDrop } from "react-dnd";
 import ConsumerChat from "./ConsumerChat";
 import { useState } from "react";
 import { SetterOrUpdater, useRecoilState } from "recoil";
-import { goalAtom, consumerChatAtom, roundStateAtom } from "recoils/Atom";
+import {
+  goalAtom,
+  consumerChatAtom,
+  roundStateAtom,
+  totalAtom,
+} from "recoils/Atom";
 import { getRecoilValue } from "./Timer";
 
 export const getConsumerChat = (setter: SetterOrUpdater<number[]>) => {
@@ -26,6 +31,7 @@ function Consumer({ id, onEvent }: { id: number; onEvent: boolean }) {
   /* eslint-disable */
   const [hoverType, setHoverType] = useState(-1);
   const [goal, setGoal] = useRecoilState(goalAtom);
+  const [total, setTotal] = useRecoilState(totalAtom);
   const [consumerChat, setConsumerChat] = useRecoilState(consumerChatAtom);
   const [roundState, setRoundState] = useRecoilState(roundStateAtom);
 
@@ -52,6 +58,7 @@ function Consumer({ id, onEvent }: { id: number; onEvent: boolean }) {
       setGoal((prev) => {
         return prev - 100 < 0 ? 0 : prev - 100;
       });
+      setTotal((prev) => prev + 100);
       const remain = getRecoilValue(setGoal);
       if (remain <= 0) {
         setRoundState("success");

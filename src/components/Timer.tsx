@@ -8,10 +8,9 @@ import {
   roundStateAtom,
   timeAtom,
   consumerChatAtom,
+  totalAtom,
 } from "recoils/Atom";
 import { RoundInformation } from "./Round";
-import { arrayBuffer } from "stream/consumers";
-import { setSourceMapRange } from "typescript";
 
 const displayTime = (time: number) => {
   const minutes: string = "0" + Math.floor(time / 60);
@@ -70,10 +69,10 @@ function Timer() {
   // state
   /* eslint-disable */
   const [time, setTime] = useRecoilState(timeAtom); // 남은 시간 (단위: 초)
-  // const [time, setTime] = useRecoilState(RoundInformation[0].wave[0]); // 남은 시간 (단위: 초)
   const [roundWaveCount, setRoundWaveCount] =
     useRecoilState(roundWaveCountAtom);
   const [goal, setGoal] = useRecoilState(goalAtom);
+  const [total, setTotal] = useRecoilState(totalAtom);
   const [roundState, setRoundState] = useRecoilState(roundStateAtom);
   const [contents, setContents] = useRecoilState(contentsAtom);
   const [consumerChat, setConsumerChat] = useRecoilState(consumerChatAtom);
@@ -83,6 +82,7 @@ function Timer() {
   useEffect(() => {
     setRoundWaveCount({ round: 0, wave: 0 });
     setGoal(RoundInformation[0].goal);
+    setTotal(0);
     setTime(RoundInformation[0].wave[0]);
     setRoundState("progress");
     setContents(updateContentsId(true, false, -1, contents));

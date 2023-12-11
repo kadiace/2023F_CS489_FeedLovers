@@ -1,6 +1,6 @@
 import ChatGrid from "../assets/img/ui/chat_grid.png";
 import ChatGridReaction from "../assets/img/ui/chat_grid_reaction.png";
-import ChatBan from "../assets/img/ui/chat_ban.png";
+// import ChatBan from "../assets/img/ui/chat_ban.png";
 import Content from "./Content";
 
 function ConsumerChat({ type }: { type: number }) {

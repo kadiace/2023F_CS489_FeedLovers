@@ -14,6 +14,11 @@ export const goalAtom = atom<number>({
   default: 0,
 });
 
+export const totalAtom = atom<number>({
+  key: "totalAtom",
+  default: 0,
+});
+
 export const roundStateAtom = atom<RoundState>({
   key: "roundStateAtom",
   default: "progress",

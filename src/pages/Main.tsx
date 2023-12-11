@@ -11,6 +11,7 @@ import {
   contentsAtom,
   consumerChatAtom,
   timeAtom,
+  totalAtom,
 } from "recoils/Atom";
 import { RoundInformation } from "components/Round";
 import { useNavigate } from "react-router-dom";
@@ -31,7 +32,7 @@ function Main() {
   ];
   const normalCommandMessage: ReactNode[] = [
     "You’re doing great..!",
-    "Brilliant..!",
+    "Someone is out, but nevermind. You still have loyal consumers a lot. :)",
     "Keep it like this!",
     "Feed, you can make it!",
     "Keep this pace!",
@@ -54,7 +55,7 @@ function Main() {
   const nextRound: MouseEventHandler = () => {
     const contents = getRecoilValue(setContents);
     const consumerChat = getRecoilValue(setConsumerChat);
-    const { wave, round } = getRecoilValue(setRoundWaveCount);
+    const { round } = getRecoilValue(setRoundWaveCount);
     const nextRound = round + 1 >= RoundInformation.length ? 0 : round + 1;
     setRoundWaveCount({
       round: nextRound,
@@ -99,6 +100,7 @@ function Main() {
   const [roundWaveCount, setRoundWaveCount] =
     useRecoilState(roundWaveCountAtom);
   const [goal, setGoal] = useRecoilState(goalAtom);
+  const [total, setTotal] = useRecoilState(totalAtom);
   const [roundState, setRoundState] = useRecoilState(roundStateAtom);
   const [isEvent, setIsEvent] = useRecoilState(isEventAtom);
   const [contents, setContents] = useRecoilState(contentsAtom);
@@ -254,7 +256,8 @@ function Main() {
             <EmphasizeText
               message={RoundInformation[roundWaveCount.round].alias}
             />{" "}
-            - Remain $<EmphasizeText message={goal.toString()} />M
+            - Remain $<EmphasizeText message={goal.toString()} />M / Total $
+            <EmphasizeText message={total.toString()} />M
           </p>
           <Store />
           <Command message={commandMessage} />

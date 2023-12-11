@@ -6,6 +6,7 @@ import {
   goalAtom,
   roundStateAtom,
   timeAtom,
+  totalAtom,
 } from "recoils/Atom";
 import { updateContentsId } from "./Timer";
 import { getRecoilValue } from "./Timer";
@@ -16,6 +17,7 @@ function ConsumerGroup() {
   const [time, setTime] = useRecoilState(timeAtom);
   const [roundState, setRoundState] = useRecoilState(roundStateAtom);
   const [goal, setGoal] = useRecoilState(goalAtom);
+  const [total, setTotal] = useRecoilState(totalAtom);
   const [{ isOver }, drop] = useDrop(
     () => ({
       accept: "CONTENT_EVENT",
@@ -37,6 +39,7 @@ function ConsumerGroup() {
         setGoal((prev) => {
           return prev - 100 * 16 < 0 ? 0 : prev - 100 * 16;
         });
+        setTotal((prev) => prev + 1600);
         const remain = getRecoilValue(setGoal);
         if (remain <= 0) {
           setRoundState("success");
