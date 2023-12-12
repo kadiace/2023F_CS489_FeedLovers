@@ -82,7 +82,7 @@ export const RoundInformation: Round[] = [
   },
   {
     alias: "C",
-    goal: 2000,
+    goal: 1800,
     wave: [40, 5, 5],
     hasEvent: true,
     newsMessage: <EmphasizeText message="Mass shooting left 80 victims..." />,
@@ -110,8 +110,8 @@ export const RoundInformation: Round[] = [
   },
   {
     alias: "E",
-    goal: 500,
-    wave: [5],
+    goal: 2000,
+    wave: [5, 5, 5],
     hasEvent: true,
     newsMessage: (
       <EmphasizeText
@@ -125,6 +125,6 @@ export const RoundInformation: Round[] = [
         <EmphasizeText message="just earn money" />! This can't be happened!
       </p>,
     ],
-    eventMessage: <p></p>,
+    eventMessage: <span>TEST: After E-1</span>,
   },
 ];

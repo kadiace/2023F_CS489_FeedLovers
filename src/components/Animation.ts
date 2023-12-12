@@ -6,6 +6,11 @@ const dissolve = keyframes`
   100%{opacity: 0}
 `;
 
+const shrink = keyframes`
+  0%{width: 600px}
+  100%{width: 0px}
+`;
+
 export const IntroAnimation = styled.div<{
   path: string;
   delay: string;
@@ -22,5 +27,18 @@ export const IntroAnimation = styled.div<{
   animation-delay: ${(props) => props.delay};
   animation-duration: ${(props) => props.duration};
   animation-iteration-count: 1;
-  animation-fill-mode: forward;
+  animation-fill-mode: both;
+`;
+
+export const EndingAnimation = styled.div<{
+  delay: string;
+  duration: string;
+}>`
+  width: 600px;
+  height: 100%;
+  animation: ${shrink};
+  animation-delay: ${(props) => props.delay};
+  animation-duration: ${(props) => props.duration};
+  animation-iteration-count: 1;
+  animation-fill-mode: both;
 `;
