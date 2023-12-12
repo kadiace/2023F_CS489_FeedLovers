@@ -6,13 +6,17 @@ import {
   goalAtom,
   preferenceAtom,
   roundStateAtom,
+  roundWaveCountAtom,
   timeAtom,
   totalAtom,
 } from "recoils/Atom";
 import { updateContentsId } from "./Timer";
 import { getRecoilValue } from "./Timer";
+import { RoundInformation } from "./Round";
+import { useNavigate } from "react-router-dom";
 
 function ConsumerGroup() {
+  // state
   /* eslint-disable */
   const [consumerChat, setConsumerChat] = useRecoilState(consumerChatAtom);
   const [time, setTime] = useRecoilState(timeAtom);
@@ -20,6 +24,14 @@ function ConsumerGroup() {
   const [goal, setGoal] = useRecoilState(goalAtom);
   const [total, setTotal] = useRecoilState(totalAtom);
   const [preference, setPreference] = useRecoilState(preferenceAtom);
+  const [roundWaveCount, setRoundWaveCount] =
+    useRecoilState(roundWaveCountAtom);
+
+  // const
+  const navigate = useNavigate();
+  const navigateEnding = () => navigate("/ending");
+
+  // D & D
   const [{ isOver }, drop] = useDrop(
     () => ({
       accept: "CONTENT_EVENT",
@@ -39,6 +51,10 @@ function ConsumerGroup() {
         });
         consumerChat = getRecoilValue(setConsumerChat);
         setPreference(preferenceNerfer(item.type, consumerChat));
+        const { round } = getRecoilValue(setRoundWaveCount);
+        if (RoundInformation[round].alias === "E") {
+          navigateEnding();
+        }
         setRoundState("progress");
         setTime(5);
         setGoal((prev) => {
@@ -66,6 +82,7 @@ function ConsumerGroup() {
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
+        width: "fit-content",
         height: "fit-content",
         gap: "20px",
         alignSelf: "center",
