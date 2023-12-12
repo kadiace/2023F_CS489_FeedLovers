@@ -14,6 +14,7 @@ import {
   consumerChatAtom,
   roundStateAtom,
   totalAtom,
+  preferenceAtom,
 } from "recoils/Atom";
 import { getRecoilValue } from "./Timer";
 
@@ -34,6 +35,7 @@ function Consumer({ id, onEvent }: { id: number; onEvent: boolean }) {
   const [total, setTotal] = useRecoilState(totalAtom);
   const [consumerChat, setConsumerChat] = useRecoilState(consumerChatAtom);
   const [roundState, setRoundState] = useRecoilState(roundStateAtom);
+  const [preference, setPreference] = useRecoilState(preferenceAtom);
 
   // function
   function updateAcceptType(type: number) {
@@ -217,43 +219,64 @@ function Consumer({ id, onEvent }: { id: number; onEvent: boolean }) {
             <div
               style={{
                 display: "flex",
-                flex: 8,
+                flex: 1,
+                // flex: preference[id][0],
                 flexDirection: "column",
                 position: "relative",
                 zIndex: 1,
                 background: "white",
               }}
             ></div>
-            <div
+            {/* <div
               style={{
                 display: "flex",
-                flex: 3,
+                flex: preference[id][1],
                 flexDirection: "column",
                 position: "relative",
                 zIndex: 1,
-                background: "pink",
+                background: "#FF83AB",
               }}
             ></div>
             <div
               style={{
                 display: "flex",
-                flex: 0.5,
+                flex: preference[id][2],
                 flexDirection: "column",
                 position: "relative",
                 zIndex: 1,
-                background: "blue",
+                background: "#1F75EF",
               }}
             ></div>
             <div
               style={{
                 display: "flex",
-                flex: 1,
+                flex: preference[id][3],
                 flexDirection: "column",
                 position: "relative",
                 zIndex: 1,
-                background: "green",
+                background: "#299C5A",
               }}
             ></div>
+            <div
+              style={{
+                display: "flex",
+                flex: preference[id][4],
+                flexDirection: "column",
+                position: "relative",
+                zIndex: 1,
+                background: "#3A4467",
+              }}
+            ></div>
+            <div
+              style={{
+                display: "flex",
+                flex: preference[id][5],
+                flexDirection: "column",
+                position: "relative",
+                zIndex: 1,
+                background: "#8999B2",
+              }}
+            ></div> */}
           </div>
           <img
             alt=""
