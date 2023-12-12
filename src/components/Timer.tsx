@@ -9,8 +9,10 @@ import {
   timeAtom,
   consumerChatAtom,
   totalAtom,
+  preferenceAtom,
 } from "recoils/Atom";
 import { RoundInformation } from "./Round";
+import { preferenceInitializer } from "./Consumer";
 
 const displayTime = (time: number) => {
   const minutes: string = "0" + Math.floor(time / 60);
@@ -31,13 +33,40 @@ export const getRecoilValue = <T,>(setter: SetterOrUpdater<T>) => {
   return value!;
 };
 
+const randomContent = (preference: number[][]) => {
+  let sumPreference = preference.reduce((a, b) => a + b[1], 0);
+  if (preference[0][1] < 60) {
+    let r = Math.random() * (sumPreference - preference[0][1]);
+    let i;
+    for (i = 1; i < 6; i++) {
+      r -= preference[i][1];
+      if (r <= 0) {
+        break;
+      }
+    }
+    return preference[i][0];
+  } else {
+    let r = Math.random() * sumPreference;
+    let i;
+    for (i = 0; i < 6; i++) {
+      let v = preference[i];
+      r -= v[1];
+      if (r <= 0) {
+        break;
+      }
+    }
+    return preference[i][0];
+  }
+};
+
 export const updateContentsId = (
   strong: boolean,
   probBiased: boolean,
   eventContent: number,
-  prev: number[]
+  prev: number[],
+  preferences: number[][][] | null
 ) =>
-  prev.map((n: number) => {
+  prev.map((n: number, id: number) => {
     if (n === -2) {
       return n;
     } else {
@@ -45,25 +74,29 @@ export const updateContentsId = (
         return eventContent;
       } else if (strong || n === 6) {
         if (probBiased) {
-          return Math.floor(Math.random() * 4) === 0
-            ? -1
-            : Math.floor(Math.random() * 5);
-        } else return Math.floor(Math.random() * 5);
+          return preferences === null
+            ? Math.floor(Math.random() * 5)
+            : randomContent(preferences[id]);
+        } else
+          return preferences === null
+            ? Math.floor(Math.random() * 5)
+            : randomContent(preferences[id]);
       } else return n;
     }
   });
 
-const killBlamers = (setter: SetterOrUpdater<number[]>, n: number) => {
-  let contents = getRecoilValue(setter).slice();
-  let blamers = Array.from({ length: 16 }, (v, i) => i).filter(
-    (n) => contents[n] === 6
-  );
-  blamers.sort(() => Math.random() - 0.5);
-  for (let i = 0; i < Math.min(n, blamers.length); i++) {
-    contents[blamers[i]] = -2;
-  }
-  setter(contents);
-};
+const blamersKiller =
+  (n: number, preferences: number[][][]) => (prev: number[]) => {
+    let contents = prev.slice();
+    let blamers = Array.from({ length: 16 }, (v, i) => i).filter(
+      (n) => contents[n] === 6
+    );
+    blamers.sort((a, b) => preferences[b][1][1] - preferences[a][1][1]); // (자신의 최애 장르에) 제일 과몰입한 사람
+    for (let i = 0; i < Math.min(n, blamers.length); i++) {
+      contents[blamers[i]] = -2;
+    }
+    return contents;
+  };
 
 function Timer() {
   // state
@@ -77,6 +110,7 @@ function Timer() {
   const [contents, setContents] = useRecoilState(contentsAtom);
   const [consumerChat, setConsumerChat] = useRecoilState(consumerChatAtom);
   const [isEvent, setIsEvent] = useRecoilState(isEventAtom);
+  const [preference, setPreference] = useRecoilState(preferenceAtom);
 
   /* eslint-disable */
   useEffect(() => {
@@ -85,8 +119,19 @@ function Timer() {
     setTotal(0);
     setTime(RoundInformation[0].wave[0]);
     setRoundState("progress");
-    setContents(updateContentsId(true, false, -1, contents));
-    setConsumerChat(updateContentsId(true, true, -1, consumerChat));
+    for (let id = 0; id < 16; id++) {
+      setPreference(preferenceInitializer(id));
+    }
+    setContents(updateContentsId(true, false, -1, contents, null));
+    setConsumerChat(
+      updateContentsId(
+        true,
+        true,
+        -1,
+        consumerChat,
+        getRecoilValue(setPreference)
+      )
+    );
     const timer = setInterval(() => {
       let roundState = getRecoilValue(setRoundState);
       if (roundState === "progress" || roundState === "pending") {
@@ -110,17 +155,26 @@ function Timer() {
               setRoundWaveCount({ round: round, wave: wave + 1 });
               if (getRecoilValue(setIsEvent)) {
                 setIsEvent(false);
-                killBlamers(setConsumerChat, 1);
+                setConsumerChat(
+                  blamersKiller(1, getRecoilValue(setPreference))
+                );
               }
               setContents(
-                updateContentsId(true, false, -1, getRecoilValue(setContents))
+                updateContentsId(
+                  true,
+                  false,
+                  -1,
+                  getRecoilValue(setContents),
+                  null
+                )
               );
               setConsumerChat(
                 updateContentsId(
                   false,
                   true,
                   -1,
-                  getRecoilValue(setConsumerChat)
+                  getRecoilValue(setConsumerChat),
+                  getRecoilValue(setPreference)
                 )
               );
             }

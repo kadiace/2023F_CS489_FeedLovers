@@ -22,7 +22,7 @@ function Content({
   /* eslint-disable */
   const [contents, setContents] = useRecoilState(contentsAtom);
 
-  function typeToImage(type: number) {
+  const typeToImage = (type: number) => {
     switch (type) {
       case 0:
         return celeb;
@@ -41,7 +41,7 @@ function Content({
       default:
         break;
     }
-  }
+  };
 
   const [{ isDragging }, drag, dragPreview] = useDrag({
     type: event ? "CONTENT_EVENT" : "CONTENT",

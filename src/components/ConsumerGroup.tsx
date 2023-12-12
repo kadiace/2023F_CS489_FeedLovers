@@ -1,9 +1,10 @@
 import { useDrop } from "react-dnd";
-import Consumer from "./Consumer";
+import Consumer, { preferenceNerfer } from "./Consumer";
 import { useRecoilState } from "recoil";
 import {
   consumerChatAtom,
   goalAtom,
+  preferenceAtom,
   roundStateAtom,
   timeAtom,
   totalAtom,
@@ -18,13 +19,15 @@ function ConsumerGroup() {
   const [roundState, setRoundState] = useRecoilState(roundStateAtom);
   const [goal, setGoal] = useRecoilState(goalAtom);
   const [total, setTotal] = useRecoilState(totalAtom);
+  const [preference, setPreference] = useRecoilState(preferenceAtom);
   const [{ isOver }, drop] = useDrop(
     () => ({
       accept: "CONTENT_EVENT",
       hover(item: { type: number }, monitor) {},
       drop: (item: { type: number }, monitor) => {
         // 하트 반응 띄우기(타이머 끝날 때까지) | dnd 못하게 막기 | 검은 반투명 화면
-        setConsumerChat(updateContentsId(false, false, 6, consumerChat));
+        let consumerChat = getRecoilValue(setConsumerChat);
+        setConsumerChat(updateContentsId(false, false, 6, consumerChat, null));
         setConsumerChat((prev) => {
           let next = prev.slice();
           let liker = Math.floor(Math.random() * 16);
@@ -34,6 +37,8 @@ function ConsumerGroup() {
           next[liker] = 5;
           return next;
         });
+        consumerChat = getRecoilValue(setConsumerChat);
+        setPreference(preferenceNerfer(item.type, consumerChat));
         setRoundState("progress");
         setTime(5);
         setGoal((prev) => {

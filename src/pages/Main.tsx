@@ -12,6 +12,7 @@ import {
   consumerChatAtom,
   timeAtom,
   totalAtom,
+  preferenceAtom,
 } from "recoils/Atom";
 import { RoundInformation } from "components/Round";
 import { useNavigate } from "react-router-dom";
@@ -55,6 +56,7 @@ function Main() {
   const nextRound: MouseEventHandler = () => {
     const contents = getRecoilValue(setContents);
     const consumerChat = getRecoilValue(setConsumerChat);
+    const preference = getRecoilValue(setPreference);
     const { round } = getRecoilValue(setRoundWaveCount);
     const nextRound = round + 1 >= RoundInformation.length ? 0 : round + 1;
     setRoundWaveCount({
@@ -75,7 +77,7 @@ function Main() {
         arr[0] = 4;
         return arr;
       });
-      setConsumerChat(updateContentsId(false, false, 4, consumerChat));
+      setConsumerChat(updateContentsId(false, false, 4, consumerChat, null));
       // setConsumerChat(
       //   Array.from({ length: 16 }, (v, n) => (n === -2 ? -2 : 4))
       // );
@@ -85,13 +87,15 @@ function Main() {
         arr[0] = 3;
         return arr;
       });
-      setConsumerChat(updateContentsId(false, false, 3, consumerChat));
+      setConsumerChat(updateContentsId(false, false, 3, consumerChat, null));
       // setConsumerChat(
       //   Array.from({ length: 16 }, (v, n) => (n === -2 ? -2 : 3))
       // );
     } else {
-      setContents(updateContentsId(true, false, -1, contents));
-      setConsumerChat(updateContentsId(true, true, -1, consumerChat));
+      setContents(updateContentsId(true, false, -1, contents, null));
+      setConsumerChat(
+        updateContentsId(true, true, -1, consumerChat, preference)
+      );
     }
   };
 
@@ -106,6 +110,7 @@ function Main() {
   const [contents, setContents] = useRecoilState(contentsAtom);
   const [consumerChat, setConsumerChat] = useRecoilState(consumerChatAtom);
   const [time, setTime] = useRecoilState(timeAtom);
+  const [preference, setPreference] = useRecoilState(preferenceAtom);
   const [commandMessage, setCommandMessage] = useState<ReactNode>(
     <span>"..."</span>
   );

@@ -8,7 +8,7 @@ import ConsumerBan from "../assets/img/ui/consumer_ban.png";
 import { useDrop } from "react-dnd";
 import ConsumerChat from "./ConsumerChat";
 import { useState } from "react";
-import { SetterOrUpdater, useRecoilState } from "recoil";
+import { useRecoilState } from "recoil";
 import {
   goalAtom,
   consumerChatAtom,
@@ -18,14 +18,90 @@ import {
 } from "recoils/Atom";
 import { getRecoilValue } from "./Timer";
 
-export const getConsumerChat = (setter: SetterOrUpdater<number[]>) => {
-  let consumerChat = [0];
-  setter((prev) => {
-    consumerChat = prev;
-    return consumerChat;
-  });
-  return consumerChat;
+export const preferenceInitializer = (id: number) => (pref: number[][][]) => {
+  let sumPreference = Math.random() * 100;
+  let preferenceRatio = Array.from({ length: 5 }, (v, i) =>
+    Math.pow(100, Math.random())
+  );
+  let sumPreferenceRatio = preferenceRatio.reduce((a, b) => a + b, 0);
+  let preferences = Array.from({ length: 6 }, (v, i) => [
+    i - 1,
+    i === 0
+      ? 100 - sumPreference
+      : sumPreference * (preferenceRatio[i - 1] / sumPreferenceRatio),
+  ]);
+  preferences.sort((a, b) =>
+    a[0] === -1 ? -1 : b[0] === -1 ? 1 : b[1] - a[1]
+  );
+  let newPref = pref.slice();
+  newPref[id] = preferences;
+  return newPref;
 };
+
+const preferenceBooster =
+  (id: number, type: number) => (pref: number[][][]) => {
+    let newPref = pref.slice();
+    let empty = newPref[id][0][1];
+    if (empty >= 20) {
+      newPref[id] = newPref[id].map((v) => {
+        return [v[0], v[1] + (v[0] === -1 ? -20 : v[0] === type ? 20 : 0)];
+      });
+    } else {
+      let boostValue = newPref[id].filter((v) => v[0] === type)[0][1];
+      if (boostValue > 80) {
+        newPref[id] = newPref[id].map((v) => {
+          return [v[0], v[0] === type ? 100 : 0];
+        });
+      } else {
+        newPref[id] = newPref[id].map((v) => {
+          return [
+            v[0],
+            v[0] === -1
+              ? 0
+              : v[0] === type
+              ? boostValue + 20
+              : (v[1] * (80 - boostValue)) / (100 - empty - boostValue),
+          ];
+        });
+      }
+    }
+    newPref[id].sort((a, b) =>
+      a[0] === -1 ? -1 : b[0] === -1 ? 1 : b[1] - a[1]
+    );
+    return newPref;
+  };
+
+export const preferenceNerfer =
+  (type: number, consumerChat: number[]) => (pref: number[][][]) => {
+    let newPref = pref.slice();
+    for (let id = 0; id < 16; id++) {
+      if (consumerChat[id] === 5) {
+        newPref = preferenceBooster(id, type)(newPref);
+      } else {
+        let nerfValue = newPref[id].filter((v) => v[0] === type)[0][1];
+        newPref[id] = newPref[id].map((v) => {
+          return [
+            v[0],
+            v[1] +
+              (v[0] === -1 ? nerfValue / 2 : v[0] === type ? -v[1] / 2 : 0),
+          ];
+        });
+        newPref[id].sort((a, b) =>
+          a[0] === -1 ? -1 : b[0] === -1 ? 1 : b[1] - a[1]
+        );
+      }
+    }
+    return newPref;
+  };
+
+const contentColor = [
+  "white",
+  "#FF83AB",
+  "#1F75EF",
+  "#299C5A",
+  "#8999B2",
+  "#3A4467",
+];
 
 function Consumer({ id, onEvent }: { id: number; onEvent: boolean }) {
   // state
@@ -38,18 +114,13 @@ function Consumer({ id, onEvent }: { id: number; onEvent: boolean }) {
   const [preference, setPreference] = useRecoilState(preferenceAtom);
 
   // function
-  function updateAcceptType(type: number) {
+  const updateAcceptType = (type: number) => {
     setConsumerChat((prev) => {
       const next = prev.slice();
       next[id] = type;
       return next;
     });
-    setConsumerChat((prev) => {
-      const next = prev.slice();
-      next[id] = type;
-      return next;
-    });
-  }
+  };
 
   const [{ isOver, canDrop }, drop] = useDrop(() => ({
     accept: "CONTENT",
@@ -65,10 +136,11 @@ function Consumer({ id, onEvent }: { id: number; onEvent: boolean }) {
       if (remain <= 0) {
         setRoundState("success");
       }
+      setPreference(preferenceBooster(id, item.type));
       updateAcceptType(5);
     },
     canDrop: (item: { type: number }, monitor) => {
-      const receiveConsumerChat = getConsumerChat(setConsumerChat);
+      const receiveConsumerChat = getRecoilValue(setConsumerChat);
       return receiveConsumerChat[id] === -1
         ? true
         : item.type === receiveConsumerChat[id];
@@ -219,64 +291,64 @@ function Consumer({ id, onEvent }: { id: number; onEvent: boolean }) {
             <div
               style={{
                 display: "flex",
-                flex: 1,
-                // flex: preference[id][0],
+                // flex: 1,
+                flex: preference[id][0][1],
                 flexDirection: "column",
                 position: "relative",
                 zIndex: 1,
-                background: "white",
-              }}
-            ></div>
-            {/* <div
-              style={{
-                display: "flex",
-                flex: preference[id][1],
-                flexDirection: "column",
-                position: "relative",
-                zIndex: 1,
-                background: "#FF83AB",
+                background: contentColor[preference[id][0][0] + 1],
               }}
             ></div>
             <div
               style={{
                 display: "flex",
-                flex: preference[id][2],
+                flex: preference[id][1][1],
                 flexDirection: "column",
                 position: "relative",
                 zIndex: 1,
-                background: "#1F75EF",
+                background: contentColor[preference[id][1][0] + 1],
               }}
             ></div>
             <div
               style={{
                 display: "flex",
-                flex: preference[id][3],
+                flex: preference[id][2][1],
                 flexDirection: "column",
                 position: "relative",
                 zIndex: 1,
-                background: "#299C5A",
+                background: contentColor[preference[id][2][0] + 1],
               }}
             ></div>
             <div
               style={{
                 display: "flex",
-                flex: preference[id][4],
+                flex: preference[id][3][1],
                 flexDirection: "column",
                 position: "relative",
                 zIndex: 1,
-                background: "#3A4467",
+                background: contentColor[preference[id][3][0] + 1],
               }}
             ></div>
             <div
               style={{
                 display: "flex",
-                flex: preference[id][5],
+                flex: preference[id][4][1],
                 flexDirection: "column",
                 position: "relative",
                 zIndex: 1,
-                background: "#8999B2",
+                background: contentColor[preference[id][4][0] + 1],
               }}
-            ></div> */}
+            ></div>
+            <div
+              style={{
+                display: "flex",
+                flex: preference[id][5][1],
+                flexDirection: "column",
+                position: "relative",
+                zIndex: 1,
+                background: contentColor[preference[id][5][0] + 1],
+              }}
+            ></div>
           </div>
           <img
             alt=""

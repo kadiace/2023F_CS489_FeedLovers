@@ -6,9 +6,9 @@ import GuideWindow from "components/GuideWindow";
 function Guide() {
   // navigate
   const navigate = useNavigate();
-  function navigateMain() {
+  const navigateMain = () => {
     navigate("/main");
-  }
+  };
   return (
     <div
       className="Guide"

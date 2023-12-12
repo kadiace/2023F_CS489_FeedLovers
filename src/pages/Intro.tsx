@@ -5,9 +5,9 @@ import { useNavigate } from "react-router-dom";
 
 function Intro() {
   const navigate = useNavigate();
-  function navigateLobby() {
+  const navigateLobby = () => {
     navigate("/lobby");
-  }
+  };
   const initDelay = 1;
   const duration = 5;
   return (
