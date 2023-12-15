@@ -85,7 +85,13 @@ export const RoundInformation: Round[] = [
     goal: 1800,
     wave: [40, 5, 5],
     hasEvent: true,
-    newsMessage: <EmphasizeText message="Mass shooting left 80 victims..." />,
+    newsMessage: (
+      <span>
+        Mass shooting left <EmphasizeText message="80 victims" />, The suspect
+        was&#10; a teenage boy who{" "}
+        <EmphasizeText message="enjoyed playing FPS games" />.
+      </span>
+    ),
     commandMessage: [
       <span>
         See <EmphasizeText message={"the news"} /> below! It smells like{" "}
