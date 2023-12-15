@@ -23,9 +23,9 @@ function Guide() {
       <GuideWindow
         messageList={[
           "> Do you see me?",
-          "> Oh! This works! Nice to meet you!",
-          "> Hello, you are 'Feed', developed for our platform's content recommendation \nalgorithm.",
-          "> No time to talk. There are so many people already waiting for you! Let’s go to \nmeet them.",
+          "> Oh! This really works! I can't believe! \nUmm... anyway, nice to meet you!",
+          "> Hello, you are 'Feed', developed for our platform's \ncontent recommendation algorithm.",
+          "> No time to talk. There are so many people already waiting for you! \nLet’s go to meet them.",
         ]}
         navigate={navigateMain}
         style={{
