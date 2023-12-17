@@ -23,6 +23,7 @@ function Ending() {
     setBeforeGIF(true);
   };
   const turnOnPopUp = () => {
+    setBeforeGIF(false);
     setAfterGIF(true);
   };
 
