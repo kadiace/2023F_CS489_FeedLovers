@@ -29,9 +29,9 @@ function Main() {
   const round1CommandMessage: ReactNode[] = [
     "You can drag these contents and drop to consumers!",
     "Well done! Before the timer goes off, distribute these properly!",
-    "I’m sure that you can make it!",
-    "Great!",
     "Let’s make money until we exceed the goal!",
+    "Great!",
+    "I’m sure that you can make it!",
   ];
   const normalCommandMessage: ReactNode[] = [
     "You’re doing great..!",
@@ -101,6 +101,7 @@ function Main() {
   );
   const [newsMessage, setNewsMessage] = useState<ReactNode>(<span>"..."</span>);
 
+  // message setting for event.
   useEffect(() => {
     // Get recoil value.
     const { round, wave } = getRecoilValue(setRoundWaveCount);
@@ -127,20 +128,40 @@ function Main() {
         commandMessage = roundInfo.eventMessage;
       }
       newsMessage = roundInfo.newsMessage;
-    } else {
+
+      // Set message.
+      setCommandMessage(commandMessage);
+      setNewsMessage(newsMessage!);
+    }
+  }, [roundWaveCount, isEvent, time, roundState]);
+
+  // message setting for non event.
+  useEffect(() => {
+    // Get recoil value.
+    const { round, wave } = getRecoilValue(setRoundWaveCount);
+    const isEvent = getRecoilValue(setIsEvent);
+
+    // Get message list.
+    let commandMessage: ReactNode;
+    let newsMessage: ReactNode;
+
+    if (!isEvent) {
       commandMessage =
-        round === 0 ? round1CommandMessage[wave] : normalCommandMessage[wave];
+        round === 0
+          ? round1CommandMessage[wave]
+          : normalCommandMessage[
+              Math.floor(Math.random() * normalCommandMessage.length)
+            ];
       if (round === 2 && wave === 1) {
         commandMessage =
           "Someone is out, but nevermind. You still have loyal consumers a lot. :)";
       }
       newsMessage = <span>"..."</span>;
+      // Set message.
+      setCommandMessage(commandMessage);
+      setNewsMessage(newsMessage!);
     }
-
-    // Set message.
-    setCommandMessage(commandMessage);
-    setNewsMessage(newsMessage!);
-  }, [roundWaveCount, isEvent, time, roundState]);
+  }, [roundWaveCount, isEvent]);
 
   return (
     <div

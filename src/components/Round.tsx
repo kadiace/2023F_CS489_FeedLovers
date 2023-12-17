@@ -79,7 +79,7 @@ export const RoundInformation: Round[] = [
   {
     alias: "E",
     goal: 3000,
-    wave: [30, 30, 30],
+    wave: [10, 30, 30],
     hasEvent: true,
     newsMessage: (
       <span>
@@ -114,7 +114,7 @@ export const RoundInformation: Round[] = [
 //   {
 //     alias: "A",
 //     goal: 100,
-//     wave: [15, 15, 15, 15, 15],
+//     wave: [5, 5, 5, 5, 5],
 //     hasEvent: false,
 //     newsMessage: "",
 //     commandMessage: [""],
@@ -123,7 +123,7 @@ export const RoundInformation: Round[] = [
 //   {
 //     alias: "B",
 //     goal: 100,
-//     wave: [25, 25, 25, 25],
+//     wave: [5, 5, 5, 5],
 //     hasEvent: false,
 //     newsMessage: "",
 //     commandMessage: [""],
@@ -132,7 +132,7 @@ export const RoundInformation: Round[] = [
 //   {
 //     alias: "C",
 //     goal: 1700,
-//     wave: [30, 30, 30],
+//     wave: [15, 10, 5],
 //     hasEvent: true,
 //     newsMessage: (
 //       <span>
@@ -166,7 +166,7 @@ export const RoundInformation: Round[] = [
 //   {
 //     alias: "D",
 //     goal: 100,
-//     wave: [20, 20, 20],
+//     wave: [5, 5, 5],
 //     hasEvent: false,
 //     newsMessage: "",
 //     commandMessage: [""],
