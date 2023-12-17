@@ -35,7 +35,6 @@ function Main() {
   ];
   const normalCommandMessage: ReactNode[] = [
     "You’re doing great..!",
-    "Someone is out, but nevermind. You still have loyal consumers a lot. :)",
     "Keep it like this!",
     "Feed, you can make it!",
     "Keep this pace!",
@@ -131,6 +130,10 @@ function Main() {
     } else {
       commandMessage =
         round === 0 ? round1CommandMessage[wave] : normalCommandMessage[wave];
+      if (round === 2 && wave === 1) {
+        commandMessage =
+          "Someone is out, but nevermind. You still have loyal consumers a lot. :)";
+      }
       newsMessage = <span>"..."</span>;
     }
 

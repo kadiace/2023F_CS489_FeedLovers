@@ -53,7 +53,13 @@ function Ending() {
             }}
           >
             <GuideWindow
-              messageList={["> TEST: Ending Script."]}
+              messageList={[
+                "So… This is the end of our long journey.",
+                "We just did what they asked us to do... but why did this happen? ",
+                "How do you think? Did you 'feed' our lovers well?",
+                "Well, whatever. The era of algorithms has already arrived.",
+                "We failed. However, people will want our feed, anyway.",
+              ]}
               navigate={navigateLobby}
               style={{
                 display: "flex",
