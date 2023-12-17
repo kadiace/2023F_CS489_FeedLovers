@@ -28,12 +28,15 @@ function Ending() {
 
   return (
     <div
-      className="Main"
+      className="Ending"
       style={{
         position: "absolute",
         backgroundColor: "black",
         width: "100%",
         height: "100%",
+        msOverflowStyle: "none",
+        scrollbarWidth: "none",
+        overflow: "hidden",
       }}
     >
       {afterGIF && (
@@ -70,7 +73,7 @@ function Ending() {
             style={{
               position: "relative",
               left: "100px",
-              top: "-25px",
+              top: "-30px",
               width: "100%",
               height: "100%",
               objectFit: "contain",
