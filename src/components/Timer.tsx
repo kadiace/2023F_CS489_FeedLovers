@@ -1,18 +1,19 @@
+import { preferenceInitializer } from "components/Consumer";
+import { RoundInformation } from "components/Round";
+
 import { useEffect } from "react";
 import { SetterOrUpdater, useRecoilState } from "recoil";
 import {
+  consumerChatAtom,
   contentsAtom,
   goalAtom,
   isEventAtom,
-  roundWaveCountAtom,
-  roundStateAtom,
-  timeAtom,
-  consumerChatAtom,
-  totalAtom,
   preferenceAtom,
+  roundStateAtom,
+  roundWaveCountAtom,
+  timeAtom,
+  totalAtom,
 } from "recoils/Atom";
-import { RoundInformation } from "./Round";
-import { preferenceInitializer } from "./Consumer";
 
 const displayTime = (time: number) => {
   const minutes: string = "0" + Math.floor(time / 60);
@@ -59,30 +60,34 @@ const randomContent = (preference: number[][]) => {
   }
 };
 
-export const updateContentsId = (
-  strong: boolean,
-  probBiased: boolean,
+export const newConsumerChat = (
+  reset: boolean,
   eventContent: number,
   prev: number[],
-  preferences: number[][][] | null
+  preferences: number[][][]
 ) =>
   prev.map((n: number, id: number) => {
+    if (reset) {
+      return randomContent(preferences[id]);
+    }
+    // if killed
     if (n === -2) {
       return n;
-    } else {
-      if (eventContent >= 0) {
-        return eventContent;
-      } else if (strong || n === 6) {
-        if (probBiased) {
-          return preferences === null
-            ? Math.floor(Math.random() * 5)
-            : randomContent(preferences[id]);
-        } else
-          return preferences === null
-            ? Math.floor(Math.random() * 5)
-            : randomContent(preferences[id]);
-      } else return n;
     }
+    // if in event
+    if (eventContent >= 0) {
+      return eventContent;
+    }
+    return randomContent(preferences[id]);
+  });
+
+export const newContents = (eventContent: number) =>
+  Array.from({ length: 12 }, () => {
+    // if in event
+    if (eventContent >= 0) {
+      return eventContent;
+    }
+    return Math.floor(Math.random() * 5);
   });
 
 const blamersKiller =
@@ -122,13 +127,13 @@ function Timer() {
     for (let id = 0; id < 16; id++) {
       setPreference(preferenceInitializer(id));
     }
-    setContents(updateContentsId(true, false, -1, contents, null));
+    setIsEvent(false);
+    setContents(newContents(-1));
     setConsumerChat(
-      updateContentsId(
-        true,
+      newConsumerChat(
         true,
         -1,
-        consumerChat,
+        getRecoilValue(setConsumerChat),
         getRecoilValue(setPreference)
       )
     );
@@ -159,19 +164,10 @@ function Timer() {
                   blamersKiller(1, getRecoilValue(setPreference))
                 );
               }
-              setContents(
-                updateContentsId(
-                  true,
-                  false,
-                  -1,
-                  getRecoilValue(setContents),
-                  null
-                )
-              );
+              setContents(newContents(-1));
               setConsumerChat(
-                updateContentsId(
+                newConsumerChat(
                   false,
-                  true,
                   -1,
                   getRecoilValue(setConsumerChat),
                   getRecoilValue(setPreference)

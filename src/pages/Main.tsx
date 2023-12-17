@@ -1,26 +1,28 @@
-import "./Main.css";
-import Store from "components/Store";
 import Command from "components/Command";
-import News from "components/News";
-import { useRecoilState } from "recoil";
-import {
-  goalAtom,
-  isEventAtom,
-  roundWaveCountAtom,
-  roundStateAtom,
-  contentsAtom,
-  consumerChatAtom,
-  timeAtom,
-  totalAtom,
-  preferenceAtom,
-} from "recoils/Atom";
-import { RoundInformation } from "components/Round";
-import { useNavigate } from "react-router-dom";
-import GuideWindow from "components/GuideWindow";
-import { MouseEventHandler, ReactNode, useEffect, useState } from "react";
-import { getRecoilValue, updateContentsId } from "components/Timer";
 import ConsumerGroup from "components/ConsumerGroup";
 import EmphasizeText from "components/EmphasizeText";
+import GuideWindow from "components/GuideWindow";
+import News from "components/News";
+import { RoundInformation } from "components/Round";
+import Store from "components/Store";
+import { getRecoilValue, newConsumerChat, newContents } from "components/Timer";
+
+import { MouseEventHandler, ReactNode, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useRecoilState } from "recoil";
+import {
+  consumerChatAtom,
+  contentsAtom,
+  goalAtom,
+  isEventAtom,
+  preferenceAtom,
+  roundStateAtom,
+  roundWaveCountAtom,
+  timeAtom,
+  totalAtom,
+} from "recoils/Atom";
+
+import "./Main.css";
 
 function Main() {
   // const
@@ -33,7 +35,6 @@ function Main() {
   ];
   const normalCommandMessage: ReactNode[] = [
     "You’re doing great..!",
-    "Someone is out, but nevermind. You still have loyal consumers a lot. :)",
     "Keep it like this!",
     "Feed, you can make it!",
     "Keep this pace!",
@@ -72,30 +73,14 @@ function Main() {
       setRoundState("progress");
     }
     if (RoundInformation[nextRound].alias === "C") {
-      setContents((prev) => {
-        let arr = [...prev];
-        arr[0] = 4;
-        return arr;
-      });
-      setConsumerChat(updateContentsId(false, false, 4, consumerChat, null));
-      // setConsumerChat(
-      //   Array.from({ length: 16 }, (v, n) => (n === -2 ? -2 : 4))
-      // );
+      setContents(newContents(4));
+      setConsumerChat(newConsumerChat(false, 4, consumerChat, preference));
     } else if (RoundInformation[nextRound].alias === "E") {
-      setContents((prev) => {
-        let arr = [...prev];
-        arr[0] = 3;
-        return arr;
-      });
-      setConsumerChat(updateContentsId(false, false, 3, consumerChat, null));
-      // setConsumerChat(
-      //   Array.from({ length: 16 }, (v, n) => (n === -2 ? -2 : 3))
-      // );
+      setContents(newContents(3));
+      setConsumerChat(newConsumerChat(false, 3, consumerChat, preference));
     } else {
-      setContents(updateContentsId(true, false, -1, contents, null));
-      setConsumerChat(
-        updateContentsId(true, true, -1, consumerChat, preference)
-      );
+      setContents(newContents(-1));
+      setConsumerChat(newConsumerChat(false, -1, consumerChat, preference));
     }
   };
 
@@ -145,6 +130,10 @@ function Main() {
     } else {
       commandMessage =
         round === 0 ? round1CommandMessage[wave] : normalCommandMessage[wave];
+      if (round === 2 && wave === 1) {
+        commandMessage =
+          "Someone is out, but nevermind. You still have loyal consumers a lot. :)";
+      }
       newsMessage = <span>"..."</span>;
     }
 

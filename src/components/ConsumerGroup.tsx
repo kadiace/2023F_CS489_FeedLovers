@@ -1,5 +1,10 @@
+import Consumer, { preferenceNerfer } from "components/Consumer";
+import { RoundInformation } from "components/Round";
+import { newConsumerChat } from "components/Timer";
+import { getRecoilValue } from "components/Timer";
+
 import { useDrop } from "react-dnd";
-import Consumer, { preferenceNerfer } from "./Consumer";
+import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import {
   consumerChatAtom,
@@ -10,10 +15,6 @@ import {
   timeAtom,
   totalAtom,
 } from "recoils/Atom";
-import { updateContentsId } from "./Timer";
-import { getRecoilValue } from "./Timer";
-import { RoundInformation } from "./Round";
-import { useNavigate } from "react-router-dom";
 
 function ConsumerGroup() {
   // state
@@ -39,7 +40,7 @@ function ConsumerGroup() {
       drop: (item: { type: number }, monitor) => {
         // 하트 반응 띄우기(타이머 끝날 때까지) | dnd 못하게 막기 | 검은 반투명 화면
         let consumerChat = getRecoilValue(setConsumerChat);
-        setConsumerChat(updateContentsId(false, false, 6, consumerChat, null));
+        setConsumerChat(newConsumerChat(false, 6, consumerChat, preference));
         setConsumerChat((prev) => {
           let next = prev.slice();
           let liker = Math.floor(Math.random() * 16);
