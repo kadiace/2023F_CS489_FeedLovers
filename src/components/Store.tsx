@@ -1,12 +1,14 @@
-import StoreShiny from "../assets/img/ui/store_shiny.png";
-import StoreGrid from "../assets/img/ui/store_grid.png";
-import StoreBackground from "../assets/img/ui/store_background.png";
-import StoreContents from "./StoreContents";
-import Timer from "./Timer";
-import { useRecoilState } from "recoil";
-import { isEventAtom, roundWaveCountAtom } from "recoils/Atom";
-import { RoundInformation } from "./Round";
-import StoreContentsEvent from "./StoreContentsEvent";
+import StoreBackground from 'assets/img/ui/store_background.png';
+import StoreGrid from 'assets/img/ui/store_grid.png';
+import StoreShiny from 'assets/img/ui/store_shiny.png';
+
+import { RoundInformation } from 'components/Round';
+import StoreContents from 'components/StoreContents';
+import StoreContentsEvent from 'components/StoreContentsEvent';
+import Timer from 'components/Timer';
+
+import { useRecoilState } from 'recoil';
+import { isEventAtom, roundWaveCountAtom } from 'recoils/Atom';
 
 function Store() {
   // state
@@ -18,54 +20,54 @@ function Store() {
   return (
     <div
       style={{
-        position: "relative",
-        display: "flex",
-        width: "100%",
-        height: "223px",
+        position: 'relative',
+        display: 'flex',
+        width: '100%',
+        height: '223px',
       }}
     >
       <img
-        alt=""
+        alt=''
         style={{
-          position: "absolute",
-          right: "0px",
-          top: "5px",
-          height: "97%",
-          objectFit: "contain",
+          position: 'absolute',
+          right: '0px',
+          top: '5px',
+          height: '97%',
+          objectFit: 'contain',
           zIndex: 0,
-          pointerEvents: "none",
+          pointerEvents: 'none',
           opacity: 0.5,
         }}
         src={StoreBackground}
       ></img>
       <div
         style={{
-          position: "absolute",
-          display: "flex",
-          inset: "10px",
+          position: 'absolute',
+          display: 'flex',
+          inset: '10px',
           zIndex: 1,
-          flexDirection: "column",
+          flexDirection: 'column',
         }}
       >
         <div
           style={{
-            position: "relative",
-            display: "flex",
-            height: "60px",
+            position: 'relative',
+            display: 'flex',
+            height: '60px',
           }}
         >
           <div
             style={{
-              display: "flex",
-              flexDirection: "row",
-              width: "100%",
-              justifyContent: "center",
-              position: "relative",
+              display: 'flex',
+              flexDirection: 'row',
+              width: '100%',
+              justifyContent: 'center',
+              position: 'relative',
               zIndex: 3,
-              fontFamily: "Retro Gaming",
-              fontSize: "23px",
-              color: "#95d7d0",
-              gap: "50px",
+              fontFamily: 'Retro Gaming',
+              fontSize: '23px',
+              color: '#95d7d0',
+              gap: '50px',
             }}
           >
             <p>
@@ -77,8 +79,8 @@ function Store() {
         </div>
         <div
           style={{
-            position: "relative",
-            display: "flex",
+            position: 'relative',
+            display: 'flex',
             flexGrow: 1,
           }}
         >
@@ -86,27 +88,27 @@ function Store() {
         </div>
       </div>
       <img
-        alt=""
+        alt=''
         style={{
-          position: "absolute",
-          right: "100px",
-          top: "5px",
-          height: "95%",
-          objectFit: "contain",
+          position: 'absolute',
+          right: '100px',
+          top: '5px',
+          height: '95%',
+          objectFit: 'contain',
           zIndex: 2,
-          pointerEvents: "none",
+          pointerEvents: 'none',
         }}
         src={StoreShiny}
       ></img>
       <img
-        alt=""
+        alt=''
         style={{
-          position: "absolute",
-          right: "0px",
-          height: "100%",
-          objectFit: "contain",
+          position: 'absolute',
+          right: '0px',
+          height: '100%',
+          objectFit: 'contain',
           zIndex: 3,
-          pointerEvents: "none",
+          pointerEvents: 'none',
         }}
         src={StoreGrid}
       ></img>

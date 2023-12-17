@@ -1,64 +1,64 @@
-import GuideBackground from "../assets/img/ui/guide_background.png";
-import GuideShiny from "../assets/img/ui/guide_shiny.png";
-import GuideGrid from "../assets/img/ui/guide_grid.png";
+import GuideBackground from 'assets/img/ui/guide_background.png';
+import GuideGrid from 'assets/img/ui/guide_grid.png';
+import GuideShiny from 'assets/img/ui/guide_shiny.png';
 
 function GuideWindowLayout() {
   return (
     <div
       style={{
-        position: "relative",
-        display: "flex",
-        width: "860px",
-        height: "320px",
-        justifyContent: "center",
+        position: 'relative',
+        display: 'flex',
+        width: '860px',
+        height: '320px',
+        justifyContent: 'center',
       }}
     >
       <img
-        alt=""
+        alt=''
         style={{
-          position: "absolute",
-          width: "100%",
-          height: "100%",
-          objectFit: "cover",
+          position: 'absolute',
+          width: '100%',
+          height: '100%',
+          objectFit: 'cover',
           zIndex: 0,
         }}
         src={GuideBackground}
       ></img>
       <img
-        alt=""
+        alt=''
         style={{
-          position: "absolute",
-          width: "100%",
-          height: "100%",
-          objectFit: "cover",
+          position: 'absolute',
+          width: '100%',
+          height: '100%',
+          objectFit: 'cover',
           zIndex: 3,
-          pointerEvents: "none",
+          pointerEvents: 'none',
         }}
         src={GuideShiny}
       ></img>
       <img
-        alt=""
+        alt=''
         style={{
-          position: "absolute",
-          width: "100%",
-          height: "100%",
-          objectFit: "cover",
+          position: 'absolute',
+          width: '100%',
+          height: '100%',
+          objectFit: 'cover',
           zIndex: 4,
-          pointerEvents: "none",
+          pointerEvents: 'none',
         }}
         src={GuideGrid}
       ></img>
 
       <p
         style={{
-          display: "flex",
-          position: "absolute",
-          fontFamily: "Retro Gaming",
-          fontSize: "23px",
-          textAlign: "right",
-          color: "white",
-          width: "66%",
-          top: "-5%",
+          display: 'flex',
+          position: 'absolute',
+          fontFamily: 'Retro Gaming',
+          fontSize: '23px',
+          textAlign: 'right',
+          color: 'white',
+          width: '66%',
+          top: '-5%',
           zIndex: 4,
         }}
       >

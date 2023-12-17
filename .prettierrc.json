@@ -5,7 +5,17 @@
   "singleQuote": true,
   "trailingComma": "all",
   "jsxSingleQuote": true,
-  "importOrder": ["^[./]"],
+  "importOrder": [
+    "^assets/(.*)$",
+    "^components/(.*)$",
+    "^pages/(.*)$",
+    "^@testing-library/(.*)$",
+    "<THIRD_PARTY_MODULES>",
+    "^[./]"
+  ],
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true,
+  "plugins": ["@trivago/prettier-plugin-sort-imports"],
   "overrides": [
     {
       "files": "*.json",

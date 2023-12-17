@@ -1,8 +1,8 @@
-import { preferenceInitializer } from "components/Consumer";
-import { RoundInformation } from "components/Round";
+import { preferenceInitializer } from 'components/Consumer';
+import { RoundInformation } from 'components/Round';
 
-import { useEffect } from "react";
-import { SetterOrUpdater, useRecoilState } from "recoil";
+import { useEffect } from 'react';
+import { SetterOrUpdater, useRecoilState } from 'recoil';
 import {
   consumerChatAtom,
   contentsAtom,
@@ -13,14 +13,14 @@ import {
   roundWaveCountAtom,
   timeAtom,
   totalAtom,
-} from "recoils/Atom";
+} from 'recoils/Atom';
 
 const displayTime = (time: number) => {
-  const minutes: string = "0" + Math.floor(time / 60);
-  const seconds: string = "0" + Number(time % 60);
+  const minutes: string = '0' + Math.floor(time / 60);
+  const seconds: string = '0' + Number(time % 60);
   return (
     minutes.substring(minutes.length - 2) +
-    ":" +
+    ':' +
     seconds.substring(seconds.length - 2)
   );
 };
@@ -64,7 +64,7 @@ export const newConsumerChat = (
   reset: boolean,
   eventContent: number,
   prev: number[],
-  preferences: number[][][]
+  preferences: number[][][],
 ) =>
   prev.map((n: number, id: number) => {
     if (reset) {
@@ -94,7 +94,7 @@ const blamersKiller =
   (n: number, preferences: number[][][]) => (prev: number[]) => {
     let contents = prev.slice();
     let blamers = Array.from({ length: 16 }, (v, i) => i).filter(
-      (n) => contents[n] === 6
+      (n) => contents[n] === 6,
     );
     blamers.sort((a, b) => preferences[b][1][1] - preferences[a][1][1]); // (자신의 최애 장르에) 제일 과몰입한 사람
     for (let i = 0; i < Math.min(n, blamers.length); i++) {
@@ -123,7 +123,7 @@ function Timer() {
     setGoal(RoundInformation[0].goal);
     setTotal(0);
     setTime(RoundInformation[0].wave[0]);
-    setRoundState("progress");
+    setRoundState('progress');
     for (let id = 0; id < 16; id++) {
       setPreference(preferenceInitializer(id));
     }
@@ -134,12 +134,12 @@ function Timer() {
         true,
         -1,
         getRecoilValue(setConsumerChat),
-        getRecoilValue(setPreference)
-      )
+        getRecoilValue(setPreference),
+      ),
     );
     const timer = setInterval(() => {
       let roundState = getRecoilValue(setRoundState);
-      if (roundState === "progress" || roundState === "pending") {
+      if (roundState === 'progress' || roundState === 'pending') {
         let prevTime = getRecoilValue(setTime);
         let newTime;
         {
@@ -150,10 +150,10 @@ function Timer() {
               // Reach max wave
               const remain = getRecoilValue(setGoal);
               if (remain > 0) {
-                setRoundState("fail");
+                setRoundState('fail');
                 newTime = 0;
               } else {
-                throw new Error("");
+                throw new Error('');
               }
             } else {
               // Go to next wave
@@ -161,7 +161,7 @@ function Timer() {
               if (getRecoilValue(setIsEvent)) {
                 setIsEvent(false);
                 setConsumerChat(
-                  blamersKiller(1, getRecoilValue(setPreference))
+                  blamersKiller(1, getRecoilValue(setPreference)),
                 );
               }
               setContents(newContents(-1));
@@ -170,13 +170,13 @@ function Timer() {
                   false,
                   -1,
                   getRecoilValue(setConsumerChat),
-                  getRecoilValue(setPreference)
-                )
+                  getRecoilValue(setPreference),
+                ),
               );
             }
             newTime = RoundInformation[round].wave[wave + 1];
           } else {
-            if (roundState === "progress" || prevTime > 1) {
+            if (roundState === 'progress' || prevTime > 1) {
               newTime = prevTime - 1;
             } else {
               newTime = prevTime;

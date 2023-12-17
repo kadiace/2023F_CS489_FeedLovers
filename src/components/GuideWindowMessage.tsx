@@ -1,5 +1,5 @@
-import { MouseEvent, MouseEventHandler, useState } from "react";
-import Typist from "react-typist";
+import { MouseEvent, MouseEventHandler, useState } from 'react';
+import Typist from 'react-typist';
 
 function GuideWindowMessage(props: {
   counter: number;
@@ -20,17 +20,17 @@ function GuideWindowMessage(props: {
     <div>
       <div
         style={{
-          position: "relative",
-          display: "flex",
-          whiteSpace: "pre-line",
-          width: "780px",
-          height: "110px",
-          color: "#71FF2F",
-          fontFamily: "SairaCondensed",
-          fontSize: "26px",
-          fontStyle: "normal",
-          lineHeight: "110%" /* 39.6px */,
-          letterSpacing: "0.25px",
+          position: 'relative',
+          display: 'flex',
+          whiteSpace: 'pre-line',
+          width: '780px',
+          height: '110px',
+          color: '#71FF2F',
+          fontFamily: 'SairaCondensed',
+          fontSize: '26px',
+          fontStyle: 'normal',
+          lineHeight: '110%' /* 39.6px */,
+          letterSpacing: '0.25px',
         }}
       >
         <Typist avgTypingDelay={15} key={counter}>
@@ -40,25 +40,25 @@ function GuideWindowMessage(props: {
 
       <div
         style={{
-          position: "relative",
-          display: "flex",
-          top: "30px",
-          whiteSpace: "pre-line",
-          alignItems: "center",
-          justifyContent: "center",
+          position: 'relative',
+          display: 'flex',
+          top: '30px',
+          whiteSpace: 'pre-line',
+          alignItems: 'center',
+          justifyContent: 'center',
         }}
       >
         <button
           style={{
-            width: "100px",
-            height: "45px",
-            color: "#341948",
-            backgroundColor: "#71FF2F",
-            fontFamily: "SairaCondensed",
-            fontSize: "26px",
-            fontStyle: "normal",
-            lineHeight: "110%" /* 39.6px */,
-            letterSpacing: "0.25px",
+            width: '100px',
+            height: '45px',
+            color: '#341948',
+            backgroundColor: '#71FF2F',
+            fontFamily: 'SairaCondensed',
+            fontSize: '26px',
+            fontStyle: 'normal',
+            lineHeight: '110%' /* 39.6px */,
+            letterSpacing: '0.25px',
           }}
           onClick={increment}
         >

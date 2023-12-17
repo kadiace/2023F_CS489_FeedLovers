@@ -1,15 +1,15 @@
-import Command from "components/Command";
-import ConsumerGroup from "components/ConsumerGroup";
-import EmphasizeText from "components/EmphasizeText";
-import GuideWindow from "components/GuideWindow";
-import News from "components/News";
-import { RoundInformation } from "components/Round";
-import Store from "components/Store";
-import { getRecoilValue, newConsumerChat, newContents } from "components/Timer";
+import Command from 'components/Command';
+import ConsumerGroup from 'components/ConsumerGroup';
+import EmphasizeText from 'components/EmphasizeText';
+import GuideWindow from 'components/GuideWindow';
+import News from 'components/News';
+import { RoundInformation } from 'components/Round';
+import Store from 'components/Store';
+import { getRecoilValue, newConsumerChat, newContents } from 'components/Timer';
 
-import { MouseEventHandler, ReactNode, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useRecoilState } from "recoil";
+import { MouseEventHandler, ReactNode, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
 import {
   consumerChatAtom,
   contentsAtom,
@@ -20,39 +20,37 @@ import {
   roundWaveCountAtom,
   timeAtom,
   totalAtom,
-} from "recoils/Atom";
-
-import "./Main.css";
+} from 'recoils/Atom';
 
 function Main() {
   // const
   const round1CommandMessage: ReactNode[] = [
-    "You can drag these contents and drop to consumers!",
-    "Well done! Before the timer goes off, distribute these properly!",
-    "Let’s make money until we exceed the goal!",
-    "Great!",
-    "I’m sure that you can make it!",
+    'You can drag these contents and drop to consumers!',
+    'Well done! Before the timer goes off, distribute these properly!',
+    'Let’s make money until we exceed the goal!',
+    'Great!',
+    'I’m sure that you can make it!',
   ];
   const normalCommandMessage: ReactNode[] = [
-    "You’re doing great..!",
-    "Keep it like this!",
-    "Feed, you can make it!",
-    "Keep this pace!",
-    "You are the best algorithm, ever!",
-    "You are setting a new standard!",
-    "Outstanding work, “Feed”!",
-    "Remarkable job!",
-    "Impressive!",
-    "Exceptional performance!",
-    "Fantastic job, “Feed”!",
+    'You’re doing great..!',
+    'Keep it like this!',
+    'Feed, you can make it!',
+    'Keep this pace!',
+    'You are the best algorithm, ever!',
+    'You are setting a new standard!',
+    'Outstanding work, “Feed”!',
+    'Remarkable job!',
+    'Impressive!',
+    'Exceptional performance!',
+    'Fantastic job, “Feed”!',
     "You're nailing it!",
-    "Hats off to your skills, “Feed”!",
+    'Hats off to your skills, “Feed”!',
   ];
 
   // const
   const navigate = useNavigate();
   const navigateLobby: MouseEventHandler = () => {
-    navigate("/lobby");
+    navigate('/lobby');
   };
   const nextRound: MouseEventHandler = () => {
     const contents = getRecoilValue(setContents);
@@ -68,14 +66,14 @@ function Main() {
     setTime(RoundInformation[nextRound].wave[0]);
     setIsEvent(RoundInformation[nextRound].hasEvent);
     if (RoundInformation[nextRound].hasEvent) {
-      setRoundState("pending");
+      setRoundState('pending');
     } else {
-      setRoundState("progress");
+      setRoundState('progress');
     }
-    if (RoundInformation[nextRound].alias === "C") {
+    if (RoundInformation[nextRound].alias === 'C') {
       setContents(newContents(4));
       setConsumerChat(newConsumerChat(false, 4, consumerChat, preference));
-    } else if (RoundInformation[nextRound].alias === "E") {
+    } else if (RoundInformation[nextRound].alias === 'E') {
       setContents(newContents(3));
       setConsumerChat(newConsumerChat(false, 3, consumerChat, preference));
     } else {
@@ -97,7 +95,7 @@ function Main() {
   const [time, setTime] = useRecoilState(timeAtom);
   const [preference, setPreference] = useRecoilState(preferenceAtom);
   const [commandMessage, setCommandMessage] = useState<ReactNode>(
-    <span>"..."</span>
+    <span>"..."</span>,
   );
   const [newsMessage, setNewsMessage] = useState<ReactNode>(<span>"..."</span>);
 
@@ -119,7 +117,7 @@ function Main() {
     let newsMessage: ReactNode;
 
     if (isEvent) {
-      if (roundState === "pending") {
+      if (roundState === 'pending') {
         commandMessage =
           eventMessages[
             Math.floor((1 - time / maxTime) * eventMessages.length)
@@ -154,7 +152,7 @@ function Main() {
             ];
       if (round === 2 && wave === 1) {
         commandMessage =
-          "Someone is out, but nevermind. You still have loyal consumers a lot. :)";
+          'Someone is out, but nevermind. You still have loyal consumers a lot. :)';
       }
       newsMessage = <span>"..."</span>;
       // Set message.
@@ -165,25 +163,25 @@ function Main() {
 
   return (
     <div
-      className="Main"
+      className='Main'
       style={{
-        position: "absolute",
-        backgroundColor: "black",
-        width: "100%",
-        height: "100%",
-        msOverflowStyle: "none",
-        scrollbarWidth: "none",
-        overflow: "hidden",
+        position: 'absolute',
+        backgroundColor: 'black',
+        width: '100%',
+        height: '100%',
+        msOverflowStyle: 'none',
+        scrollbarWidth: 'none',
+        overflow: 'hidden',
       }}
     >
-      {roundState === "fail" ? (
+      {roundState === 'fail' ? (
         <>
           <div
             style={{
-              position: "absolute",
-              backgroundColor: "black",
-              width: "100%",
-              height: "100%",
+              position: 'absolute',
+              backgroundColor: 'black',
+              width: '100%',
+              height: '100%',
               opacity: 0.6,
               zIndex: 9,
             }}
@@ -194,41 +192,41 @@ function Main() {
             ]}
             navigate={navigateLobby}
             style={{
-              display: "flex",
-              position: "absolute",
-              alignItems: "center",
-              justifyContent: "center",
-              width: "100%",
-              height: "100%",
+              display: 'flex',
+              position: 'absolute',
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: '100%',
+              height: '100%',
               zIndex: 10,
             }}
           />
         </>
-      ) : roundState === "success" ? (
+      ) : roundState === 'success' ? (
         <>
           <div
             style={{
-              position: "absolute",
-              backgroundColor: "black",
-              width: "100%",
-              height: "100%",
+              position: 'absolute',
+              backgroundColor: 'black',
+              width: '100%',
+              height: '100%',
               opacity: 0.6,
               zIndex: 9,
             }}
           />
           <GuideWindow
             messageList={[
-              "> Congratulations! You completed to repay all investments.",
+              '> Congratulations! You completed to repay all investments.',
               "> Now, let's move on to the next round.",
             ]}
             navigate={nextRound}
             style={{
-              display: "flex",
-              position: "absolute",
-              alignItems: "center",
-              justifyContent: "center",
-              width: "100%",
-              height: "100%",
+              display: 'flex',
+              position: 'absolute',
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: '100%',
+              height: '100%',
               zIndex: 10,
             }}
           />
@@ -238,39 +236,39 @@ function Main() {
       )}
       <div
         style={{
-          display: "flex",
-          flexDirection: "row",
+          display: 'flex',
+          flexDirection: 'row',
           flex: 1,
-          height: "100%",
-          justifyContent: "space-evenly",
+          height: '100%',
+          justifyContent: 'space-evenly',
         }}
       >
         <ConsumerGroup />
         <div
           style={{
-            display: "flex",
-            flexDirection: "column",
-            width: "600px",
-            height: "100%",
-            justifyContent: "space-evenly",
-            alignItems: "flex-end",
+            display: 'flex',
+            flexDirection: 'column',
+            width: '600px',
+            height: '100%',
+            justifyContent: 'space-evenly',
+            alignItems: 'flex-end',
           }}
         >
           <p
             style={{
-              position: "relative",
+              position: 'relative',
               zIndex: 3,
-              fontFamily: "Retro Gaming",
-              fontSize: "23px",
-              textAlign: "right",
-              color: "white",
-              margin: "0px",
+              fontFamily: 'Retro Gaming',
+              fontSize: '23px',
+              textAlign: 'right',
+              color: 'white',
+              margin: '0px',
             }}
           >
-            Round{" "}
+            Round{' '}
             <EmphasizeText
               message={RoundInformation[roundWaveCount.round].alias}
-            />{" "}
+            />{' '}
             - Remain $<EmphasizeText message={goal.toString()} />M / Total $
             <EmphasizeText message={total.toString()} />M
           </p>

@@ -1,8 +1,9 @@
-import { RoundState } from "components/Round";
-import { atom } from "recoil";
+import { RoundState } from 'components/Round';
+
+import { atom } from 'recoil';
 
 export const roundWaveCountAtom = atom<{ round: number; wave: number }>({
-  key: "roundWaveCountAtom",
+  key: 'roundWaveCountAtom',
   default: {
     round: 0,
     wave: 0,
@@ -10,37 +11,37 @@ export const roundWaveCountAtom = atom<{ round: number; wave: number }>({
 });
 
 export const goalAtom = atom<number>({
-  key: "goalAtom",
+  key: 'goalAtom',
   default: 0,
 });
 
 export const totalAtom = atom<number>({
-  key: "totalAtom",
+  key: 'totalAtom',
   default: 0,
 });
 
 export const roundStateAtom = atom<RoundState>({
-  key: "roundStateAtom",
-  default: "progress",
+  key: 'roundStateAtom',
+  default: 'progress',
 });
 
 export const isEventAtom = atom<boolean>({
-  key: "isEventAtom",
+  key: 'isEventAtom',
   default: false,
 });
 
 export const contentsAtom = atom<number[]>({
-  key: "contentsAtom",
+  key: 'contentsAtom',
   default: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 });
 
 export const consumerChatAtom = atom<number[]>({
-  key: "consumerChatAtom",
+  key: 'consumerChatAtom',
   default: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 });
 
 export const preferenceAtom = atom<number[][][]>({
-  key: "preferenceAtom",
+  key: 'preferenceAtom',
   default: Array.from({ length: 16 }, (i) => [
     [-1, 100],
     [0, 0],
@@ -52,6 +53,6 @@ export const preferenceAtom = atom<number[][][]>({
 });
 
 export const timeAtom = atom<number>({
-  key: "timeAtom",
+  key: 'timeAtom',
   default: 0,
 });

@@ -1,13 +1,14 @@
-import celeb from "../assets/img/contents/celeb.png";
-import info_knowledge from "../assets/img/contents/info_knowledge.png";
-import money from "../assets/img/contents/money.png";
-import politics from "../assets/img/contents/politics.png";
-import sports_game from "../assets/img/contents/sports_game.png";
-import reaction_heart from "../assets/img/ui/reaction_heart.png";
-import reaction_blame from "../assets/img/ui/reaction_blame.png";
-import { useDrag } from "react-dnd";
-import { useRecoilState } from "recoil";
-import { contentsAtom } from "recoils/Atom";
+import celeb from 'assets/img/contents/celeb.png';
+import info_knowledge from 'assets/img/contents/info_knowledge.png';
+import money from 'assets/img/contents/money.png';
+import politics from 'assets/img/contents/politics.png';
+import sports_game from 'assets/img/contents/sports_game.png';
+import reaction_blame from 'assets/img/ui/reaction_blame.png';
+import reaction_heart from 'assets/img/ui/reaction_heart.png';
+
+import { useDrag } from 'react-dnd';
+import { useRecoilState } from 'recoil';
+import { contentsAtom } from 'recoils/Atom';
 
 function Content({
   type,
@@ -44,7 +45,7 @@ function Content({
   };
 
   const [{ isDragging }, drag, dragPreview] = useDrag({
-    type: event ? "CONTENT_EVENT" : "CONTENT",
+    type: event ? 'CONTENT_EVENT' : 'CONTENT',
     item: { type },
     end(item, monitor) {
       if (monitor.didDrop()) {
@@ -68,21 +69,21 @@ function Content({
     <div
       ref={drag}
       style={{
-        position: "relative",
-        display: "flex",
-        width: "100%",
-        height: "100%",
-        objectFit: "contain",
+        position: 'relative',
+        display: 'flex',
+        width: '100%',
+        height: '100%',
+        objectFit: 'contain',
       }}
     >
       <img
-        alt=""
+        alt=''
         style={{
-          position: "relative",
-          display: "flex",
-          width: "100%",
-          height: "100%",
-          objectFit: "contain",
+          position: 'relative',
+          display: 'flex',
+          width: '100%',
+          height: '100%',
+          objectFit: 'contain',
         }}
         src={typeToImage(id === -1 ? type : contents[id])}
       ></img>

@@ -1,82 +1,84 @@
-import LogoBeforeEnding from "assets/img/logo/logo.png";
-import { useNavigate } from "react-router-dom";
-import TextButton from "components/TextButton";
-import { MouseEventHandler } from "react";
+import LogoBeforeEnding from 'assets/img/logo/logo.png';
+
+import TextButton from 'components/TextButton';
+
+import { MouseEventHandler } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function Lobby() {
   // navigate
   const navigate = useNavigate();
   const navigateGuide: MouseEventHandler = () => {
-    navigate("/guide");
+    navigate('/guide');
   };
   const navigateMain: MouseEventHandler = () => {
-    navigate("/main");
+    navigate('/main');
   };
   const navigateEnding: MouseEventHandler = () => {
-    navigate("/ending");
+    navigate('/ending');
   };
 
   // constants
-  const color = "#71FF2F";
-  const hoverColor = "#FFFFFF";
-  const clickColor = "#60DA28";
+  const color = '#71FF2F';
+  const hoverColor = '#FFFFFF';
+  const clickColor = '#60DA28';
   return (
     <div
-      className="Lobby"
+      className='Lobby'
       style={{
-        position: "absolute",
-        backgroundColor: "black",
-        width: "100%",
-        height: "100%",
-        display: "flex",
+        position: 'absolute',
+        backgroundColor: 'black',
+        width: '100%',
+        height: '100%',
+        display: 'flex',
       }}
     >
       <div
-        className="Logo-Layout"
+        className='Logo-Layout'
         style={{
           flex: 3,
-          width: "100%",
-          height: "100%",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
+          width: '100%',
+          height: '100%',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
         }}
       >
         <div
-          className="Logo-Image"
+          className='Logo-Image'
           style={{
-            width: "600px",
-            height: "600px",
+            width: '600px',
+            height: '600px',
             backgroundImage: `url(${LogoBeforeEnding})`,
-            backgroundSize: "contain",
-            backgroundRepeat: "no-repeat",
-            backgroundPosition: "center center",
+            backgroundSize: 'contain',
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'center center',
           }}
         ></div>
       </div>
       <div
-        className="Button-Layout"
+        className='Button-Layout'
         style={{
           flex: 2,
-          width: "100%",
-          height: "100%",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          fontFamily: "Retro Gaming",
-          fontSize: "40px",
+          width: '100%',
+          height: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          fontFamily: 'Retro Gaming',
+          fontSize: '40px',
         }}
       >
         <div
-          className="button"
+          className='button'
           style={{
-            width: "match-parent",
-            height: "fit-content",
+            width: 'match-parent',
+            height: 'fit-content',
           }}
         >
           <TextButton
-            text="guide"
+            text='guide'
             navigate={navigateGuide}
             color={color}
             hoverColor={hoverColor}
@@ -84,14 +86,14 @@ function Lobby() {
           ></TextButton>
         </div>
         <div
-          className="button"
+          className='button'
           style={{
-            width: "match-parent",
-            height: "fit-content",
+            width: 'match-parent',
+            height: 'fit-content',
           }}
         >
           <TextButton
-            text="game"
+            text='game'
             navigate={navigateMain}
             color={color}
             hoverColor={hoverColor}
@@ -99,14 +101,14 @@ function Lobby() {
           ></TextButton>
         </div>
         <div
-          className="button"
+          className='button'
           style={{
-            width: "match-parent",
-            height: "fit-content",
+            width: 'match-parent',
+            height: 'fit-content',
           }}
         >
           <TextButton
-            text="ending"
+            text='ending'
             navigate={navigateEnding}
             color={color}
             hoverColor={hoverColor}

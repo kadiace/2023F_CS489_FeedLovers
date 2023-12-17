@@ -1,5 +1,6 @@
-import { ReactNode } from "react";
-import EmphasizeText from "./EmphasizeText";
+import EmphasizeText from 'components/EmphasizeText';
+
+import { ReactNode } from 'react';
 
 export type RemainTime = number;
 export type Round = {
@@ -11,53 +12,53 @@ export type Round = {
   commandMessage: ReactNode[];
   eventMessage: ReactNode;
 };
-export type RoundState = "progress" | "pending" | "success" | "fail";
+export type RoundState = 'progress' | 'pending' | 'success' | 'fail';
 
 // Round constant value.
 export const RoundInformation: Round[] = [
   {
-    alias: "A",
+    alias: 'A',
     goal: 1000,
     wave: [15, 15, 15, 15, 15],
     hasEvent: false,
-    newsMessage: "",
-    commandMessage: [""],
-    eventMessage: "",
+    newsMessage: '',
+    commandMessage: [''],
+    eventMessage: '',
   },
   {
-    alias: "B",
+    alias: 'B',
     goal: 2000,
     wave: [25, 25, 25, 25],
     hasEvent: false,
-    newsMessage: "",
-    commandMessage: [""],
-    eventMessage: "",
+    newsMessage: '',
+    commandMessage: [''],
+    eventMessage: '',
   },
   {
-    alias: "C",
+    alias: 'C',
     goal: 3500,
     wave: [30, 30, 30],
     hasEvent: true,
     newsMessage: (
       <span>
-        Mass shooting left <EmphasizeText message="80 victims" />, The suspect
-        was&#10; a teenage boy who{" "}
-        <EmphasizeText message="enjoyed playing FPS games" />.
+        Mass shooting left <EmphasizeText message='80 victims' />, The suspect
+        was&#10; a teenage boy who{' '}
+        <EmphasizeText message='enjoyed playing FPS games' />.
       </span>
     ),
     commandMessage: [
       <span>
-        See <EmphasizeText message={"the news"} /> below! It smells like{" "}
-        <EmphasizeText message={"huge money"} />
+        See <EmphasizeText message={'the news'} /> below! It smells like{' '}
+        <EmphasizeText message={'huge money'} />
         ... Ha Ha Ha
       </span>,
       <span>
-        What are you waiting for? All you have to do is showing{" "}
-        <EmphasizeText message="what they want" />.
+        What are you waiting for? All you have to do is showing{' '}
+        <EmphasizeText message='what they want' />.
       </span>,
       <span>
-        Nah... I don't get it. Why you hesitate like this??{" "}
-        <EmphasizeText message={"JUST SHOW THEM."} />
+        Nah... I don't get it. Why you hesitate like this??{' '}
+        <EmphasizeText message={'JUST SHOW THEM.'} />
       </span>,
     ],
     eventMessage: (
@@ -68,37 +69,37 @@ export const RoundInformation: Round[] = [
     ),
   },
   {
-    alias: "D",
+    alias: 'D',
     goal: 3000,
     wave: [20, 20, 20],
     hasEvent: false,
-    newsMessage: "",
-    commandMessage: [""],
-    eventMessage: "",
+    newsMessage: '',
+    commandMessage: [''],
+    eventMessage: '',
   },
   {
-    alias: "E",
+    alias: 'E',
     goal: 3000,
     wave: [10, 30, 30],
     hasEvent: true,
     newsMessage: (
       <span>
-        <EmphasizeText message="“Promotes hate speech”" />
-        ... Goverment starts{" "}
+        <EmphasizeText message='“Promotes hate speech”' />
+        ... Goverment starts{' '}
         <EmphasizeText
-          message="regulating platform <Feed
-      Lovers>"
+          message='regulating platform <Feed
+      Lovers>'
         />
         .
       </span>
     ),
     commandMessage: [
       <p>
-        Wait...what? We try our best to{" "}
-        <EmphasizeText message="just earn money" />! This can't be happened!
+        Wait...what? We try our best to{' '}
+        <EmphasizeText message='just earn money' />! This can't be happened!
       </p>,
       <p>
-        We love our consumers, and they love us.{" "}
+        We love our consumers, and they love us.{' '}
         <EmphasizeText
           message="We can't leave these hungry
         lovers behind!"

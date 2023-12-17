@@ -1,11 +1,11 @@
-import Consumer, { preferenceNerfer } from "components/Consumer";
-import { RoundInformation } from "components/Round";
-import { newConsumerChat } from "components/Timer";
-import { getRecoilValue } from "components/Timer";
+import Consumer, { preferenceNerfer } from 'components/Consumer';
+import { RoundInformation } from 'components/Round';
+import { newConsumerChat } from 'components/Timer';
+import { getRecoilValue } from 'components/Timer';
 
-import { useDrop } from "react-dnd";
-import { useNavigate } from "react-router-dom";
-import { useRecoilState } from "recoil";
+import { useDrop } from 'react-dnd';
+import { useNavigate } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
 import {
   consumerChatAtom,
   goalAtom,
@@ -14,7 +14,7 @@ import {
   roundWaveCountAtom,
   timeAtom,
   totalAtom,
-} from "recoils/Atom";
+} from 'recoils/Atom';
 
 function ConsumerGroup() {
   // state
@@ -30,12 +30,12 @@ function ConsumerGroup() {
 
   // const
   const navigate = useNavigate();
-  const navigateEnding = () => navigate("/ending");
+  const navigateEnding = () => navigate('/ending');
 
   // D & D
   const [{ isOver }, drop] = useDrop(
     () => ({
-      accept: "CONTENT_EVENT",
+      accept: 'CONTENT_EVENT',
       hover(item: { type: number }, monitor) {},
       drop: (item: { type: number }, monitor) => {
         // 하트 반응 띄우기(타이머 끝날 때까지) | dnd 못하게 막기 | 검은 반투명 화면
@@ -53,10 +53,10 @@ function ConsumerGroup() {
         consumerChat = getRecoilValue(setConsumerChat);
         setPreference(preferenceNerfer(item.type, consumerChat));
         const { round } = getRecoilValue(setRoundWaveCount);
-        if (RoundInformation[round].alias === "E") {
+        if (RoundInformation[round].alias === 'E') {
           navigateEnding();
         }
-        setRoundState("progress");
+        setRoundState('progress');
         setTime(5);
         setGoal((prev) => {
           return prev - 100 * 16 < 0 ? 0 : prev - 100 * 16;
@@ -64,7 +64,7 @@ function ConsumerGroup() {
         setTotal((prev) => prev + 1600);
         const remain = getRecoilValue(setGoal);
         if (remain <= 0) {
-          setRoundState("success");
+          setRoundState('success');
         }
       },
       canDrop: (item: { type: number }, monitor) => {
@@ -73,28 +73,28 @@ function ConsumerGroup() {
       collect: (monitor) => ({
         isOver: !!monitor.isOver(),
       }),
-    })
+    }),
     // [x, y]
   );
   return (
     <div
       ref={drop}
       style={{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        width: "fit-content",
-        height: "fit-content",
-        gap: "20px",
-        alignSelf: "center",
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        width: 'fit-content',
+        height: 'fit-content',
+        gap: '20px',
+        alignSelf: 'center',
       }}
     >
       <div
         style={{
-          display: "flex",
-          flexDirection: "row",
-          gap: "20px",
-          width: "100%",
+          display: 'flex',
+          flexDirection: 'row',
+          gap: '20px',
+          width: '100%',
         }}
       >
         <Consumer id={0} onEvent={isOver} />
@@ -104,10 +104,10 @@ function ConsumerGroup() {
       </div>
       <div
         style={{
-          display: "flex",
-          flexDirection: "row",
-          gap: "20px",
-          width: "100%",
+          display: 'flex',
+          flexDirection: 'row',
+          gap: '20px',
+          width: '100%',
         }}
       >
         <Consumer id={4} onEvent={isOver} />
@@ -117,10 +117,10 @@ function ConsumerGroup() {
       </div>
       <div
         style={{
-          display: "flex",
-          flexDirection: "row",
-          gap: "20px",
-          width: "100%",
+          display: 'flex',
+          flexDirection: 'row',
+          gap: '20px',
+          width: '100%',
         }}
       >
         <Consumer id={8} onEvent={isOver} />
@@ -130,10 +130,10 @@ function ConsumerGroup() {
       </div>
       <div
         style={{
-          display: "flex",
-          flexDirection: "row",
-          gap: "20px",
-          width: "100%",
+          display: 'flex',
+          flexDirection: 'row',
+          gap: '20px',
+          width: '100%',
         }}
       >
         <Consumer id={12} onEvent={isOver} />

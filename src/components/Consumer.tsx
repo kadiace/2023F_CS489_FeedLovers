@@ -1,27 +1,29 @@
-import ConsumerShiny from "../assets/img/ui/consumer_shiny.png";
-import ConsumerGrid from "../assets/img/ui/consumer_grid.png";
-import ConsumerBackground from "../assets/img/ui/consumer_background.png";
-import ConsumerGridHover from "../assets/img/ui/consumer_grid_hover.png";
-import ConsumerBackgroundHover from "../assets/img/ui/consumer_background_hover.png";
-import ConsumerTorso from "../assets/img/ui/consumer_torso.png";
-import ConsumerBan from "../assets/img/ui/consumer_ban.png";
-import { useDrop } from "react-dnd";
-import ConsumerChat from "./ConsumerChat";
-import { useState } from "react";
-import { useRecoilState } from "recoil";
+import ConsumerBackground from 'assets/img/ui/consumer_background.png';
+import ConsumerBackgroundHover from 'assets/img/ui/consumer_background_hover.png';
+import ConsumerBan from 'assets/img/ui/consumer_ban.png';
+import ConsumerGrid from 'assets/img/ui/consumer_grid.png';
+import ConsumerGridHover from 'assets/img/ui/consumer_grid_hover.png';
+import ConsumerShiny from 'assets/img/ui/consumer_shiny.png';
+import ConsumerTorso from 'assets/img/ui/consumer_torso.png';
+
+import ConsumerChat from 'components/ConsumerChat';
+import { getRecoilValue } from 'components/Timer';
+
+import { useState } from 'react';
+import { useDrop } from 'react-dnd';
+import { useRecoilState } from 'recoil';
 import {
-  goalAtom,
   consumerChatAtom,
+  goalAtom,
+  preferenceAtom,
   roundStateAtom,
   totalAtom,
-  preferenceAtom,
-} from "recoils/Atom";
-import { getRecoilValue } from "./Timer";
+} from 'recoils/Atom';
 
 export const preferenceInitializer = (id: number) => (pref: number[][][]) => {
   let sumPreference = Math.random() * 100;
   let preferenceRatio = Array.from({ length: 5 }, (v, i) =>
-    Math.pow(100, Math.random())
+    Math.pow(100, Math.random()),
   );
   let sumPreferenceRatio = preferenceRatio.reduce((a, b) => a + b, 0);
   let preferences = Array.from({ length: 6 }, (v, i) => [
@@ -31,7 +33,7 @@ export const preferenceInitializer = (id: number) => (pref: number[][][]) => {
       : sumPreference * (preferenceRatio[i - 1] / sumPreferenceRatio),
   ]);
   preferences.sort((a, b) =>
-    a[0] === -1 ? -1 : b[0] === -1 ? 1 : b[1] - a[1]
+    a[0] === -1 ? -1 : b[0] === -1 ? 1 : b[1] - a[1],
   );
   let newPref = pref.slice();
   newPref[id] = preferences;
@@ -66,7 +68,7 @@ const preferenceBooster =
       }
     }
     newPref[id].sort((a, b) =>
-      a[0] === -1 ? -1 : b[0] === -1 ? 1 : b[1] - a[1]
+      a[0] === -1 ? -1 : b[0] === -1 ? 1 : b[1] - a[1],
     );
     return newPref;
   };
@@ -87,7 +89,7 @@ export const preferenceNerfer =
           ];
         });
         newPref[id].sort((a, b) =>
-          a[0] === -1 ? -1 : b[0] === -1 ? 1 : b[1] - a[1]
+          a[0] === -1 ? -1 : b[0] === -1 ? 1 : b[1] - a[1],
         );
       }
     }
@@ -95,12 +97,12 @@ export const preferenceNerfer =
   };
 
 const contentColor = [
-  "white",
-  "#FF83AB",
-  "#1F75EF",
-  "#299C5A",
-  "#8999B2",
-  "#3A4467",
+  'white',
+  '#FF83AB',
+  '#1F75EF',
+  '#299C5A',
+  '#8999B2',
+  '#3A4467',
 ];
 
 function Consumer({ id, onEvent }: { id: number; onEvent: boolean }) {
@@ -123,7 +125,7 @@ function Consumer({ id, onEvent }: { id: number; onEvent: boolean }) {
   };
 
   const [{ isOver, canDrop }, drop] = useDrop(() => ({
-    accept: "CONTENT",
+    accept: 'CONTENT',
     hover(item: { type: number }, monitor) {
       setHoverType(item.type);
     },
@@ -134,7 +136,7 @@ function Consumer({ id, onEvent }: { id: number; onEvent: boolean }) {
       setTotal((prev) => prev + 100);
       const remain = getRecoilValue(setGoal);
       if (remain <= 0) {
-        setRoundState("success");
+        setRoundState('success');
       }
       setPreference(preferenceBooster(id, item.type));
       updateAcceptType(5);
@@ -156,23 +158,23 @@ function Consumer({ id, onEvent }: { id: number; onEvent: boolean }) {
       {consumerChat[id] === 5 || consumerChat[id] === -2 ? (
         <div
           style={{
-            position: "absolute",
-            display: "flex",
-            width: "140px",
-            height: "140px",
-            justifyContent: "center",
+            position: 'absolute',
+            display: 'flex',
+            width: '140px',
+            height: '140px',
+            justifyContent: 'center',
             zIndex: 5,
-            alignItems: "center",
+            alignItems: 'center',
           }}
         >
           <div
             style={{
-              position: "absolute",
-              display: "flex",
-              width: "100%",
-              height: "100%",
-              justifyContent: "center",
-              backgroundColor: "black",
+              position: 'absolute',
+              display: 'flex',
+              width: '100%',
+              height: '100%',
+              justifyContent: 'center',
+              backgroundColor: 'black',
               opacity: 0.6,
               zIndex: 5,
             }}
@@ -180,11 +182,11 @@ function Consumer({ id, onEvent }: { id: number; onEvent: boolean }) {
           {consumerChat[id] === -2 ? (
             <img
               style={{
-                position: "absolute",
-                display: "flex",
-                width: "100px",
-                height: "100px",
-                justifyContent: "center",
+                position: 'absolute',
+                display: 'flex',
+                width: '100px',
+                height: '100px',
+                justifyContent: 'center',
                 zIndex: 6,
               }}
               src={ConsumerBan}
@@ -198,11 +200,11 @@ function Consumer({ id, onEvent }: { id: number; onEvent: boolean }) {
       )}
       <div
         style={{
-          position: "relative",
-          display: "flex",
-          width: "100%",
-          height: "100%",
-          justifyContent: "center",
+          position: 'relative',
+          display: 'flex',
+          width: '100%',
+          height: '100%',
+          justifyContent: 'center',
         }}
       >
         {consumerChat[id] < 0 ? (
@@ -214,34 +216,34 @@ function Consumer({ id, onEvent }: { id: number; onEvent: boolean }) {
         <div
           ref={drop}
           style={{
-            position: "relative",
-            display: "flex",
-            width: "140px",
-            height: "140px",
-            justifyContent: "center",
+            position: 'relative',
+            display: 'flex',
+            width: '140px',
+            height: '140px',
+            justifyContent: 'center',
           }}
         >
           {(onEvent || (isOver && canDrop)) && consumerChat[id] !== -2 ? (
             <>
               <img
-                alt=""
+                alt=''
                 style={{
-                  position: "absolute",
-                  width: "100%",
-                  height: "100%",
-                  objectFit: "contain",
+                  position: 'absolute',
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'contain',
                   zIndex: 0,
                   opacity: 0.5,
                 }}
                 src={ConsumerBackgroundHover}
               ></img>
               <img
-                alt=""
+                alt=''
                 style={{
-                  position: "absolute",
-                  width: "100%",
-                  height: "100%",
-                  objectFit: "contain",
+                  position: 'absolute',
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'contain',
                   zIndex: 3,
                 }}
                 src={ConsumerGridHover}
@@ -250,24 +252,24 @@ function Consumer({ id, onEvent }: { id: number; onEvent: boolean }) {
           ) : (
             <>
               <img
-                alt=""
+                alt=''
                 style={{
-                  position: "absolute",
-                  width: "100%",
-                  height: "100%",
-                  objectFit: "contain",
+                  position: 'absolute',
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'contain',
                   zIndex: 0,
                   opacity: 0.5,
                 }}
                 src={ConsumerBackground}
               ></img>
               <img
-                alt=""
+                alt=''
                 style={{
-                  position: "absolute",
-                  width: "100%",
-                  height: "100%",
-                  objectFit: "contain",
+                  position: 'absolute',
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'contain',
                   zIndex: 3,
                 }}
                 src={ConsumerGrid}
@@ -276,100 +278,100 @@ function Consumer({ id, onEvent }: { id: number; onEvent: boolean }) {
           )}
           <div
             style={{
-              display: "flex",
-              flexDirection: "column",
-              position: "absolute",
-              width: "80%",
-              height: "80%",
-              bottom: "0px",
+              display: 'flex',
+              flexDirection: 'column',
+              position: 'absolute',
+              width: '80%',
+              height: '80%',
+              bottom: '0px',
               // objectFit: "contain",
               zIndex: 1,
               WebkitMaskImage: `url(${ConsumerTorso})`,
-              WebkitMaskSize: "contain",
+              WebkitMaskSize: 'contain',
             }}
           >
             <div
               style={{
-                display: "flex",
+                display: 'flex',
                 // flex: 1,
                 flex: preference[id][0][1],
-                flexDirection: "column",
-                position: "relative",
+                flexDirection: 'column',
+                position: 'relative',
                 zIndex: 1,
                 background: contentColor[preference[id][0][0] + 1],
               }}
             ></div>
             <div
               style={{
-                display: "flex",
+                display: 'flex',
                 flex: preference[id][1][1],
-                flexDirection: "column",
-                position: "relative",
+                flexDirection: 'column',
+                position: 'relative',
                 zIndex: 1,
                 background: contentColor[preference[id][1][0] + 1],
               }}
             ></div>
             <div
               style={{
-                display: "flex",
+                display: 'flex',
                 flex: preference[id][2][1],
-                flexDirection: "column",
-                position: "relative",
+                flexDirection: 'column',
+                position: 'relative',
                 zIndex: 1,
                 background: contentColor[preference[id][2][0] + 1],
               }}
             ></div>
             <div
               style={{
-                display: "flex",
+                display: 'flex',
                 flex: preference[id][3][1],
-                flexDirection: "column",
-                position: "relative",
+                flexDirection: 'column',
+                position: 'relative',
                 zIndex: 1,
                 background: contentColor[preference[id][3][0] + 1],
               }}
             ></div>
             <div
               style={{
-                display: "flex",
+                display: 'flex',
                 flex: preference[id][4][1],
-                flexDirection: "column",
-                position: "relative",
+                flexDirection: 'column',
+                position: 'relative',
                 zIndex: 1,
                 background: contentColor[preference[id][4][0] + 1],
               }}
             ></div>
             <div
               style={{
-                display: "flex",
+                display: 'flex',
                 flex: preference[id][5][1],
-                flexDirection: "column",
-                position: "relative",
+                flexDirection: 'column',
+                position: 'relative',
                 zIndex: 1,
                 background: contentColor[preference[id][5][0] + 1],
               }}
             ></div>
           </div>
           <img
-            alt=""
+            alt=''
             style={{
-              position: "absolute",
-              width: "100%",
-              height: "100%",
-              objectFit: "contain",
+              position: 'absolute',
+              width: '100%',
+              height: '100%',
+              objectFit: 'contain',
               zIndex: 2,
             }}
             src={ConsumerShiny}
           ></img>
           <p
             style={{
-              position: "absolute",
-              left: "9px",
-              top: "-11px",
+              position: 'absolute',
+              left: '9px',
+              top: '-11px',
               zIndex: 4,
-              fontFamily: "Retro Gaming",
-              fontSize: "17px",
-              textAlign: "center",
+              fontFamily: 'Retro Gaming',
+              fontSize: '17px',
+              textAlign: 'center',
             }}
           >
             {id + 1}
