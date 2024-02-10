@@ -12,17 +12,19 @@ function TextButton(props: {
 
   // states
   const [fontColor, setFontColor]: ComponentState = useState(color);
-  const changeColorMouseOver: MouseEventHandler = () => {
+  const changeColorMouseOver = () => {
     setFontColor(hoverColor);
   };
-  const changeColorMouseLeave: MouseEventHandler = () => {
+  const changeColorMouseLeave = () => {
     setFontColor(color);
   };
-  const changeColorClick: MouseEventHandler = () => {
+  const changeColorClick = () => {
     setFontColor(clickColor);
   };
   return (
     <p
+      role='presentation'
+      onFocus={() => {}}
       onMouseOver={changeColorMouseOver}
       onMouseLeave={changeColorMouseLeave}
       onMouseUp={navigate}

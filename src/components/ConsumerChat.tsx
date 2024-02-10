@@ -18,7 +18,7 @@ function ConsumerChat({ type }: { type: number }) {
           pointerEvents: 'none',
         }}
         src={type >= 5 ? ChatGridReaction : ChatGrid}
-      ></img>
+      />
       <div
         style={{
           position: 'absolute',

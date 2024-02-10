@@ -23,7 +23,7 @@ function GuideWindowLayout() {
           zIndex: 0,
         }}
         src={GuideBackground}
-      ></img>
+      />
       <img
         alt=''
         style={{
@@ -35,7 +35,7 @@ function GuideWindowLayout() {
           pointerEvents: 'none',
         }}
         src={GuideShiny}
-      ></img>
+      />
       <img
         alt=''
         style={{
@@ -47,7 +47,7 @@ function GuideWindowLayout() {
           pointerEvents: 'none',
         }}
         src={GuideGrid}
-      ></img>
+      />
 
       <p
         style={{

@@ -47,18 +47,18 @@ export const RoundInformation: Round[] = [
       </span>
     ),
     commandMessage: [
-      <span>
-        See <EmphasizeText message={'the news'} /> below! It smells like{' '}
-        <EmphasizeText message={'huge money'} />
+      <span key='0'>
+        See <EmphasizeText message='the news' /> below! It smells like{' '}
+        <EmphasizeText message='huge money' />
         ... Ha Ha Ha
       </span>,
-      <span>
+      <span key='1'>
         What are you waiting for? All you have to do is showing{' '}
         <EmphasizeText message='what they want' />.
       </span>,
-      <span>
-        Nah... I don't get it. Why you hesitate like this??{' '}
-        <EmphasizeText message={'JUST SHOW THEM.'} />
+      <span key='2'>
+        Nah... I don&apos;t get it. Why you hesitate like this??{' '}
+        <EmphasizeText message='JUST SHOW THEM.' />
       </span>,
     ],
     eventMessage: (
@@ -94,11 +94,12 @@ export const RoundInformation: Round[] = [
       </span>
     ),
     commandMessage: [
-      <p>
+      <p key='0'>
         Wait...what? We try our best to{' '}
-        <EmphasizeText message='just earn money' />! This can't be happened!
+        <EmphasizeText message='just earn money' />! This can&apos;t be
+        happened!
       </p>,
-      <p>
+      <p key='1'>
         We love our consumers, and they love us.{' '}
         <EmphasizeText
           message="We can't leave these hungry

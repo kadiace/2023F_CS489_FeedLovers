@@ -42,61 +42,57 @@ function Ending() {
       }}
     >
       {afterGIF && (
-        <>
-          <div
+        <div
+          style={{
+            position: 'absolute',
+            backgroundColor: 'black',
+            width: '100%',
+            height: '100%',
+            opacity: 1,
+            zIndex: 10,
+          }}
+        >
+          <GuideWindow
+            messageList={[
+              'So… This is the end of our long journey.',
+              'We just did what they asked us to do... but why did this happen? ',
+              "How do you think? Did you 'feed' our lovers well?",
+              'Well, whatever. The era of algorithms has already arrived.',
+              'We failed. However, people will want our feed, anyway.',
+            ]}
+            navigate={navigateLobby}
             style={{
+              display: 'flex',
               position: 'absolute',
-              backgroundColor: 'black',
+              alignItems: 'center',
+              justifyContent: 'center',
               width: '100%',
               height: '100%',
-              opacity: 1,
-              zIndex: 10,
+              zIndex: 11,
             }}
-          >
-            <GuideWindow
-              messageList={[
-                'So… This is the end of our long journey.',
-                'We just did what they asked us to do... but why did this happen? ',
-                "How do you think? Did you 'feed' our lovers well?",
-                'Well, whatever. The era of algorithms has already arrived.',
-                'We failed. However, people will want our feed, anyway.',
-              ]}
-              navigate={navigateLobby}
-              style={{
-                display: 'flex',
-                position: 'absolute',
-                alignItems: 'center',
-                justifyContent: 'center',
-                width: '100%',
-                height: '100%',
-                zIndex: 11,
-              }}
-            />
-          </div>
-        </>
+          />
+        </div>
       )}
       {beforeGIF && (
-        <>
-          <div
-            style={{
-              position: 'relative',
-              left: '100px',
-              top: '-30px',
-              width: '100%',
-              height: '100%',
-              objectFit: 'contain',
-              justifyContent: 'center',
-              zIndex: 9,
-            }}
-          >
-            <EndingGifAnimation
-              onAnimationEnd={turnOnPopUp}
-              path={EndAnimation}
-              delay='0s'
-              duration='13.2s'
-            />
-          </div>
-        </>
+        <div
+          style={{
+            position: 'relative',
+            left: '100px',
+            top: '-30px',
+            width: '100%',
+            height: '100%',
+            objectFit: 'contain',
+            justifyContent: 'center',
+            zIndex: 9,
+          }}
+        >
+          <EndingGifAnimation
+            onAnimationEnd={turnOnPopUp}
+            path={EndAnimation}
+            delay='0s'
+            duration='13.2s'
+          />
+        </div>
       )}
       <div
         style={{

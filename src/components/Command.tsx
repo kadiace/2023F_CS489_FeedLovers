@@ -28,7 +28,7 @@ function Command(props: { message: ReactNode }) {
           opacity: 0.5,
         }}
         src={CommandBackground}
-      ></img>
+      />
       <div
         style={{
           position: 'absolute',
@@ -60,7 +60,7 @@ function Command(props: { message: ReactNode }) {
           zIndex: 2,
         }}
         src={CommandShiny}
-      ></img>
+      />
       <img
         alt=''
         style={{
@@ -70,7 +70,7 @@ function Command(props: { message: ReactNode }) {
           zIndex: 3,
         }}
         src={CommandGrid}
-      ></img>
+      />
       <p
         style={{
           position: 'absolute',

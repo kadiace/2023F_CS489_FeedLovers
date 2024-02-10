@@ -27,8 +27,8 @@ function Intro() {
     >
       <IntroAnimation
         path={ReactLogo}
-        delay={initDelay + 's'}
-        duration={duration + 's'}
+        delay={`${initDelay}s`}
+        duration={`${duration}s`}
         style={{
           // overlap
           position: 'absolute',
@@ -38,8 +38,8 @@ function Intro() {
       <IntroAnimation
         onAnimationEnd={navigateLobby}
         path={CoinseLogo}
-        delay={initDelay + duration + 's'}
-        duration={duration + 's'}
+        delay={`${initDelay + duration}s`}
+        duration={`${duration}s`}
         style={{
           // overlap
           position: 'absolute',

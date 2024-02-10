@@ -49,6 +49,7 @@ function GuideWindowMessage(props: {
         }}
       >
         <button
+          type='button'
           style={{
             width: '100px',
             height: '45px',

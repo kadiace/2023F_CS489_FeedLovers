@@ -54,7 +54,7 @@ function Lobby() {
             backgroundRepeat: 'no-repeat',
             backgroundPosition: 'center center',
           }}
-        ></div>
+        />
       </div>
       <div
         className='Button-Layout'
@@ -83,7 +83,7 @@ function Lobby() {
             color={color}
             hoverColor={hoverColor}
             clickColor={clickColor}
-          ></TextButton>
+          />
         </div>
         <div
           className='button'
@@ -98,7 +98,7 @@ function Lobby() {
             color={color}
             hoverColor={hoverColor}
             clickColor={clickColor}
-          ></TextButton>
+          />
         </div>
         <div
           className='button'
@@ -113,7 +113,7 @@ function Lobby() {
             color={color}
             hoverColor={hoverColor}
             clickColor={clickColor}
-          ></TextButton>
+          />
         </div>
       </div>
     </div>

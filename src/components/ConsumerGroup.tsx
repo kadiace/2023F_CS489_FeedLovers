@@ -1,7 +1,6 @@
 import Consumer, { preferenceNerfer } from 'components/Consumer';
 import { RoundInformation } from 'components/Round';
-import { newConsumerChat } from 'components/Timer';
-import { getRecoilValue } from 'components/Timer';
+import { getRecoilValue, newConsumerChat } from 'components/Timer';
 
 import { useDrop } from 'react-dnd';
 import { useNavigate } from 'react-router-dom';

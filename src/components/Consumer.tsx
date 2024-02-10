@@ -21,12 +21,10 @@ import {
 } from 'recoils/Atom';
 
 export const preferenceInitializer = (id: number) => (pref: number[][][]) => {
-  let sumPreference = Math.random() * 100;
-  let preferenceRatio = Array.from({ length: 5 }, (v, i) =>
-    Math.pow(100, Math.random()),
-  );
-  let sumPreferenceRatio = preferenceRatio.reduce((a, b) => a + b, 0);
-  let preferences = Array.from({ length: 6 }, (v, i) => [
+  const sumPreference = Math.random() * 100;
+  const preferenceRatio = Array.from({ length: 5 }, () => 100 ** Math.random());
+  const sumPreferenceRatio = preferenceRatio.reduce((a, b) => a + b, 0);
+  const preferences = Array.from({ length: 6 }, (v, i) => [
     i - 1,
     i === 0
       ? 100 - sumPreference
@@ -35,21 +33,21 @@ export const preferenceInitializer = (id: number) => (pref: number[][][]) => {
   preferences.sort((a, b) =>
     a[0] === -1 ? -1 : b[0] === -1 ? 1 : b[1] - a[1],
   );
-  let newPref = pref.slice();
+  const newPref = pref.slice();
   newPref[id] = preferences;
   return newPref;
 };
 
 const preferenceBooster =
   (id: number, type: number) => (pref: number[][][]) => {
-    let newPref = pref.slice();
-    let empty = newPref[id][0][1];
+    const newPref = pref.slice();
+    const empty = newPref[id][0][1];
     if (empty >= 20) {
       newPref[id] = newPref[id].map((v) => {
         return [v[0], v[1] + (v[0] === -1 ? -20 : v[0] === type ? 20 : 0)];
       });
     } else {
-      let boostValue = newPref[id].filter((v) => v[0] === type)[0][1];
+      const boostValue = newPref[id].filter((v) => v[0] === type)[0][1];
       if (boostValue > 80) {
         newPref[id] = newPref[id].map((v) => {
           return [v[0], v[0] === type ? 100 : 0];
@@ -76,11 +74,11 @@ const preferenceBooster =
 export const preferenceNerfer =
   (type: number, consumerChat: number[]) => (pref: number[][][]) => {
     let newPref = pref.slice();
-    for (let id = 0; id < 16; id++) {
+    for (let id = 0; id < 16; id += 1) {
       if (consumerChat[id] === 5) {
         newPref = preferenceBooster(id, type)(newPref);
       } else {
-        let nerfValue = newPref[id].filter((v) => v[0] === type)[0][1];
+        const nerfValue = newPref[id].filter((v) => v[0] === type)[0][1];
         newPref[id] = newPref[id].map((v) => {
           return [
             v[0],

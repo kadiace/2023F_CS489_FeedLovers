@@ -16,13 +16,11 @@ import {
 } from 'recoils/Atom';
 
 const displayTime = (time: number) => {
-  const minutes: string = '0' + Math.floor(time / 60);
-  const seconds: string = '0' + Number(time % 60);
-  return (
-    minutes.substring(minutes.length - 2) +
-    ':' +
-    seconds.substring(seconds.length - 2)
-  );
+  const minutes = `0${Math.floor(time / 60)}`;
+  const seconds = `0${Number(time % 60)}`;
+  return `${minutes.substring(minutes.length - 2)}:${seconds.substring(
+    seconds.length - 2,
+  )}`;
 };
 
 export const getRecoilValue = <T,>(setter: SetterOrUpdater<T>) => {
@@ -31,33 +29,33 @@ export const getRecoilValue = <T,>(setter: SetterOrUpdater<T>) => {
     value = prev;
     return value;
   });
+  // eslint-disable-next-line
   return value!;
 };
 
 const randomContent = (preference: number[][]) => {
-  let sumPreference = preference.reduce((a, b) => a + b[1], 0);
+  const sumPreference = preference.reduce((a, b) => a + b[1], 0);
   if (preference[0][1] < 60) {
     let r = Math.random() * (sumPreference - preference[0][1]);
     let i;
-    for (i = 1; i < 6; i++) {
+    for (i = 1; i < 6; i += 1) {
       r -= preference[i][1];
       if (r <= 0) {
         break;
       }
     }
     return preference[i][0];
-  } else {
-    let r = Math.random() * sumPreference;
-    let i;
-    for (i = 0; i < 6; i++) {
-      let v = preference[i];
-      r -= v[1];
-      if (r <= 0) {
-        break;
-      }
-    }
-    return preference[i][0];
   }
+  let r = Math.random() * sumPreference;
+  let i;
+  for (i = 0; i < 6; i += 1) {
+    const v = preference[i];
+    r -= v[1];
+    if (r <= 0) {
+      break;
+    }
+  }
+  return preference[i][0];
 };
 
 export const newConsumerChat = (
@@ -92,12 +90,12 @@ export const newContents = (eventContent: number) =>
 
 const blamersKiller =
   (n: number, preferences: number[][][]) => (prev: number[]) => {
-    let contents = prev.slice();
-    let blamers = Array.from({ length: 16 }, (v, i) => i).filter(
-      (n) => contents[n] === 6,
+    const contents = prev.slice();
+    const blamers = Array.from({ length: 16 }, (v, i) => i).filter(
+      (idx) => contents[idx] === 6,
     );
     blamers.sort((a, b) => preferences[b][1][1] - preferences[a][1][1]); // (자신의 최애 장르에) 제일 과몰입한 사람
-    for (let i = 0; i < Math.min(n, blamers.length); i++) {
+    for (let i = 0; i < Math.min(n, blamers.length); i += 1) {
       contents[blamers[i]] = -2;
     }
     return contents;

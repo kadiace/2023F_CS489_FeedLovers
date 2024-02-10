@@ -42,7 +42,7 @@ export const consumerChatAtom = atom<number[]>({
 
 export const preferenceAtom = atom<number[][][]>({
   key: 'preferenceAtom',
-  default: Array.from({ length: 16 }, (i) => [
+  default: Array.from({ length: 16 }, () => [
     [-1, 100],
     [0, 0],
     [1, 0],

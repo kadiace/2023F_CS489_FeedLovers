@@ -25,7 +25,7 @@ function News(props: { message: ReactNode }) {
           zIndex: 0,
         }}
         src={NewsBackground}
-      ></img>
+      />
       <img
         alt=''
         style={{
@@ -36,7 +36,7 @@ function News(props: { message: ReactNode }) {
           zIndex: 1,
         }}
         src={NewsShiny}
-      ></img>
+      />
 
       <div
         style={{

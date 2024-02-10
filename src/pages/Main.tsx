@@ -23,6 +23,23 @@ import {
 } from 'recoils/Atom';
 
 function Main() {
+  // state
+  /* eslint-disable */
+  const [roundWaveCount, setRoundWaveCount] =
+    useRecoilState(roundWaveCountAtom);
+  const [goal, setGoal] = useRecoilState(goalAtom);
+  const [total, setTotal] = useRecoilState(totalAtom);
+  const [roundState, setRoundState] = useRecoilState(roundStateAtom);
+  const [isEvent, setIsEvent] = useRecoilState(isEventAtom);
+  const [contents, setContents] = useRecoilState(contentsAtom);
+  const [consumerChat, setConsumerChat] = useRecoilState(consumerChatAtom);
+  const [time, setTime] = useRecoilState(timeAtom);
+  const [preference, setPreference] = useRecoilState(preferenceAtom);
+  const [commandMessage, setCommandMessage] = useState<ReactNode>(
+    <span>"..."</span>,
+  );
+  const [newsMessage, setNewsMessage] = useState<ReactNode>(<span>"..."</span>);
+
   // const
   const round1CommandMessage: ReactNode[] = [
     'You can drag these contents and drop to consumers!',
@@ -46,8 +63,6 @@ function Main() {
     "You're nailing it!",
     'Hats off to your skills, “Feed”!',
   ];
-
-  // const
   const navigate = useNavigate();
   const navigateLobby: MouseEventHandler = () => {
     navigate('/lobby');
@@ -81,23 +96,6 @@ function Main() {
       setConsumerChat(newConsumerChat(false, -1, consumerChat, preference));
     }
   };
-
-  // state
-  /* eslint-disable */
-  const [roundWaveCount, setRoundWaveCount] =
-    useRecoilState(roundWaveCountAtom);
-  const [goal, setGoal] = useRecoilState(goalAtom);
-  const [total, setTotal] = useRecoilState(totalAtom);
-  const [roundState, setRoundState] = useRecoilState(roundStateAtom);
-  const [isEvent, setIsEvent] = useRecoilState(isEventAtom);
-  const [contents, setContents] = useRecoilState(contentsAtom);
-  const [consumerChat, setConsumerChat] = useRecoilState(consumerChatAtom);
-  const [time, setTime] = useRecoilState(timeAtom);
-  const [preference, setPreference] = useRecoilState(preferenceAtom);
-  const [commandMessage, setCommandMessage] = useState<ReactNode>(
-    <span>"..."</span>,
-  );
-  const [newsMessage, setNewsMessage] = useState<ReactNode>(<span>"..."</span>);
 
   // message setting for event.
   useEffect(() => {
