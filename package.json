@@ -1,8 +1,9 @@
 {
-  "name": "algorithm",
+  "homepage": "https://kadiace.github.io/feedlovers",
+  "name": "feedlovers",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:5000",
+  "proxy": "http://localhost:3000",
   "dependencies": {
     "@emotion/react": "^11.11.1",
     "@testing-library/jest-dom": "^5.17.0",
@@ -30,7 +31,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": ["react-app", "react-app/jest"]
@@ -55,7 +58,7 @@
     "eslint-config-prettier": "^8.10.0",
     "eslint-plugin-import": "^2.28.1",
     "eslint-plugin-jsx-a11y": "^6.7.1",
-    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-prettier": "^5.0.0",
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "gh-pages": "^5.0.0",
